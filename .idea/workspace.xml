@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5ed50480-3d1c-43c2-a593-18d76e47a999" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="5ed50480-3d1c-43c2-a593-18d76e47a999" name="Changes" comment="registrierung updated">
       <change beforePath="$PROJECT_DIR$/pages/page1.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/page1.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/page5.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/page5.html" afterDir="false" />
     </list>
@@ -32,6 +31,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -72,7 +72,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645713292102</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="registrierung updated">
+      <created>1645714451454</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1645714451454</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -94,6 +101,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="create" />
     <MESSAGE value="add files" />
-    <option name="LAST_COMMIT_MESSAGE" value="add files" />
+    <MESSAGE value="registrierung updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="registrierung updated" />
   </component>
 </project>
