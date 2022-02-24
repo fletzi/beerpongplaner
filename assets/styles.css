@@ -9,3 +9,11 @@
     bottom: 0;
     z-index: 0;
 }
+
+.foot-menu li a{
+    color: #F6F6F6!important;
+}
+
+.foot-menu li a:hover{
+    color: #F73F52!important;
+}
