@@ -32,3 +32,11 @@
 #login_btn {
     font-family: Quicksand;
 }
+
+#button_sp #button_sp2 {
+    background-color: #f73f52!important;
+}
+
+#reg_password3 {
+    margin-right: -50px;
+}
