@@ -17,3 +17,18 @@
 .foot-menu li a:hover{
     color: #F73F52!important;
 }
+
+.alert-danger {
+    font-family: Quicksand;
+    background-color: #F73F52!important;
+}
+
+.alert-success {
+    font-family: Quicksand;
+    color: #F6F6F6!important;
+    background-color: #00cc44!important;
+}
+
+#login_btn {
+    font-family: Quicksand;
+}

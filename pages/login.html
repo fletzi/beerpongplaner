@@ -67,9 +67,17 @@
                 <form action="#" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="loginForm"><input type="hidden" name="email" data-form-email="true" value="">
                     <p class="mbr-text mbr-fonts-style align-center mb-4 display-2">Log in</p>
                     <div class="row">
-                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Du hast die erfolgreich eingelogt!</div>
-                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                        <div id="login_alert_success" hidden="hidden" class="alert alert-success col-12">
+                            Du hast dich erfolgreich eingelogt!
+                        </div>
+                        <div id="login_alert_fail" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
                             Oops...! leider gab es ein Problem mit deiner Eingabe!
+                        </div>
+                        <div id="login_alert_un" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! Username darf nicht leer sein
+                        </div>
+                        <div id="login_alert_pw" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! Passwort darf nicht leer sein
                         </div>
                     </div>
                     <div class="dragArea row">
@@ -80,7 +88,7 @@
                         <div data-for="phone" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
                             <input type="password" name="login_password" placeholder="Passwort" data-form-field="password" class="form-control" value="" id="login_password">
                         </div>
-                        <div class="col-auto mbr-section-btn align-center"><button type="" class="btn btn-primary display-4">Anmelden</button></div>
+                        <div id="login_btn" class="col-auto mbr-section-btn align-center"><button type="button" onclick="validateLogin()" class="btn btn-primary display-4">Anmelden</button></div>
                     </div>
                 </form>
             </div>
@@ -187,7 +195,7 @@
             </div>
         </div>
     </div>
-</section><section hidden style="background-color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#000000; font-size:12px; padding: 0; align-items: center; display: flex;"><a href="https://mobirise.site/i" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a><p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Develop a site with <a href="https://mobirise.site/z" style="color:#000000;">Mobirise</a></p></section><script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="../assets/smoothscroll/smooth-scroll.js"></script>  <script src="../assets/ytplayer/index.js"></script>  <script src="../assets/mbr-tabs/mbr-tabs.js"></script>  <script src="../assets/dropdown/js/navbar-dropdown.js"></script>  <script src="../assets/theme/js/script.js"></script>  <script src="../assets/formoid/formoid.min.js"></script>
+</section><section hidden style="background-color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#000000; font-size:12px; padding: 0; align-items: center; display: flex;"><a href="https://mobirise.site/i" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a><p style="flex: 0 0 auto; margin:0; padding-right:1rem;">Develop a site with <a href="https://mobirise.site/z" style="color:#000000;">Mobirise</a></p></section><script src="../assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="../assets/smoothscroll/smooth-scroll.js"></script>  <script src="../assets/ytplayer/index.js"></script>  <script src="../assets/mbr-tabs/mbr-tabs.js"></script>  <script src="../assets/dropdown/js/navbar-dropdown.js"></script>  <script src="../assets/theme/js/script.js"></script>  <script src="../assets/formoid/formoid.min.js"></script> <script src="../assets/functions.js"></script>
 
 
   <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;" href="#menu1-1r"><i class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
