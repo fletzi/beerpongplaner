@@ -33,7 +33,13 @@
     font-family: Quicksand;
 }
 
-#button_sp #button_sp2 {
+#button_sp {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    background-color: #f73f52!important;
+}
+
+#button_sp_null {
     background-color: #f73f52!important;
 }
 
