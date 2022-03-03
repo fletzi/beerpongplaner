@@ -46,3 +46,9 @@
 #reg_password3 {
     margin-right: -50px;
 }
+
+#reg_success {
+    font-family: Quicksand;
+    color: #F6F6F6!important;
+    background-color: #00cc44!important;
+}

@@ -65,13 +65,31 @@
                 <form action="#" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="registerForm"><input type="hidden" name="email" data-form-email="true" value="e65CUj7FL544GCQ968WDTL1aHKAuAwD3SB/9h6lPdzDRVnmZzItjShRQsl9r4yJ9IJT41w1Mc+dtKFKlAkLjQNI7ftdR4KADkvDD7MJoIXwyj/aGZf2USh3b0dYliQdW">
                     <p class="mbr-text mbr-fonts-style align-center mb-4 display-2">Registrieren</p>
                     <div class="row">
-                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Du hast sich erfolgreich registriert!</div>
-                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
-                            Oops...! leider gab es ein Problem mit deiner Eingabe!
+                        <div id="reg_success" hidden="hidden" role="alert" class="alert alert-success col-12">
+                            Du hast sich erfolgreich registriert!<br>
+                            <a href="login.html" class="alert-link">Logge dich jetzt ein</a>
+                        </div>
+                        <div id="reg_alert_fn_null" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! Vorname darf nicht leer sein!
+                        </div>
+                        <div id="reg_alert_ln_null" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! Nachname darf nicht leer sein!
+                        </div>
+                        <div id="reg_alert_un_null" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! Username darf nicht leer sein!
+                        </div>
+                        <div id="reg_alert_un" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! Der Username ist bereits vergeben!
+                        </div>
+                        <div id="reg_alert_pw_null" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! Passwort darf nicht leer sein!
+                        </div>
+                        <div id="reg_alert_pw" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                            Oops...! Die Passwörter stimmen nicht überein!
                         </div>
                     </div>
                     <div class="dragArea row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="username">
+                        <div class="col-lg-12 col-md-2 col-sm-12 form-group mb-3" data-for="username">
                             <input type="text" name="userName" placeholder="Username" data-form-field="text" class="form-control" value="" id="reg_userName">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="firstname">
@@ -88,7 +106,7 @@
                             <button class="btn btn-secondary" type="button" id="button_sp" onclick="showPw()"><i class="bi bi-eye"></i></button>
                             <button hidden class="btn btn-secondary" type="button" id="button_sp_null" onclick="hidePw()"><i class="bi bi-eye-slash"></i></button>
                         </div>
-                        <div class="col-auto mbr-section-btn align-center"><button type="" class="btn btn-primary display-4">Registrieren</button></div>
+                        <div class="col-auto mbr-section-btn align-center"><button type="button" onclick="validateRegister()" class="btn btn-primary display-4">Registrieren</button></div>
                     </div>
                 </form>
             </div>
