@@ -21,12 +21,14 @@
 .alert-danger {
     font-family: Quicksand;
     background-color: #F73F52!important;
+    border-radius: 0.25rem!important;
 }
 
 .alert-success {
     font-family: Quicksand;
     color: #F6F6F6!important;
     background-color: #00cc44!important;
+    border-radius: 0.25rem!important;
 }
 
 #login_btn {

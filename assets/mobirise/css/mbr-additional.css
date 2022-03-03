@@ -1227,7 +1227,7 @@ a {
 .cid-sYbllCIsBc {
   padding-top: 10rem;
   padding-bottom: 10rem;
-  background-image: url("../../images/header-bp-2000x1250.jpeg");
+  background-image: url("../../images/header-bp-login-colored.jpg");
 }
 .cid-sYbllCIsBc .mbr-overlay {
   background-color: #ffffff;
@@ -1261,7 +1261,7 @@ a {
 .cid-sYbmEa6rze {
   padding-top: 5rem;
   padding-bottom: 5rem;
-  background-color: #ffea85;
+  background-color: #f6f6f6;
 }
 .cid-sYbmEa6rze .counter-container ul {
   margin: 0;
@@ -1292,7 +1292,8 @@ a {
 .cid-sYblS1xuKZ {
   padding-top: 6rem;
   padding-bottom: 5rem;
-  background-color: #f6f6f6;
+  background-color: #7986c7;
+  color: #fff;
 }
 .cid-sYblS1xuKZ .card-wrapper {
   display: flex;
@@ -1304,7 +1305,7 @@ a {
 }
 .cid-sYblS1xuKZ .mbr-iconfont {
   font-size: 2rem;
-  color: #6592e6;
+  color: #fff;
   padding-right: 1.5rem;
 }
 .cid-sYbld0HPFN {

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="logo link updated / reg/login form ids updated">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="scroll to top fix | rules. shoppinglist. tournamentmode.">
+      <change afterPath="$PROJECT_DIR$/assets/images/header-bp-login-colored.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/mobirise/css/mbr-additional.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/mobirise/css/mbr-additional.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +49,7 @@
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\werri\Documents\beerpongplaner\assets\images" />
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\assets" />
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\pages" />
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner" />
@@ -62,6 +65,7 @@
       <updated>1645712327885</updated>
       <workItem from="1645712330936" duration="1401000" />
       <workItem from="1646126646749" duration="801000" />
+      <workItem from="1646302964529" duration="4093000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -91,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646127815713</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="scroll to top fix | rules. shoppinglist. tournamentmode.">
+      <created>1646128175914</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1646128175914</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,6 +125,7 @@
     <MESSAGE value="create" />
     <MESSAGE value="add files" />
     <MESSAGE value="logo link updated / reg/login form ids updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="logo link updated / reg/login form ids updated" />
+    <MESSAGE value="scroll to top fix | rules. shoppinglist. tournamentmode." />
+    <option name="LAST_COMMIT_MESSAGE" value="scroll to top fix | rules. shoppinglist. tournamentmode." />
   </component>
 </project>
