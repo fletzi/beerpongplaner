@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="adjustments to alerts and login bg image">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="adjustments rules.html esobp until &lt;- 4.5 Wunder">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/rules.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +62,7 @@
       <updated>1645712327885</updated>
       <workItem from="1645712330936" duration="1401000" />
       <workItem from="1646126646749" duration="801000" />
-      <workItem from="1646302964529" duration="12237000" />
+      <workItem from="1646302964529" duration="16848000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -107,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646308766419</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="adjustments rules.html esobp until &lt;- 4.5 Wunder">
+      <created>1646318047239</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1646318047239</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,6 +138,7 @@
     <MESSAGE value="logo link updated / reg/login form ids updated" />
     <MESSAGE value="scroll to top fix | rules. shoppinglist. tournamentmode." />
     <MESSAGE value="adjustments to alerts and login bg image" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjustments to alerts and login bg image" />
+    <MESSAGE value="adjustments rules.html esobp until &lt;- 4.5 Wunder" />
+    <option name="LAST_COMMIT_MESSAGE" value="adjustments rules.html esobp until &lt;- 4.5 Wunder" />
   </component>
 </project>
