@@ -17,9 +17,27 @@ function validateLogin() {
         alert_null_pw.hidden=false;
     } else {
         clearFields_login();
+        sessionStorage.setItem("login", "true");
         window.location.href = "../pages/index.html";
         //db con
         //link to frontend backend
+    }
+}
+
+function checkLoggedIn() {
+    var loggedIn = sessionStorage.getItem("login");
+    var btnLogin = document.getElementById("btn_login");
+    var btnRegister = document.getElementById("btn_register");
+    var btnUser = document.getElementById("btn_user");
+
+    if(loggedIn == "true") {
+        btnLogin.hidden=true;
+        btnRegister.hidden=true;
+        btnUser.hidden=false;
+    } else {
+        btnLogin.hidden=false;
+        btnRegister.hidden=false;
+        btnUser.hidden=true;
     }
 }
 
