@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="adjustments rules.html esobp until &lt;- 4.5 Wunder">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="finalized rules.html">
+      <change afterPath="$PROJECT_DIR$/pages/backend.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/rules.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +13,13 @@
   </component>
   <component name="ComposerSettings">
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,6 +43,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -43,6 +52,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\werri\Documents\beerpongplaner\pages" />
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -62,7 +72,7 @@
       <updated>1645712327885</updated>
       <workItem from="1645712330936" duration="1401000" />
       <workItem from="1646126646749" duration="801000" />
-      <workItem from="1646302964529" duration="16848000" />
+      <workItem from="1646302964529" duration="23173000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -113,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646318047239</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="finalized rules.html">
+      <created>1646337532775</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1646337532775</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,6 +156,7 @@
     <MESSAGE value="scroll to top fix | rules. shoppinglist. tournamentmode." />
     <MESSAGE value="adjustments to alerts and login bg image" />
     <MESSAGE value="adjustments rules.html esobp until &lt;- 4.5 Wunder" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjustments rules.html esobp until &lt;- 4.5 Wunder" />
+    <MESSAGE value="finalized rules.html" />
+    <option name="LAST_COMMIT_MESSAGE" value="finalized rules.html" />
   </component>
 </project>
