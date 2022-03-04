@@ -54,3 +54,20 @@
     color: #F6F6F6!important;
     background-color: #00cc44!important;
 }
+
+#sidenav {
+    margin-top: 100px;
+}
+
+#dash-footer {
+    margin-left: 420px;
+}
+
+#dash-content {
+    margin-top: 100px;
+    margin-left: -10px!important;
+    margin-right: auto!important;
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+    margin-bottom: 50px!important;
+}
