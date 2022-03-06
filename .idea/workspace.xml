@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="backend nav finalized">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="create tournament card added">
+      <change afterPath="$PROJECT_DIR$/assets/images/card_header_1.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/backend.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/backend.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/rules.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +66,7 @@
       <workItem from="1645712330936" duration="1401000" />
       <workItem from="1646126646749" duration="801000" />
       <workItem from="1646302964529" duration="12237000" />
-      <workItem from="1646560683965" duration="7598000" />
+      <workItem from="1646560683965" duration="8513000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -125,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646561246746</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="create tournament card added">
+      <created>1646575696556</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1646575696556</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -152,7 +158,8 @@
     <MESSAGE value="adjustments to alerts and login bg image" />
     <MESSAGE value="prototyp 2 backend" />
     <MESSAGE value="backend nav finalized" />
-    <option name="LAST_COMMIT_MESSAGE" value="backend nav finalized" />
+    <MESSAGE value="create tournament card added" />
+    <option name="LAST_COMMIT_MESSAGE" value="create tournament card added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
