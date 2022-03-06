@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="rules.html href to cup specification">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="fixes to href in various sites">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/backend.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/backend.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/products.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/rules.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/rules.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/shoppinglist.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/shoppinglist.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/tournamentmode.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tournamentmode.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +66,7 @@
       <workItem from="1645712330936" duration="1401000" />
       <workItem from="1646126646749" duration="801000" />
       <workItem from="1646302964529" duration="12237000" />
-      <workItem from="1646560683965" duration="9677000" />
+      <workItem from="1646560683965" duration="13345000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -145,7 +138,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646576864089</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="fixes to href in various sites">
+      <created>1646602854629</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1646602854629</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,7 +174,8 @@
     <MESSAGE value="backend nav finalized" />
     <MESSAGE value="create tournament card added" />
     <MESSAGE value="rules.html href to cup specification" />
-    <option name="LAST_COMMIT_MESSAGE" value="rules.html href to cup specification" />
+    <MESSAGE value="fixes to href in various sites" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes to href in various sites" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

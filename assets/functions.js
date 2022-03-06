@@ -117,3 +117,17 @@ var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggl
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
 })
+
+function gatherTeam() {
+    //Variable der zu füllenden Liste
+    var ul = document.getElementById("generator_playerList");
+    //Variable für erstelltes Listenelement
+    var li = document.createElement("li");
+
+    //Erweitern der zu füllenden Liste um neues Listenelement
+    ul.appendChild(li);
+    //Befüllen des Listenelements mit vom User eingebenden Spielernamen
+    li.innerHTML = document.getElementById("generator_playerName").value;
+    //Löschen der Eingabe des Users - Feld Reset
+    document.getElementById("generator_playerName").value="";
+}
