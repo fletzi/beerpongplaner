@@ -106,12 +106,77 @@
             <div class="col-md-11">
                 <div class="container-fluid ps-0" id="dash-content">
                     <!-- Main Content -->
-                    <div class="card" style="width: 18rem;">
-                        <img src="../assets/images/referenzen-beerpong-1920x300.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+<!-- Dashboard --><div id="dashboard_div">
+                    <!-- Turnieranlage -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card display-4 bg-dark text-white me-1 w-auto h-100" style="width: 18rem;">
+                                <img src="../assets/images/card_header_1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Turnieranlage</h5>
+                                    <p class="card-text">Erstelle jetzt dein eigenes Beerpong Turnier, ganz nach deinen Wünschen und Vorstellungen.</p>
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div data-for="text" class="form-floating mb-3">
+                                                <input type="text" name="create_tour_name" placeholder="Turniername" data-form-field="text" class="form-control" value="" id="create_tour_name" required>
+                                                <label class="text-black" for="create_tour_name">Turniername</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div data-for="text" class="form-floating mb-3">
+                                                <select class="form-select" id="create_tour_visibility" disabled>
+                                                    <option selected value="1">Privat</option>
+                                                    <option value="2">Öffentlich</option>
+                                                </select>
+                                                <label class="text-black" for="create_tour_visibility">Sichtbarkeit</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div data-for="text" class="form-floating mb-3">
+                                                <select class="form-select" id="create_tour_ruleset">
+                                                    <option value="1">Standard</option>
+                                                    <option value="2">ESOBP</option>
+                                                    <option value="3">Individuell</option>
+                                                </select>
+                                                <label class="text-black" for="create_tour_ruleset">Regelwerk</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div data-for="text" class="form-floating mb-3">
+                                                <select class="form-select" id="create_tour_mode" disabled>
+                                                    <option selected value="1">K.o.-System</option>
+                                                    <option value="2">Gruppenphase</option>
+                                                </select>
+                                                <label class="text-black" for="create_tour_mode">Turniermodus</label>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div data-for="text" class="form-floating mb-3">
+                                                <select class="form-select" id="create_tour_size">
+                                                    <option value="4">4</option>
+                                                    <option value="8">8</option>
+                                                    <option value="16">16</option>
+                                                </select>
+                                                <label class="text-black" for="create_tour_size">Teams</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="btn-sm btn-primary">Erstellen</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card display-4 bg-dark text-white w-auto h-100" style="width: 18rem;">
+                                <img src="../assets/images/card_header_1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Turnieranlage</h5>
+                                    <p class="card-text">Erstelle jetzt dein eigenes Beerpong Turnier, ganz nach deinen Wünschen und Vorstellungen.</p>
+                                    <a href="#" class="btn-sm btn-primary">Erstellen</a>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
