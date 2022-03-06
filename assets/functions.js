@@ -18,7 +18,7 @@ function validateLogin() {
     } else {
         clearFields_login();
         sessionStorage.setItem("login", "true");
-        window.location.href = "../pages/index.html";
+        window.location.href = "../pages/backend.html";
         //db con
         //link to frontend backend
     }
