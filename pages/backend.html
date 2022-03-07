@@ -163,29 +163,52 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="#" class="btn-sm btn-primary">Erstellen</a>
+                                    <a class="btn-sm btn-primary">Erstellen</a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="card display-4 bg-dark text-white me-1 w-auto h-100">
-                                <img src="../assets/images/card_header_1.jpg" class="card-img-top" alt="...">
+                                <img src="../assets/images/card_header_3.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Team Generator</h5>
                                     <p class="card-text">Erstelle schnell und einfach, zufällig zusammengesetzte Teams.</p>
-                                    <div class="row">
+                                    <div class="row" id="generator_1">
                                         <div class="col-6">
                                             <div data-for="text" class="input-group mb-3">
                                                 <div class="form-floating text-black">
                                                     <input type="text" name="generator_playerName" placeholder="Turniername" data-form-field="text" class="form-control" value="" id="generator_playerName" required>
                                                     <label class="text-black" for="create_tour_name">Spielername</label>
                                                 </div>
-                                                <button class="btn btn-outline-secondary mt-0" type="button" id="generator_playerAdd" style="height: calc(3.5rem + 2px);" onclick="gatherTeam()">Hinzufügen</button>
+                                                <button class="btn btn-outline-secondary mt-0" type="submit" id="generator_playerAdd" style="height: calc(3.5rem + 2px);" onclick="gatherTeam()">Hinzufügen</button>
+                                                <tr>
                                             </div>
+                                            <button class="btn-sm btn-primary" type="button" id="generator_generateTeam" onclick="generateTeams()">Generieren</button>
                                         </div>
                                         <div class="col-6">
                                             <ul id="generator_playerList">
                                             </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="generator_2" hidden>
+                                        <div class="col-6">
+                                            <div class="card text-white bg-primary mb-3">
+                                                <div class="card-header">Team A</div>
+                                                <div class="card-body">
+                                                    <ul id="generator_teamA">
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <button class="btn-sm btn-primary" type="button" id="generator_finish" onclick="resetTeams()">Zurück</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="card text-white bg-info mb-3">
+                                                <div class="card-header">Team B</div>
+                                                <div class="card-body">
+                                                    <ul id="generator_teamB">
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

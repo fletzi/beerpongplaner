@@ -118,16 +118,91 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
     return new bootstrap.Popover(popoverTriggerEl)
 })
 
+
+//<-- Start Team Generator
 function gatherTeam() {
     //Variable der zu füllenden Liste
     var ul = document.getElementById("generator_playerList");
     //Variable für erstelltes Listenelement
     var li = document.createElement("li");
+    //Variable für den vom User eingebenen Spielernamen
+    var playerName = document.getElementById("generator_playerName").value;
 
-    //Erweitern der zu füllenden Liste um neues Listenelement
-    ul.appendChild(li);
-    //Befüllen des Listenelements mit vom User eingebenden Spielernamen
-    li.innerHTML = document.getElementById("generator_playerName").value;
-    //Löschen der Eingabe des Users - Feld Reset
-    document.getElementById("generator_playerName").value="";
+    //Falls der User keinen Namen eingegeben hat soll nichts passieren.
+    if(playerName != "") {
+        //Ansonsten:
+        //Erweitern der zu füllenden Liste um neues Listenelement
+        ul.appendChild(li);
+        //Befüllen des Listenelements mit vom User eingegebenen Spielernamen
+        li.innerHTML = playerName;
+        //Löschen der Eingabe des Users - Feld Reset
+        document.getElementById("generator_playerName").value="";
+    } else {}
 }
+
+function generateTeams() {
+    //Array der vom User eingegebenen Spielernamen
+    let arr = (Array.from(document.querySelectorAll("#generator_playerList > li")).map(el => el.innerHTML));
+    //MittelIndex des Arrays aus eingegebenen Spielernamen
+    let middleIndex = Math.ceil(arr.length / 2);
+    //Variable der zu füllenden Liste für TeamA
+    let ulTeamA = document.getElementById("generator_teamA");
+    //Variable der zu füllenden Liste für TeamB
+    let ulTeamB = document.getElementById("generator_teamB");
+
+    //Moderne Version des Fisher–Yates shuffle
+    //Mischt das Array aus Spielernamen
+    function shuffle(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a; //Gibt das gemischte Array zurück
+    }
+
+    //Aufruf der Misch Funktion
+    shuffle(arr);
+    //Neues Array teamA wird mit dem Inhalt des gemischten Arrays (Inhalt von Stelle [0] bis zum Mittelpunkt) befüllt
+    let teamA = arr.splice(0, middleIndex);
+    //Neues Array teamB wird mit dem Inhalt des gemischten Arrays (ab dem Mittelpunkt) befüllt
+    let teamB = arr.splice(-middleIndex);
+
+    //Für jede Stelle des Arrays von teamA
+    for (let i=0; i<teamA.length; i++) {
+       //Wird ein neues Listenelement erstellt
+        let liTeamA = document.createElement("li");
+        //Und der zu befüllenden Liste für TeamA angefügt
+        ulTeamA.appendChild(liTeamA);
+        //Das innerHTML, also der Teil des Listenelements der für den Nutzer angezeigt wird bekommt den Wert, welcher an der entsprechenden Stelle im Array steht (bspw. Spieler1)
+        liTeamA.innerHTML = teamA[i];
+    }
+
+    //Für jede Stelle des Arrays von teamB
+    for (let j=0; j<teamB.length; j++) {
+        //Wird ein neues Listenelement erstellt
+        let liTeamB = document.createElement("li");
+        //Und der zu befüllenden Liste für TeamB angefügt
+        ulTeamB.appendChild(liTeamB);
+        //Das innerHTML, also der Teil des Listenelements der für den Nutzer angezeigt wird bekommt den Wert, welcher an der entsprechenden Stelle im Array steht (bspw. Spieler1)
+        liTeamB.innerHTML = teamB[j];
+    }
+
+    //Die Eingabe der Spielername in der Turniergenerator Card wird ausgeblendet
+    document.getElementById("generator_1").hidden=true;
+    //Die Anzeige der beiden generierten Teams wird eingeblendet
+    document.getElementById("generator_2").hidden=false;
+}
+
+function resetTeams() {
+    //Die Eingabe der Spielername in der Turniergenerator Card wird eingeblendet
+    document.getElementById("generator_1").hidden=false;
+    //Die Anzeige der beiden generierten Teams wird ausgeblendet
+    document.getElementById("generator_2").hidden=true;
+    //Der Inhalt der Liste an vom Nutzer eingegebenen Spielernamen wird gelöscht
+    document.getElementById("generator_playerList").innerHTML="";
+    //Der Inhalt der Liste des generierten Teams A wird gelöscht
+    document.getElementById("generator_teamA").innerHTML="";
+    //Der Inhalt der Liste des generierten Teams B wird gelöscht
+    document.getElementById("generator_teamB").innerHTML="";
+}
+//--> Ende Team Generator
