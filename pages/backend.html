@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="../assets/mobirise/css/mbr-additional.css" type="text/css">
 
 </head>
-<body onload="checkLoggedIn()">
+<body id="dashboard_body" onload="checkLoggedIn()">
 
 <div class="row">
     <div class="col-1 bg-primary">
@@ -172,12 +172,12 @@
                                 <img src="../assets/images/card_header_3.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Team Generator</h5>
-                                    <p class="card-text">Erstelle schnell und einfach, zufällig zusammengesetzte Teams.</p>
+                                    <p class="card-text">Erstelle schnell und einfach deine zufällig zusammengesetzten Teams.</p>
                                     <div class="row" id="generator_1">
                                         <div class="col-6">
                                             <div data-for="text" class="input-group mb-3">
                                                 <div class="form-floating text-black">
-                                                    <input type="text" name="generator_playerName" placeholder="Turniername" data-form-field="text" class="form-control" value="" id="generator_playerName" required>
+                                                    <input onclick="hideGeneratorAlert()" type="text" name="generator_playerName" placeholder="Turniername" data-form-field="text" class="form-control" value="" id="generator_playerName" required>
                                                     <label class="text-black" for="create_tour_name">Spielername</label>
                                                 </div>
                                                 <button class="btn btn-outline-secondary mt-0" type="submit" id="generator_playerAdd" style="height: calc(3.5rem + 2px);" onclick="gatherTeam()">Hinzufügen</button>
@@ -186,6 +186,9 @@
                                             <button class="btn-sm btn-primary" type="button" id="generator_generateTeam" onclick="generateTeams()">Generieren</button>
                                         </div>
                                         <div class="col-6">
+                                            <div id="generator_alert_fail" hidden="hidden" data-form-alert-danger="" class="alert align-text-top alert-danger p-3" style="height: calc(3.5rem + 2px)">
+                                                Du brauchst mindestens 2 Spieler!
+                                            </div>
                                             <ul id="generator_playerList">
                                             </ul>
                                         </div>
@@ -193,7 +196,7 @@
                                     <div class="row" id="generator_2" hidden>
                                         <div class="col-6">
                                             <div class="card text-white bg-primary mb-3">
-                                                <div class="card-header">Team A</div>
+                                                <div class="card-header fw-bold">Team A</div>
                                                 <div class="card-body">
                                                     <ul id="generator_teamA">
                                                     </ul>
@@ -203,7 +206,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="card text-white bg-info mb-3">
-                                                <div class="card-header">Team B</div>
+                                                <div class="card-header fw-bold">Team B</div>
                                                 <div class="card-body">
                                                     <ul id="generator_teamB">
                                                     </ul>

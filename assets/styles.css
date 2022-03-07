@@ -79,3 +79,7 @@
 #create_tour {
     width: auto!important;
 }
+
+#dashboard_body {
+    background-image: url("../assets/images/dashboard_bg.jpg");
+}

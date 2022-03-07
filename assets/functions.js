@@ -129,7 +129,7 @@ function gatherTeam() {
     var playerName = document.getElementById("generator_playerName").value;
 
     //Falls der User keinen Namen eingegeben hat soll nichts passieren.
-    if(playerName != "") {
+    if(playerName !== "") {
         //Ansonsten:
         //Erweitern der zu füllenden Liste um neues Listenelement
         ul.appendChild(li);
@@ -150,47 +150,55 @@ function generateTeams() {
     //Variable der zu füllenden Liste für TeamB
     let ulTeamB = document.getElementById("generator_teamB");
 
-    //Moderne Version des Fisher–Yates shuffle
-    //Mischt das Array aus Spielernamen
-    function shuffle(a) {
-        for (let i = a.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [a[i], a[j]] = [a[j], a[i]];
+    //Generieren von Teams macht erst ab 2 oder mehr Spielern Sinn
+    if(arr.length >= 2) {
+        //Moderne Version des Fisher–Yates shuffle
+        //Mischt das Array aus Spielernamen
+        function shuffle(a) {
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a; //Gibt das gemischte Array zurück
         }
-        return a; //Gibt das gemischte Array zurück
+
+        //Aufruf der Misch Funktion
+        shuffle(arr);
+        //Neues Array teamA wird mit dem Inhalt des gemischten Arrays (Inhalt von Stelle [0] bis zum Mittelpunkt) befüllt
+        let teamA = arr.splice(0, middleIndex);
+        //Neues Array teamB wird mit dem Inhalt des gemischten Arrays (ab dem Mittelpunkt) befüllt
+        let teamB = arr.splice(-middleIndex);
+
+        //Für jede Stelle des Arrays von teamA
+        for (let i=0; i<teamA.length; i++) {
+            //Wird ein neues Listenelement erstellt
+            let liTeamA = document.createElement("li");
+            //Und der zu befüllenden Liste für TeamA angefügt
+            ulTeamA.appendChild(liTeamA);
+            //Das innerHTML, also der Teil des Listenelements der für den Nutzer angezeigt wird bekommt den Wert, welcher an der entsprechenden Stelle im Array steht (bspw. Spieler1)
+            liTeamA.innerHTML = teamA[i];
+        }
+
+        //Für jede Stelle des Arrays von teamB
+        for (let j=0; j<teamB.length; j++) {
+            //Wird ein neues Listenelement erstellt
+            let liTeamB = document.createElement("li");
+            //Und der zu befüllenden Liste für TeamB angefügt
+            ulTeamB.appendChild(liTeamB);
+            //Das innerHTML, also der Teil des Listenelements der für den Nutzer angezeigt wird bekommt den Wert, welcher an der entsprechenden Stelle im Array steht (bspw. Spieler1)
+            liTeamB.innerHTML = teamB[j];
+        }
+
+        //Die Eingabe der Spielername in der Turniergenerator Card wird ausgeblendet
+        document.getElementById("generator_1").hidden=true;
+        //Die Anzeige der beiden generierten Teams wird eingeblendet
+        document.getElementById("generator_2").hidden=false;
+    } else {
+        //Spieleranzahl < 2: Fehlermeldung wird angezeigt - "Du brauchst mindestens 2 Spieler!"
+        document.getElementById("generator_alert_fail").hidden=false;
     }
 
-    //Aufruf der Misch Funktion
-    shuffle(arr);
-    //Neues Array teamA wird mit dem Inhalt des gemischten Arrays (Inhalt von Stelle [0] bis zum Mittelpunkt) befüllt
-    let teamA = arr.splice(0, middleIndex);
-    //Neues Array teamB wird mit dem Inhalt des gemischten Arrays (ab dem Mittelpunkt) befüllt
-    let teamB = arr.splice(-middleIndex);
 
-    //Für jede Stelle des Arrays von teamA
-    for (let i=0; i<teamA.length; i++) {
-       //Wird ein neues Listenelement erstellt
-        let liTeamA = document.createElement("li");
-        //Und der zu befüllenden Liste für TeamA angefügt
-        ulTeamA.appendChild(liTeamA);
-        //Das innerHTML, also der Teil des Listenelements der für den Nutzer angezeigt wird bekommt den Wert, welcher an der entsprechenden Stelle im Array steht (bspw. Spieler1)
-        liTeamA.innerHTML = teamA[i];
-    }
-
-    //Für jede Stelle des Arrays von teamB
-    for (let j=0; j<teamB.length; j++) {
-        //Wird ein neues Listenelement erstellt
-        let liTeamB = document.createElement("li");
-        //Und der zu befüllenden Liste für TeamB angefügt
-        ulTeamB.appendChild(liTeamB);
-        //Das innerHTML, also der Teil des Listenelements der für den Nutzer angezeigt wird bekommt den Wert, welcher an der entsprechenden Stelle im Array steht (bspw. Spieler1)
-        liTeamB.innerHTML = teamB[j];
-    }
-
-    //Die Eingabe der Spielername in der Turniergenerator Card wird ausgeblendet
-    document.getElementById("generator_1").hidden=true;
-    //Die Anzeige der beiden generierten Teams wird eingeblendet
-    document.getElementById("generator_2").hidden=false;
 }
 
 function resetTeams() {
@@ -204,5 +212,10 @@ function resetTeams() {
     document.getElementById("generator_teamA").innerHTML="";
     //Der Inhalt der Liste des generierten Teams B wird gelöscht
     document.getElementById("generator_teamB").innerHTML="";
+}
+
+function hideGeneratorAlert() {
+    //Ggf. vorhandene Fehlermeldung wir mit Klick in Feld für Spielername (im Moment der Fehlerkorrektur) ausgeblendet
+    document.getElementById("generator_alert_fail").hidden=true;
 }
 //--> Ende Team Generator
