@@ -106,7 +106,7 @@
             <div class="col-md-11">
                 <div class="container-fluid ps-0" id="dash-content">
                     <!-- Main Content -->
-<!-- Dashboard --><div id="dashboard_div">
+<!-- Dashboard --><div hidden id="dashboard_div">
                     <!-- Turnieranlage -->
                     <div class="row">
                         <div class="col-sm-6">
@@ -125,8 +125,22 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            <div hidden id="create_tour_alert_time" class="alert align-text-top alert-danger p-3 mb-3" style="height: calc(3.5rem + 2px)">
+                                            <div hidden id="create_tour_alert_nodate" class="alert align-text-top alert-danger p-3 mb-3" style="height: calc(3.5rem + 2px)">
+                                                Dein Turnier braucht ein Datum!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div hidden id="create_tour_alert_notime" class="alert align-text-top alert-danger p-3 mb-3" style="height: calc(3.5rem + 2px)">
                                                 Dein Turnier braucht eine Startzeit!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div hidden id="create_tour_alert_time" class="alert align-text-top alert-danger p-3 mb-3" style="height: calc(3.5rem + 2px)">
+                                                Die eingegebene Uhrzeit muss in der Zukunft liegen!
                                             </div>
                                         </div>
                                     </div>
@@ -167,13 +181,13 @@
                                     <div class="row">
                                         <div class="col">
                                             <div data-for="text" class="form-floating mb-3">
-                                                <input onclick="document.getElementById('create_tour_alert_date').hidden=true" type="date" id="create_tour_date" name="create_tour_date" data-form-field="date" class="form-control"  min="2022-03-07" max="2030-01-01">
+                                                <input onclick="document.getElementById('create_tour_alert_date').hidden=true; document.getElementById('create_tour_alert_nodate').hidden=true" type="date" id="create_tour_date" name="create_tour_date" data-form-field="date" class="form-control"  min="2022-03-07" max="2030-01-01">
                                                 <label class="text-black" for="create_tour_date">Datum</label>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div data-for="text" class="form-floating mb-3">
-                                                <input onclick="document.getElementById('create_tour_alert_time').hidden=true" type="time" id="create_tour_time" name="create_tour_date" data-form-field="time" class="form-control">
+                                                <input onclick="document.getElementById('create_tour_alert_time').hidden=true, document.getElementById('create_tour_alert_notime').hidden=true" type="time" id="create_tour_time" name="create_tour_date" data-form-field="time" class="form-control">
                                                 <label class="text-black" for="create_tour_time">Beginn</label>
                                             </div>
                                         </div>
@@ -198,7 +212,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <a class="btn-sm btn-primary" onclick="">Erstellen</a>
+                                    <a class="btn-sm btn-primary" onclick="validateTournament()">Erstellen</a>
                                 </div>
                             </div>
                         </div>
@@ -256,7 +270,7 @@
                     </div>
                 </div>
 <!--Turnierbaum-->
-                <div hidden id="tournament_tree_div" class="container-fluid overflow-auto">
+                <div id="tournament_tree_div" class="container-fluid overflow-auto">
                     <div class="row flex-row flex-nowrap">
                         <!--Test Match Card-->
                         <div class="col-3 mb-5">
