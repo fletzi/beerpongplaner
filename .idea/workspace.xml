@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="team generator +added Alert if Playercount &lt; 2">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="started trounament create validation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/backend.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/backend.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +55,20 @@
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\pages" />
     </key>
   </component>
+  <component name="RunManager" selected="JavaScript Debug.backend.html">
+    <configuration name="backend.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/beerpongplaner/pages/backend.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="functions.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/assets/functions.js" working-dir="$PROJECT_DIR$/assets">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.backend.html" />
+        <item itemvalue="Node.js.functions.js" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -69,7 +82,7 @@
       <workItem from="1646302964529" duration="12237000" />
       <workItem from="1646560683965" duration="13510000" />
       <workItem from="1646643734480" duration="22933000" />
-      <workItem from="1646727522893" duration="5306000" />
+      <workItem from="1646727522893" duration="15257000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -183,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646674044945</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="started trounament create validation">
+      <created>1646733124633</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1646733124633</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,7 +236,8 @@
     <MESSAGE value="+team generator - missing randomisation of teams" />
     <MESSAGE value="team generator finalized" />
     <MESSAGE value="team generator +added Alert if Playercount &lt; 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="team generator +added Alert if Playercount &lt; 2" />
+    <MESSAGE value="started trounament create validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="started trounament create validation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

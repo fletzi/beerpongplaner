@@ -221,10 +221,85 @@ function hideGeneratorAlert() {
 //--> Ende Team Generator
 
 function validateTournament() {
-    var create_tour_name = document.getElementById("create_tour_name");
-    var create_tour_date = document.getElementById("create_tour_date");
-    var create_tour_time = document.getElementById("create_tour_time");
+    var dateVal = false;
 
+    /* heutiges datum*/
+    var now = new Date();
+
+    /* datum in die einzelnen teile aufteilen */
+    var y = now.getFullYear().valueOf();
+    var m = now.getMonth().valueOf();
+    var d = now.getDate().valueOf();
+    m = m+1;
+
+    /* eingegebenes datum holen */
+    var create_tour_date = document.getElementById("create_tour_date").value.split("-");
+
+    /* datum wieder aufteilen */
+    var y2 = parseInt(create_tour_date[0]);
+    var m2 = parseInt(create_tour_date[1]);
+    var d2 = parseInt(create_tour_date[2]);
+
+    var create_tour_name = document.getElementById("create_tour_name");
+
+    var create_tour_alert_name = document.getElementById("create_tour_alert_name");
+    var create_tour_alert_date = document.getElementById("create_tour_alert_date");
+    var create_tour_alert_nodate = document.getElementById("create_tour_alert_nodate");
+    var create_tour_alert_time = document.getElementById("create_tour_alert_time");
+    var create_tour_alert_notime = document.getElementById("create_tour_alert_notime");
+
+    if(create_tour_name.value === "") {
+        create_tour_alert_name.hidden = false;
+    } else if(create_tour_date[0] === ""){
+        create_tour_alert_nodate.hidden = false;
+    } else if(y2 < y) {
+        create_tour_alert_date.hidden = false;
+    } else if(y2 > y) {
+        dateVal = true;
+    } else if(y2 === y) {
+        if (m2 === m) {
+            if (d2 < d) {
+                create_tour_alert_date.hidden = false;
+            } else {
+                dateVal = true;
+            }
+        } else if(m2 < m) {
+            create_tour_alert_date.hidden = false;
+        } else {
+            dateVal = true;
+        }
+    } else {
+        dateVal = true;
+    }
+
+    /* datum in die einzelnen teile aufteilen */
+    var hh = now.getHours().valueOf();
+    var mm = now.getMinutes().valueOf();
+
+    /*Eingegebene Uhrzeit holen*/
+    var create_tour_time = document.getElementById("create_tour_time").value.split(":");
+
+    /* datum wieder aufteilen */
+    var hh2 = parseInt(create_tour_time[0]);
+    var mm2 = parseInt(create_tour_time[1]);
+
+    if(dateVal === true) {
+        if(create_tour_time[0] === "") {
+            create_tour_alert_notime.hidden = false;
+        } else if(y2 === y && m2 === m && d2 === d) {
+            if(hh2 < hh ) {
+                create_tour_alert_time.hidden = false;
+            } else if(hh2 >= hh) {
+                if(mm2 <= mm) {
+                    create_tour_alert_time.hidden = false;
+                } else {
+                    alert("Success");
+                }
+            }
+        } else {
+            alert("Success");
+        }
+    }
 
 
 }
