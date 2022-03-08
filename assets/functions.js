@@ -1,3 +1,37 @@
+//Start ComBackend
+function httpGet(theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+}
+
+
+
+function httpPost(url, body) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            alert("Response: " + JSON.stringify(json));
+        } else {
+            alert(xhr.status);
+            return xhr.status;
+        }
+    };
+    xhr.send(JSON.stringify(body));
+    return null;
+
+}
+
+function addUser(username, firstname, lastname, password) {
+    var xhrStatus;
+    xhrStatus = httpPost("http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register", { username: username, firstName: firstname, lastName: lastname, password: password });
+    return xhrStatus;
+}
+//Ende ComBackend
 function validateLogin() {
     var username = document.getElementById("login_userName");
     var password = document.getElementById("login_password");
@@ -11,9 +45,9 @@ function validateLogin() {
     alert_null_pw.hidden=true;
     alert_success.hidden=true;
 
-    if(username.value == "") {
+    if(username.value === "") {
         alert_null_un.hidden=false;
-    } else if(password.value == "") {
+    } else if(password.value === "") {
         alert_null_pw.hidden=false;
     } else {
         clearFields_login();
@@ -42,6 +76,7 @@ function checkLoggedIn() {
 }
 
 function validateRegister() {
+    var xhrStatus;
     var firstname = document.getElementById("reg_firstName");
     var lastname = document.getElementById("reg_lastName");
     var username = document.getElementById("reg_userName");
@@ -75,6 +110,8 @@ function validateRegister() {
     } else if(password.value != password2.value) {
         alert_pw2.hidden=false
     } else {
+        xhrStatus = addUser(username.value, firstname.value, lastname.value, password.value);
+        alert(xhrStatus);
         alert_success.hidden=false;
         clearFields_register();
     }

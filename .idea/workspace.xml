@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="started trounament create validation">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="tournament create validation done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/backend.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/backend.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,8 +54,11 @@
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\pages" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.backend.html">
+  <component name="RunManager" selected="JavaScript Debug.register.html">
     <configuration name="backend.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/beerpongplaner/pages/backend.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="register.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/beerpongplaner/pages/register.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="functions.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/assets/functions.js" working-dir="$PROJECT_DIR$/assets">
@@ -64,6 +66,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.register.html" />
         <item itemvalue="JavaScript Debug.backend.html" />
         <item itemvalue="Node.js.functions.js" />
       </list>
@@ -82,7 +85,7 @@
       <workItem from="1646302964529" duration="12237000" />
       <workItem from="1646560683965" duration="13510000" />
       <workItem from="1646643734480" duration="22933000" />
-      <workItem from="1646727522893" duration="15257000" />
+      <workItem from="1646727522893" duration="23812000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -203,7 +206,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646733124633</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="tournament create validation done">
+      <created>1646744356099</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1646744356099</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -237,7 +247,8 @@
     <MESSAGE value="team generator finalized" />
     <MESSAGE value="team generator +added Alert if Playercount &lt; 2" />
     <MESSAGE value="started trounament create validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="started trounament create validation" />
+    <MESSAGE value="tournament create validation done" />
+    <option name="LAST_COMMIT_MESSAGE" value="tournament create validation done" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
