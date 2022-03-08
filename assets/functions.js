@@ -219,3 +219,12 @@ function hideGeneratorAlert() {
     document.getElementById("generator_alert_fail").hidden=true;
 }
 //--> Ende Team Generator
+
+function validateTournament() {
+    var create_tour_name = document.getElementById("create_tour_name");
+    var create_tour_date = document.getElementById("create_tour_date");
+    var create_tour_time = document.getElementById("create_tour_time");
+
+
+
+}
