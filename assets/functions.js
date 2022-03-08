@@ -16,14 +16,10 @@ function httpPost(url, body) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
             alert("Response: " + JSON.stringify(json));
-        } else {
-            alert(xhr.status);
-            return xhr.status;
+        } else if(xhr.readyState === 4) {
+            alert(xhr.readyState);
         }
-    };
-    xhr.send(JSON.stringify(body));
-    return null;
-
+    }
 }
 
 function addUser(username, firstname, lastname, password) {
