@@ -1,10 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="registrierung wip">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="registrierung ajax wip">
+      <change afterPath="$PROJECT_DIR$/jquery/jquery-3.6.0.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/jquery/jquery-3.6.0.min.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/bootstrap/js/bootstrap.bundle.min.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/AUTHORS.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/bower.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/dist/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/dist/jquery.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/dist/jquery.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/dist/jquery.slim.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/dist/jquery.slim.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/dist/jquery.slim.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/external/sizzle/LICENSE.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/external/sizzle/dist/sizzle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/external/sizzle/dist/sizzle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/external/sizzle/dist/sizzle.min.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/ajax.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/ajax/jsonp.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/ajax/load.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/ajax/script.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/ajax/var/location.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/ajax/var/nonce.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/ajax/var/rquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/ajax/xhr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/attributes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/attributes/attr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/attributes/classes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/attributes/prop.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/attributes/support.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/attributes/val.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/callbacks.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/DOMEval.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/access.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/camelCase.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/init.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/isAttached.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/nodeName.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/parseHTML.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/parseXML.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/ready-no-deferred.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/ready.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/readyException.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/stripAndCollapse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/support.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/toType.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/core/var/rsingleTag.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/addGetHookIf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/adjustCSS.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/curCSS.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/finalPropName.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/hiddenVisibleSelectors.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/showHide.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/support.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/var/cssExpand.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/var/getStyles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/var/isHiddenWithinTree.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/var/rboxStyle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/var/rnumnonpx.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/css/var/swap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/data.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/data/Data.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/data/var/acceptData.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/data/var/dataPriv.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/data/var/dataUser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/deferred.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/deferred/exceptionHook.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/deprecated.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/deprecated/ajax-event-alias.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/deprecated/event.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/dimensions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/effects.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/effects/Tween.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/effects/animatedSelector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/event.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/event/focusin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/event/support.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/event/trigger.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/exports/amd.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/exports/global.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation/_evalUrl.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation/buildFragment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation/getAll.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation/setGlobalEval.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation/support.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation/var/rscriptType.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation/var/rtagName.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/manipulation/wrapMap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/offset.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/queue.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/queue/delay.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/selector-native.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/selector-sizzle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/selector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/serialize.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/traversing.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/traversing/findFilter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/traversing/var/dir.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/traversing/var/rneedsContext.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/traversing/var/siblings.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/ObjectFunctionString.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/arr.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/class2type.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/document.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/documentElement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/flat.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/fnToString.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/getProto.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/hasOwn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/indexOf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/isFunction.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/isWindow.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/pnum.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/push.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/rcheckableType.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/rcssNum.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/rnothtmlwhite.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/slice.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/support.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/var/toString.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/jquery/src/wrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,24 +169,32 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pages" />
+    <property name="javascript.nodejs.core.library.configured.version" value="16.14.0" />
+    <property name="javascript.nodejs.core.library.typings.version" value="16.11.26" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/jquery" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\werri\Documents\beerpongplaner\jquery" />
       <recent name="C:\Users\werri\Documents\beerpongplaner\pages" />
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\werri\Documents\beerpongplaner" />
       <recent name="C:\Users\werri\Documents\beerpongplaner\pages" />
       <recent name="C:\Users\werri\Documents\beerpongplaner\assets" />
       <recent name="C:\Users\werri\Documents\beerpongplaner\assets\images" />
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\assets" />
-      <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\pages" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.register.html">
+  <component name="RunManager" selected="JavaScript Debug.login.html">
     <configuration name="backend.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/beerpongplaner/pages/backend.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="login.html" type="JavascriptDebugType" uri="http://localhost:63342/beerpongplaner/pages/login.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="register.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/beerpongplaner/pages/register.html" useBuiltInWebServerPort="true">
@@ -66,6 +203,12 @@
     <configuration name="functions.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/assets/functions.js" working-dir="$PROJECT_DIR$/assets">
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.login.html" />
+      <item itemvalue="JavaScript Debug.backend.html" />
+      <item itemvalue="JavaScript Debug.register.html" />
+      <item itemvalue="Node.js.functions.js" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.register.html" />
@@ -88,7 +231,7 @@
       <workItem from="1646560683965" duration="13510000" />
       <workItem from="1646643734480" duration="22933000" />
       <workItem from="1646727522893" duration="30296000" />
-      <workItem from="1646900015189" duration="2133000" />
+      <workItem from="1646900015189" duration="16654000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -230,7 +373,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646757895280</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="registrierung ajax wip">
+      <created>1646902244124</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1646902244124</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,64 +416,77 @@
     <MESSAGE value="started trounament create validation" />
     <MESSAGE value="tournament create validation done" />
     <MESSAGE value="registrierung wip" />
-    <option name="LAST_COMMIT_MESSAGE" value="registrierung wip" />
+    <MESSAGE value="registrierung ajax wip" />
+    <option name="LAST_COMMIT_MESSAGE" value="registrierung ajax wip" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>112</line>
+          <line>180</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="21" />
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>114</line>
+          <line>183</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="22" />
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>116</line>
+          <line>190</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="24" />
+          <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>115</line>
+          <line>205</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="25" />
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>119</line>
+          <line>52</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="26" />
+          <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>120</line>
+          <line>54</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="27" />
+          <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>123</line>
+          <line>56</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="28" />
+          <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>117</line>
+          <line>57</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="29" />
+          <option name="timeStamp" value="71" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>118</line>
+          <line>58</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="31" />
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/assets/functions.js</url>
+          <line>59</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/assets/functions.js</url>
+          <line>61</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="74" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

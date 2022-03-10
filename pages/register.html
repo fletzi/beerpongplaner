@@ -21,7 +21,8 @@
   <link rel="preload" href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap"></noscript>
   <link rel="preload" as="style" href="../assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="../assets/mobirise/css/mbr-additional.css" type="text/css">
-  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body onload="checkLoggedIn()">
 
@@ -72,6 +73,9 @@
                             Du hast sich erfolgreich registriert!<br>
                             <a href="login.html" class="alert-link">Logge dich jetzt ein!</a>
                         </div>
+                        <div id="reg_alert_un_taken" hidden="hidden" role="alert" class="alert alert-danger col-12">
+                            Oops...! Der Nutzername ist bereits vergeben!<br>
+                        </div>
                         <div id="reg_alert_fn_null" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
                             Oops...! Vorname darf nicht leer sein!
                         </div>
@@ -80,9 +84,6 @@
                         </div>
                         <div id="reg_alert_un_null" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
                             Oops...! Username darf nicht leer sein!
-                        </div>
-                        <div id="reg_alert_un" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
-                            Oops...! Der Username ist bereits vergeben!
                         </div>
                         <div id="reg_alert_pw_null" hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
                             Oops...! Passwort darf nicht leer sein!

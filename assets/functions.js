@@ -49,11 +49,35 @@ function validateLogin() {
     } else if(password.value === "") {
         alert_null_pw.hidden=false;
     } else {
+        //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+        $(document).ready(function() {
+        //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+            var parsedJson = JSON.stringify({username: username.value, password: password.value});
+            $.ajax('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/login', {
+                type: "POST",
+                data: parsedJson,
+                dataType: "json",
+                contentType: "application/json",
+                //Behandlung der unterschiedlichen Status Codes, welche vom Backend als Antwort auf das Senden des json Dokumentes kommen
+                statusCode: {
+                    // 200 = OK
+                    200: function () {
+                        alert("200");
+                    },
+                    // 400 = Bad Request
+                    400: function () {
+                        alert("400");
+                    },
+                    // 403 - Forbidden
+                    403: function () {
+                        alert("403");
+                    }
+                }
+            });
+        });
         clearFields_login();
         sessionStorage.setItem("login", "true");
         window.location.href = "../pages/backend.html";
-        //db con
-        //link to frontend backend
     }
 }
 
@@ -75,83 +99,111 @@ function checkLoggedIn() {
 }
 
 function validateRegister() {
-    var xhrStatus;
+    //Speichern der Felder der Registrierung in Variablen
     var firstname = document.getElementById("reg_firstName");
     var lastname = document.getElementById("reg_lastName");
     var username = document.getElementById("reg_userName");
     var password = document.getElementById("reg_password");
     var password2 = document.getElementById("reg_password2");
 
+    //Speichern der Alerts der Registrierung in Variablen
     var alert_vn = document.getElementById("reg_alert_fn_null");
     var alert_ln = document.getElementById("reg_alert_ln_null");
     var alert_un = document.getElementById("reg_alert_un_null");
-    var alert_un2 = document.getElementById("reg_alert_un");
     var alert_pw = document.getElementById("reg_alert_pw_null");
     var alert_pw2 = document.getElementById("reg_alert_pw");
-    var alert_success = document.getElementById("reg_success");
+    var alert_reg_success = document.getElementById("reg_success");
+    var alert_un_taken = document.getElementById("reg_alert_un_taken")
 
+    //Ausblenden aller Alerts (für den Fall, dass diese aus einen vorherigen Funktionsaufruf eingeblendet waren)
     alert_vn.hidden = true;
     alert_ln.hidden = true;
     alert_un.hidden = true;
+    alert_un_taken.hidden = true;
+    alert_reg_success.hidden = true;
     alert_pw.hidden = true;
     alert_pw2.hidden = true;
 
+    //Falls das Feld username leer ist
     if (username.value === "") {
+        //einblenden des entsprechenden Alerts
         alert_un.hidden = false;
-    } else if (!username.value) {
-        alert_un2.hidden = false;
+    //Falls das Feld firstname leer ist
     } else if (firstname.value === "") {
+        //einblenden des entsprechenden Alerts
         alert_vn.hidden = false;
+    //Falls das Feld lastname leer ist
     } else if (lastname.value === "") {
+        //einblenden des entsprechenden Alerts
         alert_ln.hidden = false;
+    //Falls das Feld password leer ist
     } else if (password.value === "") {
+        //einblenden des entsprechenden Alerts
         alert_pw.hidden = false;
+    //Falls das Feld password2 nicht mit dem Inhalt des Feldes password übereinstimmt
     } else if (password.value !== password2.value) {
+        //einblenden des entsprechenden Alerts
         alert_pw2.hidden = false
+    //Falls alle anderen Bedingungen nicht erfüllt sind (die Registrierung korrekt ausgefüllt wurde)
     } else {
-
-        $(document).ready(function () {
-
-            $("#register_form").submit(function (e) {
-                e.preventDefault();
-                $.ajax("https://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register", {
-                    type: "POST",
-                    data: { username: username.value, firstName: firstname.value, lastName: lastname.value, password: password.value },
-                    success: function (response) {
-                        alert(response);
-                    }
-                });
-                e.preventDefault();
-            });
-
-        });
-        /*
+        //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
         $(document).ready(function() {
-        $.ajax("https://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register", {
-            type: "POST",
-            dataType: "json",
-            data: { username: username.value, firstName: firstname.value, lastName: lastname.value, password: password.value },
-            statusCode: {
-                200: function () {
-                    alert('200');
-                },
-                201: function () {
-                    alert('201');
-                },
-                400: function () {
-                    alert('400');
-                },
-                405: function () {
-                    alert('405');
-                }
-            }, success: function () {
-                alert('Success');
-                alert_success.hidden=false;
+        //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+        var parsedJson = JSON.stringify({username: username.value, firstName: firstname.value, lastName: lastname.value, password: password.value});
+
+        //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+        var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register', parsedJson);
+
+        //Verhalten je nach rückgemeldetem Status Code des Backends
+        switch (statusCode) {
+            // 200 = OK
+            case 200:
+                //Einblenden des Alerts für eine erfolgreiche Registrierung
+                alert_reg_success.hidden = false;
+                //Leeren aller Felder
                 clearFields_register();
-            },
+                break;
+            // 400 = Bad Request
+            case 400:
+                //Einblenden des entsprechenden Alerts
+                alert_un_taken.hidden = false;
+                //Löschen des Feldinhalts des Feldes username - für Korrektur der Eingabe
+                document.getElementById("reg_userName").value = "";
+                break;
+            // Andere Status Codes werden von der Funktion nich erwartet
+            default:
+                alert("Unerwarteter Fehler");
+        }
         });
-    });*/
     }
+}
+
+function ajaxPost(url, parsedJson) {
+    var statusCode = 0;
+        //Senden der vom User eingetragenen Feldinhalte im json Format an den entsprechenden Endpunkt des Backends
+        $.ajax(url, {
+            async: false,
+            type: "POST",
+            data: parsedJson,
+            dataType: "json",
+            contentType: "application/json",
+            //Behandlung der unterschiedlichen Status Codes, welche vom Backend als Antwort auf das Senden des json Dokumentes kommen
+            statusCode: {
+                // 200 = OK
+                200: function () {
+                    statusCode = 200;
+                },
+                // 400 = Bad Request
+                400: function () {
+                    statusCode = 400;
+                },
+                // 403 - Forbidden
+                403: function () {
+                    statusCode =403;
+                }
+            }
+        });
+   return statusCode;
 }
 
 function clearFields_register() {
@@ -186,11 +238,6 @@ function hidePw() {
     btn_show.hidden=false;
     btn_hide.hidden=true;
 }
-
-var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-    return new bootstrap.Popover(popoverTriggerEl)
-})
 
 
 //<-- Start Team Generator
