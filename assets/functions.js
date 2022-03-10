@@ -1,3 +1,4 @@
+/*
 //Start ComBackend
 function httpGet(theUrl) {
     var xmlHttp = new XMLHttpRequest();
@@ -17,7 +18,7 @@ function httpPost(url, body) {
             var json = JSON.parse(xhr.responseText);
             alert("Response: " + JSON.stringify(json));
         } else if(xhr.readyState === 4) {
-            alert(xhr.readyState);
+            alert(xhr.status);
         }
     }
 }
@@ -27,7 +28,9 @@ function addUser(username, firstname, lastname, password) {
     xhrStatus = httpPost("http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register", { username: username, firstName: firstname, lastName: lastname, password: password });
     return xhrStatus;
 }
-//Ende ComBackend
+
+//Ende ComBackend*/
+
 function validateLogin() {
     var username = document.getElementById("login_userName");
     var password = document.getElementById("login_password");
@@ -87,29 +90,67 @@ function validateRegister() {
     var alert_pw2 = document.getElementById("reg_alert_pw");
     var alert_success = document.getElementById("reg_success");
 
-    alert_vn.hidden=true;
-    alert_ln.hidden=true;
-    alert_un.hidden=true;
-    alert_pw.hidden=true;
-    alert_pw2.hidden=true;
+    alert_vn.hidden = true;
+    alert_ln.hidden = true;
+    alert_un.hidden = true;
+    alert_pw.hidden = true;
+    alert_pw2.hidden = true;
 
-    if(username.value == "") {
-        alert_un.hidden=false;
-    } else if(!username.value) {
-        alert_un2.hidden=false;
-    } else if(firstname.value == "") {
-        alert_vn.hidden=false;
-    } else if(lastname.value == "") {
-        alert_ln.hidden=false;
-    } else if(password.value == "") {
-        alert_pw.hidden=false;
-    } else if(password.value != password2.value) {
-        alert_pw2.hidden=false
+    if (username.value === "") {
+        alert_un.hidden = false;
+    } else if (!username.value) {
+        alert_un2.hidden = false;
+    } else if (firstname.value === "") {
+        alert_vn.hidden = false;
+    } else if (lastname.value === "") {
+        alert_ln.hidden = false;
+    } else if (password.value === "") {
+        alert_pw.hidden = false;
+    } else if (password.value !== password2.value) {
+        alert_pw2.hidden = false
     } else {
-        xhrStatus = addUser(username.value, firstname.value, lastname.value, password.value);
-        alert(xhrStatus);
-        alert_success.hidden=false;
-        clearFields_register();
+
+        $(document).ready(function () {
+
+            $("#register_form").submit(function (e) {
+                e.preventDefault();
+                $.ajax("https://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register", {
+                    type: "POST",
+                    data: { username: username.value, firstName: firstname.value, lastName: lastname.value, password: password.value },
+                    success: function (response) {
+                        alert(response);
+                    }
+                });
+                e.preventDefault();
+            });
+
+        });
+        /*
+        $(document).ready(function() {
+        $.ajax("https://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register", {
+            type: "POST",
+            dataType: "json",
+            data: { username: username.value, firstName: firstname.value, lastName: lastname.value, password: password.value },
+            statusCode: {
+                200: function () {
+                    alert('200');
+                },
+                201: function () {
+                    alert('201');
+                },
+                400: function () {
+                    alert('400');
+                },
+                405: function () {
+                    alert('405');
+                }
+            }, success: function () {
+                alert('Success');
+                alert_success.hidden=false;
+                clearFields_register();
+            },
+        });
+    });*/
     }
 }
 
