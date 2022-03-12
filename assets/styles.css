@@ -81,7 +81,12 @@
 }
 
 #dashboard_body {
-    background-image: url("../assets/images/dashboard_bg.jpg");
+    background-image: url("images/dashboard_bg_blur_sw.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #generator_playerName {
