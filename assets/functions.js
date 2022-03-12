@@ -49,11 +49,13 @@ function validateLogin() {
     } else if(password.value === "") {
         alert_null_pw.hidden=false;
     } else {
-        //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+       //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
         $(document).ready(function() {
         //Übertrag der vom User eingetragenen Feldinhalte in das json Format
             var parsedJson = JSON.stringify({username: username.value, password: password.value});
+
             $.ajax('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/login', {
+                async: false,
                 type: "POST",
                 data: parsedJson,
                 dataType: "json",
@@ -72,12 +74,40 @@ function validateLogin() {
                     403: function () {
                         alert("403");
                     }
+                },
+                success: function(response){
+                    alert(response.status);
                 }
             });
         });
-        clearFields_login();
-        sessionStorage.setItem("login", "true");
-        window.location.href = "../pages/backend.html";
+        //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+        //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+        /*var parsedJson = JSON.stringify({username: username.value, password: password.value});
+
+        $(document).ready(function() {
+
+            //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+            var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/login', parsedJson);
+
+            //Verhalten je nach rückgemeldetem Status Code des Backends
+            switch (statusCode) {
+                // 200 = OK
+                case 200:
+                    //Einblenden des Alerts für eine erfolgreiche Registrierung
+                    alert("Success")
+                    //Leeren aller Felder
+                    break;
+                // 400 = Bad Request
+                case 403:
+                    //Einblenden des entsprechenden Alerts
+                    alert("Falsche Eingabe")
+                    //Löschen des Feldinhalts des Feldes username - für Korrektur der Eingabe
+                    break;
+                // Andere Status Codes werden von der Funktion nicht erwartet
+                default:
+                    alert("Unerwarteter Fehler");
+            }
+        });*/
     }
 }
 
