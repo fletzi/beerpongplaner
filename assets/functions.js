@@ -31,6 +31,15 @@ function addUser(username, firstname, lastname, password) {
 
 //Ende ComBackend*/
 
+function json2array(json){
+    var result = [];
+    var keys = Object.keys(json);
+    keys.forEach(function(key){
+        result.push(json[key]);
+    });
+    return result;
+}
+
 function validateLogin() {
     var username = document.getElementById("login_userName");
     var password = document.getElementById("login_password");
@@ -62,24 +71,28 @@ function validateLogin() {
                 contentType: "application/json",
                 //Behandlung der unterschiedlichen Status Codes, welche vom Backend als Antwort auf das Senden des json Dokumentes kommen
                 statusCode: {
-                    // 200 = OK
-                    200: function () {
-                        alert("200");
-                    },
                     // 400 = Bad Request
                     400: function () {
-                        alert("400");
+                        alert("400 - Bad Request");
                     },
                     // 403 - Forbidden
                     403: function () {
-                        alert("403");
+                        clearFields_login()
+                        alert_fail.hidden=false;
                     }
                 },
-                success: function(response){
-                    alert(response.status);
+                success: function(data) {
+                    //alert(JSON.stringify(data));
+                    var arr = json2array(data);
+
+                    sessionStorage.setItem("token", "Bearer "+arr[0]);
+                    alert(sessionStorage.getItem("token"));
+                    sessionStorage.setItem("login", "true");
+                    window.location.href = "../pages/backend.html";
                 }
             });
         });
+
         //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
         //Übertrag der vom User eingetragenen Feldinhalte in das json Format
         /*var parsedJson = JSON.stringify({username: username.value, password: password.value});
@@ -117,7 +130,7 @@ function checkLoggedIn() {
     var btnRegister = document.getElementById("btn_register");
     var btnUser = document.getElementById("btn_user");
 
-    if(loggedIn == "true") {
+    if(loggedIn === "true") {
         btnLogin.hidden=true;
         btnRegister.hidden=true;
         btnUser.hidden=false;

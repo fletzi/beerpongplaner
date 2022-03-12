@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="registrierung done; login problematic">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="login partly solved">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +113,7 @@
       <workItem from="1646927854268" duration="648000" />
       <workItem from="1647005396526" duration="3441000" />
       <workItem from="1647009507317" duration="2307000" />
+      <workItem from="1647103461296" duration="4573000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -269,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646927897346</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="login partly solved">
+      <created>1647103517371</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1647103517371</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,73 +314,10 @@
     <MESSAGE value="registrierung wip" />
     <MESSAGE value="registrierung ajax wip" />
     <MESSAGE value="registrierung done; login problematic" />
-    <option name="LAST_COMMIT_MESSAGE" value="registrierung done; login problematic" />
+    <MESSAGE value="login partly solved" />
+    <option name="LAST_COMMIT_MESSAGE" value="login partly solved" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>179</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>181</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>184</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>210</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="89" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>213</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="90" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>220</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>222</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>226</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>230</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/assets/functions.js</url>
-          <line>235</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="95" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="JavascriptDebugType">
         <watch expression="SVGFEFuncRElement" />
