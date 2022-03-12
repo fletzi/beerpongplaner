@@ -20,7 +20,8 @@
   <link rel="preload" href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap"></noscript>
   <link rel="preload" as="style" href="../assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="../assets/mobirise/css/mbr-additional.css" type="text/css">
-  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body onload="checkLoggedIn()">
   <section data-bs-version="5.1" class="menu cid-sYbld1fw3v" once="menu" id="menu1-1r">
@@ -62,7 +63,8 @@
         
         <div class="row justify-content-center mt-4">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                <form action="#" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="loginForm"><input type="hidden" name="email" data-form-email="true" value="">
+                <form action="#" method="POST" class="mbr-form form-with-styler mx-auto" data-form-title="loginForm">
+                    <input type="hidden" name="email" data-form-email="true" value="e65CUj7FL544GCQ968WDTL1aHKAuAwD3SB/9h6lPdzDRVnmZzItjShRQsl9r4yJ9IJT41w1Mc+dtKFKlAkLjQNI7ftdR4KADkvDD7MJoIXwyj/aGZf2USh3b0dYliQdW">
                     <p class="mbr-text mbr-fonts-style align-center mb-4 display-2">Log in</p>
                     <div class="row">
                         <div id="login_alert_success" hidden="hidden" class="alert alert-success col-12">
@@ -80,11 +82,11 @@
                     </div>
                     <div class="dragArea row">
                         
-                        <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="email">
-                            <input type="text" name="login_userName" placeholder="Username" data-form-field="text" class="form-control" value="" id="login_userName" autofocus required>
+                        <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="username">
+                            <input type="text" name="login_userName" placeholder="Username" data-form-field="text" class="form-control" id="login_userName">
                         </div>
-                        <div data-for="password" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
-                            <input type="password" name="login_password" placeholder="Passwort" data-form-field="password" class="form-control" value="" id="login_password" required>
+                        <div data-for="password" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="password">
+                            <input type="password" name="login_password" placeholder="Passwort" data-form-field="password" class="form-control" id="login_password">
                         </div>
                         <div class="col-auto mbr-section-btn align-center"><button type="button" onclick="validateLogin()" class="btn btn-primary display-4">Anmelden</button></div>
                     </div>
