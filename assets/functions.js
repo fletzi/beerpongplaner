@@ -421,6 +421,40 @@ function validateTournament() {
             alert("Success");
         }
     }
+}
 
+function show_tournaments() {
+    document.getElementById("dashboard_div").hidden=true;
+    document.getElementById("tournament_tree_div").style.display="block";
+    document.getElementById("statistik_div").style.display="none";
+    document.getElementById("btn_tournaments").classList.add("active", "bg-primary");
+    document.getElementById("btn_tournaments").classList.remove("text-white");
+    document.getElementById("btn_dashboard").classList.remove("active", "bg-primary");
+    document.getElementById("btn_dashboard").classList.add("nav-link", "text-white");
+    document.getElementById("btn_statistik").classList.remove("active", "bg-primary");
+    document.getElementById("btn_statistik").classList.add("nav-link", "text-white");
+}
 
+function show_dashboard() {
+    document.getElementById("dashboard_div").hidden=false;
+    document.getElementById("tournament_tree_div").style.display="none";
+    document.getElementById("statistik_div").style.display="none";
+    document.getElementById("btn_dashboard").classList.add("active", "bg-primary");
+    document.getElementById("btn_dashboard").classList.remove("text-white");
+    document.getElementById("btn_tournaments").classList.remove("active", "bg-primary");
+    document.getElementById("btn_tournaments").classList.add("nav-link", "text-white");
+    document.getElementById("btn_statistik").classList.remove("active", "bg-primary");
+    document.getElementById("btn_statistik").classList.add("nav-link", "text-white");
+}
+
+function show_statistik() {
+    document.getElementById("dashboard_div").hidden=true;
+    document.getElementById("tournament_tree_div").style.display="none";
+    document.getElementById("statistik_div").style.display="block";
+    document.getElementById("btn_statistik").classList.add("active", "bg-primary");
+    document.getElementById("btn_statistik").classList.remove("text-white");
+    document.getElementById("btn_tournaments").classList.remove("active", "bg-primary");
+    document.getElementById("btn_tournaments").classList.add("nav-link", "text-white");
+    document.getElementById("btn_dashboard").classList.remove("active", "bg-primary");
+    document.getElementById("btn_dashboard").classList.add("nav-link", "text-white");
 }

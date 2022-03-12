@@ -43,13 +43,9 @@
                       d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
             </svg>&nbsp;Home
                 </span> </a></li>
-                <li class="nav-item"><a href="#" class="nav-link active bg-primary"><span class="ms-2">Dashboard</span> </a></li>
-                <li><a href="#" class="nav-link text-white"> <i class=""></i><span class="ms-2">Meine Turniere</span>
-                </a></li>
-                <li><a href="#" class="nav-link text-white"> <i class=""></i><span class="ms-2">Jonathan Heß</span> </a>
-                </li>
-                <li><a href="#" class="nav-link text-white"> <i class=""></i><span class="ms-2">Bookmarks</span> </a>
-                </li>
+                <li><a id="btn_dashboard" onclick="show_dashboard()" href="#" class="nav-link active bg-primary"><span class="ms-2">Dashboard</span></a></li>
+                <li><a id="btn_tournaments" href="#" onclick="show_tournaments()" class="nav-link text-white"> <i class=""></i><span class="ms-2">Meine Turniere</span></a></li>
+                <li><a id="btn_statistik" onclick="show_statistik()" href="#" class="nav-link text-white"> <i class=""></i><span class="ms-2">Bookmarks</span></a></li>
             </ul>
             <hr>
         </div>
@@ -270,7 +266,7 @@
                     </div>
                 </div>
 <!--Turnierbaum-->
-                <div hidden id="tournament_tree_div" class="container-fluid overflow-auto">
+                <div style="display: none" id="tournament_tree_div" class="container-fluid overflow-auto">
                     <div class="row flex-row flex-nowrap">
                         <!--Test Match Card-->
                         <div class="col-3 mb-5">
@@ -348,7 +344,9 @@
                     </div>
 
                 </div>
-
+                    <div style="display: none" id="statistik_div" class="container-fluid overflow-auto">
+                        <p class="text-white">Statistik</p>
+                    </div>
             </div>
         </div>
     </div>
@@ -372,5 +370,5 @@
 
 <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;" href="#menu1-1r"><i
         class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
-</body>
+</div></body>
 </html>
