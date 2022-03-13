@@ -1,68 +1,57 @@
-/*
-//Start ComBackend
-function httpGet(theUrl) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false); // false for synchronous request
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
-}
-
-
-
-function httpPost(url, body) {
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText);
-            alert("Response: " + JSON.stringify(json));
-        } else if(xhr.readyState === 4) {
-            alert(xhr.status);
-        }
-    }
-}
-
-function addUser(username, firstname, lastname, password) {
-    var xhrStatus;
-    xhrStatus = httpPost("http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register", { username: username, firstName: firstname, lastName: lastname, password: password });
-    return xhrStatus;
-}
-
-//Ende ComBackend*/
-
+/**
+ * <h3>Speichert alle values eines json Dokuments in einem Array
+ * @param {json} json Dokument dessen values in Array gespeichert werden sollen
+ **/
 function json2array(json){
+    //Erzeugen eines leeren Arrays
     var result = [];
+    //Speichern einer Liste der Objektnamen aus dem übergebenen json Dokument
     var keys = Object.keys(json);
+    //Für jeden Objektnamen der Liste keys
     keys.forEach(function(key){
+        //Wird die entsprechende value des jeweiligen keys dem Array result angefügt
         result.push(json[key]);
     });
+    //Zurückgeben des mit values gefüllten Arrays
     return result;
 }
 
+/**
+ * <h3>Validiert die Nutzereingaben der Login-Maske > login.html
+ **/
 function validateLogin() {
+    //Speichern der Login Felder in Variablen
     var username = document.getElementById("login_userName");
     var password = document.getElementById("login_password");
+
+    //Speichern der Alerts des Logins in Variablen
     var alert_null_un = document.getElementById("login_alert_un");
     var alert_null_pw = document.getElementById("login_alert_pw");
     var alert_fail = document.getElementById("login_alert_fail");
     var alert_success = document.getElementById("login_alert_success");
 
+    //Ausblenden aller Login Alerts (für den Fall, dass diese aus einen vorherigen Funktionsaufruf eingeblendet waren)
     alert_fail.hidden=true;
     alert_null_un.hidden=true;
     alert_null_pw.hidden=true;
     alert_success.hidden=true;
 
+    //Falls das Feld username leer ist
     if(username.value === "") {
+        //einblenden des entsprechenden Alerts
         alert_null_un.hidden=false;
+    //Falls das Feld password leer ist
     } else if(password.value === "") {
+        //einblenden des entsprechenden Alerts
         alert_null_pw.hidden=false;
+    //Falls alle anderen Bedingungen nicht erfüllt sind (die Login Maske korrekt ausgefüllt wurde)
     } else {
-       //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+        //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
         $(document).ready(function() {
-        //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+            //Übertrag der vom User eingetragenen Feldinhalte in das json Format
             var parsedJson = JSON.stringify({username: username.value, password: password.value});
 
+            //Senden der vom User eingetragenen Feldinhalte im json Format an den entsprechenden Endpunkt des Backends
             $.ajax('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/login', {
                 async: false,
                 type: "POST",
@@ -75,74 +64,65 @@ function validateLogin() {
                     400: function () {
                         alert("400 - Bad Request");
                     },
-                    // 403 - Forbidden
+                    // 403 = Forbidden (Gesendeter Username und Passwort sind in dieser Kombination nicht in der Datenbank vorhanden)
                     403: function () {
+                        //Löschen der Login Feldinhalte für Korrektur der Eingabe durch den User
                         clearFields_login()
+                        //Einblenden des Entsprechende Alerts
                         alert_fail.hidden=false;
                     }
                 },
+                // statusCode: 200 - OK (Gesendeter Username und Passwort stimmen mit Datenbankeintrag überein)
                 success: function(data) {
-                    //alert(JSON.stringify(data));
+                    //Speichern des responseTexte in ein Array
                     var arr = json2array(data);
 
+                    //Speichern des im responseText übermittelten Authentifizierungstokens im sessionStorage
                     sessionStorage.setItem("token", "Bearer "+arr[0]);
-                    alert(sessionStorage.getItem("token"));
+                    //alert(sessionStorage.getItem("token"));
+                    //Im sessionStorage Speichern, dass der Nutzer eingeloggt ist
                     sessionStorage.setItem("login", "true");
+                    //Weiterleitung des Nutzers auf das Dashboard
                     window.location.href = "../pages/backend.html";
                 }
             });
         });
-
-        //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
-        //Übertrag der vom User eingetragenen Feldinhalte in das json Format
-        /*var parsedJson = JSON.stringify({username: username.value, password: password.value});
-
-        $(document).ready(function() {
-
-            //Aufruf der ajaxPost Funktion sowie speichern der Return Value
-            var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/login', parsedJson);
-
-            //Verhalten je nach rückgemeldetem Status Code des Backends
-            switch (statusCode) {
-                // 200 = OK
-                case 200:
-                    //Einblenden des Alerts für eine erfolgreiche Registrierung
-                    alert("Success")
-                    //Leeren aller Felder
-                    break;
-                // 400 = Bad Request
-                case 403:
-                    //Einblenden des entsprechenden Alerts
-                    alert("Falsche Eingabe")
-                    //Löschen des Feldinhalts des Feldes username - für Korrektur der Eingabe
-                    break;
-                // Andere Status Codes werden von der Funktion nicht erwartet
-                default:
-                    alert("Unerwarteter Fehler");
-            }
-        });*/
     }
 }
 
+/**
+ * <h3>Überprüft bei Seitenaufruf/-wechsel ob sich ein User bereits eingeloggt hat
+ **/
 function checkLoggedIn() {
+    //Speichern der zum key login gehörenden value aus dem sessionStorage in einer Variable
     var loggedIn = sessionStorage.getItem("login");
+    //Speichern des Login-Buttons & des Registrieren-Buttons sowie des Buttons für eingeloggte Nutzer
     var btnLogin = document.getElementById("btn_login");
     var btnRegister = document.getElementById("btn_register");
     var btnUser = document.getElementById("btn_user");
 
+    //Falls die value des keys "login" true ist
     if(loggedIn === "true") {
+        //Ausblenden des Login- & Registrierungs-Buttons
         btnLogin.hidden=true;
         btnRegister.hidden=true;
+        //Einblenden des Buttons für eingeloggte Nutzer
         btnUser.hidden=false;
+    //Falls die value des keys "login" nicht "login" ist
     } else {
+        //Einblenden des Login- & Registrierungs-Buttons
         btnLogin.hidden=false;
         btnRegister.hidden=false;
+        //Ausblenden des Buttons für eingeloggte Nutzer
         btnUser.hidden=true;
     }
 }
 
+/**
+ * <h3>Validiert die Nutzereingaben der Registrierungs-Maske > register.html
+ **/
 function validateRegister() {
-    //Speichern der Felder der Registrierung in Variablen
+    //Speichern Felder der Registrierung in Variablen
     var firstname = document.getElementById("reg_firstName");
     var lastname = document.getElementById("reg_lastName");
     var username = document.getElementById("reg_userName");
@@ -158,7 +138,7 @@ function validateRegister() {
     var alert_reg_success = document.getElementById("reg_success");
     var alert_un_taken = document.getElementById("reg_alert_un_taken")
 
-    //Ausblenden aller Alerts (für den Fall, dass diese aus einen vorherigen Funktionsaufruf eingeblendet waren)
+    //Ausblenden aller Registrierung Alerts (für den Fall, dass diese aus einen vorherigen Funktionsaufruf eingeblendet waren)
     alert_vn.hidden = true;
     alert_ln.hidden = true;
     alert_un.hidden = true;
@@ -197,7 +177,7 @@ function validateRegister() {
         //Aufruf der ajaxPost Funktion sowie speichern der Return Value
         var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register', parsedJson);
 
-        //Verhalten je nach rückgemeldetem Status Code des Backends
+        //Verhalten je nach rückgemeldetem statusCode des Backends
         switch (statusCode) {
             // 200 = OK
             case 200:
@@ -213,7 +193,7 @@ function validateRegister() {
                 //Löschen des Feldinhalts des Feldes username - für Korrektur der Eingabe
                 document.getElementById("reg_userName").value = "";
                 break;
-            // Andere Status Codes werden von der Funktion nich erwartet
+            // Andere Status Codes werden von der Funktion nicht erwartet
             default:
                 alert("Unerwarteter Fehler");
         }
@@ -221,6 +201,12 @@ function validateRegister() {
     }
 }
 
+/**
+ * <h3> Sendet das übergebene json Dokument per "post-request" and die übergebene URL
+ *
+ * @param {url} url Endpunkt welcher von der jquery Funktion .ajax angesprochen werden soll
+ * @param {json} parsedJson json Dokument welches gesendet werden soll
+ **/
 function ajaxPost(url, parsedJson) {
     var statusCode = 0;
         //Senden der vom User eingetragenen Feldinhalte im json Format an den entsprechenden Endpunkt des Backends
@@ -246,9 +232,13 @@ function ajaxPost(url, parsedJson) {
                 }
             }
         });
-   return statusCode;
+    //Rückgabe des statusCodes
+    return statusCode;
 }
 
+/**
+ * <h3> Löscht die Feldinhalte der Registrierung
+ **/
 function clearFields_register() {
     document.getElementById("reg_firstName").value="";
     document.getElementById("reg_lastName").value="";
@@ -257,33 +247,53 @@ function clearFields_register() {
     document.getElementById("reg_password2").value="";
 }
 
+/**
+ * <h3> Löscht die Feldinhalte des Logins
+ **/
 function clearFields_login() {
     document.getElementById("login_userName").value="";
     document.getElementById("login_password").value="";
 }
 
+/**
+ * <h3> Stellt die eingegebenen Passwörter in der Registrierungsmaske in Klartext dar
+ **/
 function showPw() {
+    //Speichern der Buttons zum Ein- & Ausblenden der Passwörter als Klartext in Variablen
     var btn_show = document.getElementById("button_sp")
     var btn_hide = document.getElementById("button_sp_null")
 
+    //Ändern des Feldtyps der Felder "Passwort" und "Passwort Wiederholen" zum Typ text - Feldinhalt wird in Klartext dargestellt
     document.getElementById("reg_password").type="text"
     document.getElementById("reg_password2").type="text"
+    //Ausblenden des Buttons zum Einblenden der Passwörter
     btn_show.hidden=true;
+    //Einblenden des Buttons zum Ausblenden der Passwörter
     btn_hide.hidden=false;
 }
 
+/**
+ * <h3> Stellt die eingegebenen Passwörter in der Registrierungsmaske als Punkte dar
+ **/
 function hidePw() {
+    //Speichern der Buttons zum Ein- & Ausblenden der Passwörter als Klartext in Variablen
     var btn_show = document.getElementById("button_sp")
     var btn_hide = document.getElementById("button_sp_null")
 
+    //Ändern des Feldtyps der Felder "Passwort" und "Passwort Wiederholen" zum Typ password - Feldinhalt wird durch Punkte dargestellt
     document.getElementById("reg_password").type="password"
     document.getElementById("reg_password2").type="password"
+    //Einblenden des Buttons zum Einblenden der Passwörter
     btn_show.hidden=false;
+    //Ausblenden des Buttons zum Ausblenden der Passwörter
     btn_hide.hidden=true;
 }
 
 
-//<-- Start Team Generator
+/**
+ * <h3> Funktion des Teamgenerators:
+ * <p> Befüllt eine Liste mit dem vom User eingegebenen Spielernamen
+ **/
 function gatherTeam() {
     //Variable der zu füllenden Liste
     var ul = document.getElementById("generator_playerList");
@@ -304,6 +314,11 @@ function gatherTeam() {
     } else {}
 }
 
+/**
+ * <h3> Funktion des Teamgenerators:
+ * <p> Generiert zwei zufällig zusammengesetze Teams aus den eingegebene Spielernamen
+ * <p> und stellt diese in zwei Listen dar
+ **/
 function generateTeams() {
     //Array der vom User eingegebenen Spielernamen
     let arr = (Array.from(document.querySelectorAll("#generator_playerList > li")).map(el => el.innerHTML));
@@ -365,6 +380,10 @@ function generateTeams() {
 
 }
 
+/**
+ * <h3> Funktion des Teamgenerators:
+ * <p> Versetzt den Teamgenerator in den Ausgangsstatus
+ **/
 function resetTeams() {
     //Die Eingabe der Spielername in der Turniergenerator Card wird eingeblendet
     document.getElementById("generator_1").hidden=false;
@@ -378,94 +397,133 @@ function resetTeams() {
     document.getElementById("generator_teamB").innerHTML="";
 }
 
+/**
+ * <h3> Funktion des Teamgenerators:
+ * <p> Versteckt Alert im Moment der Fehlerkorrektur durch den User
+ **/
 function hideGeneratorAlert() {
     //Ggf. vorhandene Fehlermeldung wir mit Klick in Feld für Spielername (im Moment der Fehlerkorrektur) ausgeblendet
     document.getElementById("generator_alert_fail").hidden=true;
 }
 //--> Ende Team Generator
 
+/**
+ * <h3> Validiert die Eingaben der Turnieranlage
+ **/
 function validateTournament() {
+    //Speichern der Date Validation Flag mit dem Wert false - "Das eingegeben Datum ist noch nicht validiert"
     var dateVal = false;
 
-    /* heutiges datum*/
+    //Speichern des heutigen Datums
     var now = new Date();
 
-    /* datum in die einzelnen teile aufteilen */
+    //Aufteilen des Datums in Jahr, Monat & Tag
     var y = now.getFullYear().valueOf();
     var m = now.getMonth().valueOf();
     var d = now.getDate().valueOf();
     m = m+1;
 
-    /* eingegebenes datum holen */
+    //Speichern des vom User eingegebenen Datums
     var create_tour_date = document.getElementById("create_tour_date").value.split("-");
 
-    /* datum wieder aufteilen */
+    //Aufteilen des Datums in Jahr, Monat & Tag
     var y2 = parseInt(create_tour_date[0]);
     var m2 = parseInt(create_tour_date[1]);
     var d2 = parseInt(create_tour_date[2]);
 
+    //Speichern des vom User eingegebenen Turniertitels
     var create_tour_name = document.getElementById("create_tour_name");
 
+    //Speichern der Alerts der Turnieranlage in Variablen
     var create_tour_alert_name = document.getElementById("create_tour_alert_name");
     var create_tour_alert_date = document.getElementById("create_tour_alert_date");
     var create_tour_alert_nodate = document.getElementById("create_tour_alert_nodate");
     var create_tour_alert_time = document.getElementById("create_tour_alert_time");
     var create_tour_alert_notime = document.getElementById("create_tour_alert_notime");
 
+    //Wenn das Feld Turniername leer ist
     if(create_tour_name.value === "") {
+        //Einblenden des entsprechenden Alerts
         create_tour_alert_name.hidden = false;
+    //Wenn das Feld Datum leer ist
     } else if(create_tour_date[0] === ""){
+        //Einblenden des entsprechenden Alerts
         create_tour_alert_nodate.hidden = false;
+    //Wenn das eingegeben Jahr in der Vergangenheit liegt
     } else if(y2 < y) {
+        //Einblenden des entsprechenden Alerts
         create_tour_alert_date.hidden = false;
+    //Wenn das eingegebene Jahr größer ist als das jetzige
     } else if(y2 > y) {
+        //Setzen der Date Validation Flag auf true, da das eingegebene Datum nicht mehr in der Vergangenheit liegen kann (egal welcher Monat oder Tag)
         dateVal = true;
+    //Wenn das eingegebene Jahr dem jetzigen entspricht
     } else if(y2 === y) {
+        //Wenn der eingegebene Monat dem jetzigen entspricht
         if (m2 === m) {
+            //Und der eingegebenen Tag kleiner ist als der jetzige
             if (d2 < d) {
+                //Einblenden des entsprechenden Alerts (Datum liegt in der Vergangenheit)
                 create_tour_alert_date.hidden = false;
             } else {
+                //Ansonsten: Setzen der Date Validation Flag auf true, da das eingegebene Datum nicht in der Vergangenheit liegt
                 dateVal = true;
             }
+        //Wenn der eingegebene Monat kleiner ist als der jetzige
         } else if(m2 < m) {
+            //Einblenden des entsprechenden Alerts (Datum liegt in der Vergangenheit)
             create_tour_alert_date.hidden = false;
         } else {
+            //Ansonsten: Setzen der Date Validation Flag auf true, da das eingegebene Datum nicht mehr in der Vergangenheit liegen kann (egal welcher Tag)
             dateVal = true;
         }
-    } else {
-        dateVal = true;
     }
 
-    /* datum in die einzelnen teile aufteilen */
+    //Aktuelle Uhrzeit in Stunden ud Minuten aufteilen
     var hh = now.getHours().valueOf();
     var mm = now.getMinutes().valueOf();
 
-    /*Eingegebene Uhrzeit holen*/
+    //Vom User eingegebene Uhrzeit speichern
     var create_tour_time = document.getElementById("create_tour_time").value.split(":");
 
-    /* datum wieder aufteilen */
+    //Eingegebene Uhrzeit in Stunden ud Minuten aufteilen
     var hh2 = parseInt(create_tour_time[0]);
     var mm2 = parseInt(create_tour_time[1]);
 
+    //Wenn das eingegebene Datum nicht in der Vergangenheit liegt: überprüfen der eingebenden Uhrzeit
     if(dateVal === true) {
+        //Wenn die eingegebene Uhrzeit leer ist
         if(create_tour_time[0] === "") {
+            //Einblenden des entsprechenden Alerts
             create_tour_alert_notime.hidden = false;
+        //Wenn das eingegebene Datum dem heutigen Entspricht
         } else if(y2 === y && m2 === m && d2 === d) {
+            //Überprüfen ob Uhrzeit in der Vergangenheit liegt
+            //Wenn die eingegebene Stunde kleiner ist als die Aktuelle
             if(hh2 < hh ) {
+                //Einblenden des entsprechenden Alerts (Uhrzeit liegt in der Vergangenheit)
                 create_tour_alert_time.hidden = false;
+            //Wenn die eingegebene Stunde größer oder gleich der Aktuellen ist
             } else if(hh2 >= hh) {
+                //Und wenn die eingegebene Minute kleiner ist als die Aktuelle
                 if(mm2 <= mm) {
+                    //Einblenden des entsprechenden Alerts (Uhrzeit liegt in der Vergangenheit)
                     create_tour_alert_time.hidden = false;
+                //Ansonsten sind die eingegebenen Daten korrekt
                 } else {
                     alert("Success");
                 }
             }
+        //Uhrzeit kann nicht in der Vergangenheit liegen und ist nicht leer - die eingegebenen Daten sind korrekt
         } else {
             alert("Success");
         }
     }
 }
 
+/**
+ * <h3>
+ **/
 function show_tournaments() {
     document.getElementById("dashboard_div").hidden=true;
     document.getElementById("tournament_tree_div").style.display="block";
@@ -478,6 +536,9 @@ function show_tournaments() {
     document.getElementById("btn_statistik").classList.add("nav-link", "text-white");
 }
 
+/**
+ * <h3>
+ **/
 function show_dashboard() {
     document.getElementById("dashboard_div").hidden=false;
     document.getElementById("tournament_tree_div").style.display="none";
@@ -490,6 +551,9 @@ function show_dashboard() {
     document.getElementById("btn_statistik").classList.add("nav-link", "text-white");
 }
 
+/**
+ * <h3>
+ **/
 function show_statistik() {
     document.getElementById("dashboard_div").hidden=true;
     document.getElementById("tournament_tree_div").style.display="none";
