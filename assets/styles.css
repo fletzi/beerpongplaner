@@ -27,7 +27,7 @@
 .alert-success {
     font-family: Quicksand;
     color: #F6F6F6!important;
-    background-color: #00cc44!important;
+    background-color: #37c46b !important;
     border-radius: 0.25rem!important;
 }
 
@@ -52,7 +52,7 @@
 #reg_success {
     font-family: Quicksand;
     color: #F6F6F6!important;
-    background-color: #00cc44!important;
+    background-color: #37c46b !important;
 }
 
 #sidenav {
@@ -63,7 +63,7 @@
     margin-left: 420px;
 }
 
-#dash-content {
+.dash-content {
     margin-top: 100px;
     margin-left: -10px!important;
     margin-right: auto!important;
@@ -94,6 +94,14 @@
     border-bottom-right-radius: 0px;
 }
 
+#tournament_selectedPlayers:hover {
+    --bs-table-hover-bg: #f73f52!important;
+}
+
+#tournament_selectablePlayers:hover {
+    --bs-table-hover-bg: #37c46b !important;
+}
+
 /*Scrollbar Start*/
 ::-webkit-scrollbar-track
 {
@@ -114,3 +122,43 @@
     background-color: #f73f52;
 }
 /*Scrollbar Ende*/
+
+.table-scroll table {
+    width: 100%;
+}
+
+.table-scroll thead {
+    display: table; /* to take the same width as tr */
+    width: calc(100% - 17px); /* - 17px because of the scrollbar width */
+}
+
+.table-scroll tbody {
+    display: block; /* to enable vertical scrolling */
+    max-height: 200px; /* e.g. */
+    overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+}
+
+th, td {
+    width: 33.33%; /* to enable "word-break: break-all" */
+    padding: 5px;
+    word-break: break-all; /* 4. */
+}
+
+.table-scroll tr {
+    display: table;
+    width: 100%;
+    text-align: left;
+}
+
+.player-counter {
+    background-color: #37c46b;
+}
+
+.hover-tile {
+    background-color: #969696;
+}
+
+.clone {
+    background-color: #F73F52;
+    width: 380px;
+}

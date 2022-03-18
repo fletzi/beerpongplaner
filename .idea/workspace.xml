@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="login completely">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="Tweaking to login validation; +added detailed comments to functions.js">
+      <change beforePath="$PROJECT_DIR$/.idea/beerpongplaner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/beerpongplaner.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/card_header_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/card_header_beerpong.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/card_header_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/card_header_throw.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/images/card_header_3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/card_header_dice.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/backend.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/backend.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +74,7 @@
       <recent name="C:\Users\mflet\OneDrive\Dokumente\GitHub\beerpongplaner\assets" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.register.html">
+  <component name="RunManager" selected="JavaScript Debug.backend.html">
     <configuration name="backend.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/beerpongplaner/pages/backend.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -89,8 +95,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.register.html" />
         <item itemvalue="JavaScript Debug.backend.html" />
+        <item itemvalue="JavaScript Debug.register.html" />
         <item itemvalue="Node.js.functions.js" />
       </list>
     </recent_temporary>
@@ -114,7 +120,13 @@
       <workItem from="1647005396526" duration="3441000" />
       <workItem from="1647009507317" duration="2307000" />
       <workItem from="1647103461296" duration="5433000" />
-      <workItem from="1647184217473" duration="5304000" />
+      <workItem from="1647184217473" duration="6314000" />
+      <workItem from="1647268856207" duration="6912000" />
+      <workItem from="1647355745197" duration="2997000" />
+      <workItem from="1647451771173" duration="176000" />
+      <workItem from="1647521185266" duration="4334000" />
+      <workItem from="1647525580778" duration="23366000" />
+      <workItem from="1647604131568" duration="18632000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -284,7 +296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647108098368</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Tweaking to login validation; +added detailed comments to functions.js">
+      <created>1647189618404</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1647189618404</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,7 +343,8 @@
     <MESSAGE value="registrierung done; login problematic" />
     <MESSAGE value="login partly solved" />
     <MESSAGE value="login completely" />
-    <option name="LAST_COMMIT_MESSAGE" value="login completely" />
+    <MESSAGE value="Tweaking to login validation; +added detailed comments to functions.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tweaking to login validation; +added detailed comments to functions.js" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

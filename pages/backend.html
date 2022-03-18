@@ -25,6 +25,8 @@
     </noscript>
     <link rel="preload" as="style" href="../assets/mobirise/css/mbr-additional.css">
     <link rel="stylesheet" href="../assets/mobirise/css/mbr-additional.css" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
 </head>
 <body id="dashboard_body" onload="checkLoggedIn()">
@@ -32,7 +34,7 @@
 <div class="row">
     <div class="col-1 bg-primary">
         <div class="d-flex flex-column min-vh-100 flex-shrink-0 text-white p-3 bg-dark position-fixed"
-             style="width: 250px; z-index: 2 ">
+             style="width: 250px; z-index: 4">
             <ul class="nav nav-pills flex-column mb-auto display-4">
                 <li class="nav-item"><a href="index.html" class="nav-link text-white mb-3"><span class="ms-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -52,7 +54,7 @@
     </div>
     <div class="col-11">
         <div>
-            <section style="z-index: 1" data-bs-version="5.1" class="menu cid-sYbld1fw3v justify-content-end" once="menu" id="menu1-676">
+            <section style="z-index: 3" data-bs-version="5.1" class="menu cid-sYbld1fw3v justify-content-end" once="menu" id="menu1-676">
                 <nav class="nav navbar-expand fixed-top justify-content-end bg-dark">
                     <div class="container">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
@@ -100,14 +102,14 @@
             <div class="col-md-1">
             </div>
             <div class="col-md-11">
-                <div class="container-fluid ps-0" id="dash-content">
+                <div class="container-fluid ps-0 dash-content">
                     <!-- Main Content -->
 <!-- Dashboard --><div id="dashboard_div">
                     <!-- Turnieranlage -->
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="card display-4 bg-dark text-white me-1 w-auto h-100">
-                                <img src="../assets/images/card_header_1.jpg" class="card-img-top" alt="...">
+                                <img src="../assets/images/card_header_beerpong.jpg" class="card-img-top" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">Turnieranlage</h5>
                                     <p class="card-text">Erstelle jetzt dein eigenes Beerpong Turnier, ganz nach deinen Wünschen und Vorstellungen.</p>
@@ -190,9 +192,9 @@
                                         <div class="col-3">
                                             <div data-for="text" class="form-floating mb-3">
                                                 <select class="form-select" id="create_tour_ruleset">
-                                                    <option value="1">Standard</option>
-                                                    <option value="2">ESOBP</option>
-                                                    <option value="3">Individuell</option>
+                                                    <option value="Standard">Standard</option>
+                                                    <option value="ESOBP">ESOBP</option>
+                                                    <option value="Individuell">Individuell</option>
                                                 </select>
                                                 <label class="text-black" for="create_tour_ruleset">Regelwerk</label>
                                             </div>
@@ -212,13 +214,13 @@
                                 </div>
                             </div>
                         </div>
-                    <!-- Team Generator -->
+<!-- Team Generator -->
                     <div class="col-sm-6">
                         <div class="card display-4 bg-dark text-white me-1 w-auto h-100">
-                            <img src="../assets/images/card_header_3.jpg" class="card-img-top" alt="...">
+                            <img src="../assets/images/card_header_dice.jpg" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">Team Generator</h5>
-                                <p class="card-text">Erstelle schnell und einfach deine zufällig zusammengesetzten Teams.</p>
+                                <p class="card-text">Erstelle dir schnell und einfach zufällig zusammengesetzten Teams.</p>
                                 <div class="row" id="generator_1">
                                     <div class="col-6">
                                         <div data-for="text" class="input-group">
@@ -229,7 +231,7 @@
                                             <button class="btn btn-outline-light mt-0" type="submit" id="generator_playerAdd" style="height: calc(3.5rem + 2px);" onclick="gatherTeam()">+</button>
                                             <tr>
                                         </div>
-                                        <button class="btn-sm btn-primary mt-0" type="button" id="generator_generateTeam" onclick="generateTeams()">Generieren</button>
+                                        <a class="btn-sm btn-primary mbr-text" type="button" id="generator_generateTeam" onclick="generateTeams()">Generieren</a>
                                     </div>
                                     <div class="col-6">
                                         <div id="generator_alert_fail" hidden="hidden" data-form-alert-danger="" class="alert align-text-top alert-danger p-3" style="height: calc(3.5rem + 2px)">
@@ -342,16 +344,242 @@
                             col.-3
                         </div>
                     </div>
-
+<!-- Statisitk -->
                 </div>
                     <div style="display: none" id="statistik_div" class="container-fluid overflow-auto">
                         <p class="text-white">Statistik</p>
                     </div>
             </div>
+<!-- Turnieranlage Spielerauswahl -->
+                <div hidden id="tournament_player_div" class="container-fluid ps-0 dash-content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card display-4 bg-dark text-white me-1 w-auto h-100">
+                                <img src="../assets/images/card_header_team1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Teilnehmerauswahl</h5>
+                                    <p class="card-text">Wähle die Teilnehmer deines Turniers durch einen Klick in die Liste aus oder füge einen temporären Gastspieler über das Textfeld hinzu</p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div data-for="text" class="input-group">
+                                                <div class="form-floating text-black mb-3">
+                                                    <input type="text" name="generator_playerName" placeholder="Gastspieler" data-form-field="text" class="form-control" value="" id="tournament_guestName" onclick="document.getElementById('create_tour_guest_alert').hidden=true;" required>
+                                                    <label class="text-black" for="create_tour_name">Gastspieler</label>
+                                                </div>
+                                                <button class="btn btn-outline-light mt-0" type="submit" id="tournament_guestAdd" style="height: calc(3.5rem + 2px);" onclick="addGuestPlayer()">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div hidden id="create_tour_guest_alert" class="alert align-text-top alert-danger p-3 mb-3" style="height: calc(3.5rem + 2px)">
+                                                Gastname ist bereits vergeben!
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-floating text-black mb-3">
+                                        <input oninput="searchPlayer()" class="form-control text-black" name="tournament_playerSearch" id="tournament_playerSearch" placeholder="Spieler durchsuchen..." type="text"  data-form-field="text">
+                                        <label class="text-black" for="tournament_playerSearch">Spieler durchsuchen...</label>
+                                    </div>
+                                    <table class="table table-dark table-hover table-scroll" id="tournament_selectablePlayers">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Vorname</th>
+                                            <th scope="col">Nachname</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="searchablePlayerTable">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card display-4 bg-dark text-white me-1 w-auto h-100">
+                                <img src="../assets/images/card_header_team2.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Deine Teilnehmer Auswahl</h5>
+                                    <p class="card-text">Deine von dir ausgewählten Turnierteilnehmer.</p>
+                                    <div class="row mb-3">
+                                        <div class="col-10">
+                                            <div hidden id="create_tour_alert_tooManyPlayers" class="alert align-text-top alert-danger p-3 mb-3" style="height: calc(3.5rem + 2px)">
+                                                Du hast zu viele Spieler ausgewählt.
+                                            </div>
+                                            <div hidden id="create_tour_alert_tooLessPlayers" class="alert align-text-top alert-danger p-3 mb-3" style="height: calc(3.5rem + 2px)">
+                                                Du hast zu wenige Spieler ausgewählt.
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <span id="tournament_playerCounter" class="badge ms-5">n/A</span>
+                                        </div>
+                                    </div>
+                                    <table class="table table-dark table-hover" id="tournament_selectedPlayers">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Vorname</th>
+                                            <th scope="col">Nachname</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="selectedPlayerTable">
+                                        </tbody>
+                                    </table>
+                                        <div class="mt-4">
+                                            <a class="btn-sm btn-primary mbr-text" id="tournament_setPlayers" onclick="confirmPlayers()">Bestätigen</a>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+<!-- Turnieranlage Teamauswahl -->
+                <div hidden id="tournament_team_div" class="container-fluid ps-0 dash-content display-4">
+                    <div class="card display-4 bg-dark text-white me-1 w-auto h-100">
+                        <img src="../assets/images/card_header_teams.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <div class="text-white display-4">
+                                <h1>Deine Teams</h1>
+                                <p>Die Teams wurden zufällig zusammengesetzt. Du kannst die Paarungen jetzt individuell per Drag&Drop anpassen.</p>
+                            </div>
+                            <div hidden id="teams4" class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <ul id="sortable1" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team ALPHA</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player A</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player B</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable2" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team BRAVO</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player C</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player D</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable3" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team CHARLIE</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player E</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player F</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable4" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team DELTA</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player G</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player H</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div hidden id="teams8" class="mb-3">
+                                <div class="row">
+                                    <div class="col">
+                                        <ul id="sortable5" class="list-group connectedSortable ">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team ECHO</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player I</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player J</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable6" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team FOXTROT</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player K</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player L</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable7" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team GOLF</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player M</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player N</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable8" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team HOTEL</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player O</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player P</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div hidden id="teams16">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <ul id="sortable9" class="list-group connectedSortable ">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team INDIA</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player Q</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player R</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable10" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team JULIETT</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player S</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player T</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable11" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team KILO</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player U</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player V</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable12" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team LIMA</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player W</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player X</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <ul id="sortable13" class="list-group connectedSortable ">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team MIKE</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player Y</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player Z</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable14" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team NOVEMBER</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player AA</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player BB</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable15" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team OSCAR</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player CC</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player DD</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col">
+                                        <ul id="sortable16" class="list-group connectedSortable">
+                                            <span class="list-group-item bg-primary text-white fw-bold">Team PAPA</span>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player EE</li>
+                                            <li class="ui-state-default list-group-item list-group-item-dark">Player FF</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <a class="btn-sm btn-primary mbr-text" type="button" id="tournament_setTeams" onclick="createTournament()">Bestätigen</a>
+                            </div>
+                        </div>
+                    </div>
         </div>
     </div>
 </div>
 
+        <script>
+
+        </script>
 
 <section hidden
          style="background-color: #000000; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#000000; font-size:12px; padding: 0; align-items: center; display: flex;">
@@ -370,5 +598,7 @@
 
 <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;" href="#menu1-1r"><i
         class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
-</div></body>
+</div>
+</div>
+</body>
 </html>

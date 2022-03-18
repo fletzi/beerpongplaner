@@ -16,6 +16,16 @@ function json2array(json){
     return result;
 }
 
+//Moderne Version des Fisher–Yates shuffle
+//Mischt das Array aus Spielernamen
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a; //Gibt das gemischte Array zurück
+}
+
 /**
  * <h3>Validiert die Nutzereingaben der Login-Maske > login.html
  **/
@@ -74,14 +84,15 @@ function validateLogin() {
                 },
                 // statusCode: 200 - OK (Gesendeter Username und Passwort stimmen mit Datenbankeintrag überein)
                 success: function(data) {
-                    //Speichern des responseTexte in ein Array
-                    var arr = json2array(data);
-
+                    //Speichern des übergebenen Login Tokens
+                    var token = data.token;
                     //Speichern des im responseText übermittelten Authentifizierungstokens im sessionStorage
-                    sessionStorage.setItem("token", "Bearer "+arr[0]);
+                    sessionStorage.setItem("token", token);
                     //alert(sessionStorage.getItem("token"));
                     //Im sessionStorage Speichern, dass der Nutzer eingeloggt ist
                     sessionStorage.setItem("login", "true");
+                    //Speichern des Usernames des eingeloggten Users
+                    sessionStorage.setItem("username", username.value);
                     //Weiterleitung des Nutzers auf das Dashboard
                     window.location.href = "../pages/backend.html";
                 }
@@ -208,6 +219,7 @@ function validateRegister() {
  * @param {json} parsedJson json Dokument welches gesendet werden soll
  **/
 function ajaxPost(url, parsedJson) {
+    var token = sessionStorage.getItem("token");
     var statusCode = 0;
         //Senden der vom User eingetragenen Feldinhalte im json Format an den entsprechenden Endpunkt des Backends
         $.ajax(url, {
@@ -215,6 +227,8 @@ function ajaxPost(url, parsedJson) {
             type: "POST",
             data: parsedJson,
             dataType: "json",
+            //Sendet im Request Head den jeweiligen Authentifizierungstoken des eingeloggten Benutzers
+            headers: {Authorization: 'Bearer '+token},
             contentType: "application/json",
             //Behandlung der unterschiedlichen Status Codes, welche vom Backend als Antwort auf das Senden des json Dokumentes kommen
             statusCode: {
@@ -331,16 +345,6 @@ function generateTeams() {
 
     //Generieren von Teams macht erst ab 2 oder mehr Spielern Sinn
     if(arr.length >= 2) {
-        //Moderne Version des Fisher–Yates shuffle
-        //Mischt das Array aus Spielernamen
-        function shuffle(a) {
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
-            }
-            return a; //Gibt das gemischte Array zurück
-        }
-
         //Aufruf der Misch Funktion
         shuffle(arr);
         //Neues Array teamA wird mit dem Inhalt des gemischten Arrays (Inhalt von Stelle [0] bis zum Mittelpunkt) befüllt
@@ -406,9 +410,9 @@ function hideGeneratorAlert() {
     document.getElementById("generator_alert_fail").hidden=true;
 }
 //--> Ende Team Generator
-
+//<-- Start Turnieranlage
 /**
- * <h3> Validiert die Eingaben der Turnieranlage
+ * <h3> Validiert die Eingaben der Turnieranlage im Dashboard
  **/
 function validateTournament() {
     //Speichern der Date Validation Flag mit dem Wert false - "Das eingegeben Datum ist noch nicht validiert"
@@ -503,22 +507,534 @@ function validateTournament() {
             if(hh2 < hh ) {
                 //Einblenden des entsprechenden Alerts (Uhrzeit liegt in der Vergangenheit)
                 create_tour_alert_time.hidden = false;
-            //Wenn die eingegebene Stunde größer oder gleich der Aktuellen ist
-            } else if(hh2 >= hh) {
+            //Wenn die eingegebene Stunde größer als die Aktuelle ist
+            } else if(hh2 === hh) {
                 //Und wenn die eingegebene Minute kleiner ist als die Aktuelle
                 if(mm2 <= mm) {
                     //Einblenden des entsprechenden Alerts (Uhrzeit liegt in der Vergangenheit)
                     create_tour_alert_time.hidden = false;
                 //Ansonsten sind die eingegebenen Daten korrekt
                 } else {
-                    alert("Success");
+                    selectPlayerTournament();
                 }
+            } else if (hh2 > hh) {
+                selectPlayerTournament();
             }
         //Uhrzeit kann nicht in der Vergangenheit liegen und ist nicht leer - die eingegebenen Daten sind korrekt
         } else {
-            alert("Success");
+            selectPlayerTournament();
         }
     }
+}
+
+/**
+ * <h3>Blendet die Karten der Turnierteilnehmer auswahl ein und befüllt die Tabelle mit den verfügbaren Usern aus der Datenbank
+ **/
+function selectPlayerTournament() {
+    //Ausblenden der Dashboard Karten
+    document.getElementById("dashboard_div").hidden=true;
+    //Einblenden der Karten für die Auswahl der Turnierteilnehmer
+    document.getElementById("tournament_player_div").hidden=false;
+    //Einfügen aller als Teilnehmer möglichen User aus der Datenbank in die Tabelle der Teilnehmerauswahl
+    getAllUsers();
+    //Initialisiert die Anzeige der Anzahl an ausgewählten Spielern
+    countSelectedPlayers();
+}
+
+/**
+ * <h3>Fügt alle User der Datenbank der Tabelle aller als Turnierteilnehmer zur wahlstehenden User hinzu
+ **/
+function getAllUsers() {
+    //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+    $(document).ready(function() {
+
+        //Speichern des im sessionStorage gespeichertem tokens in der Variable token
+        var token = sessionStorage.getItem("token");
+
+        //Abfragen aller User welche in der Datenbank vorhanden sind
+        $.ajax({
+            type: "GET",
+            async: false,
+            url: 'http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/user',
+            dataType: 'json',
+            //Sendet im Request Head den jeweiligen Authentifizierungstoken des eingeloggten Benutzers
+            headers: {Authorization: 'Bearer '+token},
+            // statusCode: 200 - OK (Gesendeter Username und Passwort stimmen mit Datenbankeintrag überein)
+            success: function(response) {
+                $(function() {
+                    //Funktion Looped durch jedes JSON object literal
+                    $.each(response, function(i, item) {
+                        //Für jedes JSON object literal wird eine neue table-row angelegt
+                        var $tr = $('<tr>').append(
+                            //Die table-row besteht aus dem table-head - Username
+                            $('<th>').text(item.username),
+                            //Und den table-data-cells - Firstname & Lastname
+                            $('<td>').text(item.firstName),
+                            $('<td>').text(item.lastName)
+                        //Dies soll in der Tabelle mit der ID: searchablePlayerTable passieren
+                        ).appendTo('#searchablePlayerTable');
+                    });
+                });
+            },
+            //Ausgabe der unterschiedlichen Error Codes, welche vom Backend als Antwort auf die GET Request kommen
+            error: function (xhr) {
+                alert(xhr.status);
+            }
+        });
+    });
+}
+
+/**
+ * <h3> Blendet alle Tabellenzeilen aus, welche nicht mit dem, in das Spieler-Suchfeld der Turnieranlage, eingegebenem Inhalt übereinstimmen
+ **/
+function searchPlayer() {
+    //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+    $(document).ready(function(){
+        //Sobald der User eine Taste auf der Tastatur los lässt
+        $("#tournament_playerSearch").on("keyup", function() {
+            //Speichern des Suchfeldinhaltes
+            var value = $(this).val().toLowerCase();
+            //Filtern nach Tabellenzeilen mit Inhalt der mit dem Inhalt des Suchfeldes übereinstimmt
+            $("#searchablePlayerTable tr").filter(function() {
+                //Ausblenden aller Tabellenzeilen ohne übereinstimmenden Inhalt
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+}
+
+/**
+ * <h3> Wechselt angeklickte Tabellenzeilen zwischen der Tabelle aus verfügbaren Nutzern und der Tabelle aus bereits ausgewählten Nutzern
+ **/
+$(document).ready(function () {
+    $('tbody').on('click','tr',function(){
+        myParent=$(this).closest('table').attr('id');
+        if(myParent === "tournament_selectablePlayers") $('#tournament_selectedPlayers tbody').append('<tr>'+$(this).html()+'</tr>');
+        else $('#tournament_selectablePlayers tbody').append('<tr>'+$(this).html()+'</tr>');
+        $(this).remove();
+        countSelectedPlayers();
+        var tooManyPlayersAlert = document.getElementById("create_tour_alert_tooManyPlayers");
+        var tooLessPlayersAlert = document.getElementById("create_tour_alert_tooLessPlayers");
+        tooManyPlayersAlert.hidden=true;
+        tooLessPlayersAlert.hidden=true;
+    })
+});
+
+
+function countSelectedPlayers() {
+    var requiredPlayers = document.getElementById("create_tour_size").value * 2;
+    var playerCounter = document.getElementById("tournament_playerCounter");
+    var rowCount = $('#tournament_selectedPlayers >tbody >tr').length;
+
+    if (rowCount > requiredPlayers) {
+        playerCounter.style.backgroundColor="#f73f52";
+    } else if (rowCount === requiredPlayers) {
+        playerCounter.style.backgroundColor="#37c46b";
+    } else if (rowCount < requiredPlayers) {
+        playerCounter.style.backgroundColor="#545454";
+    }
+
+    playerCounter.innerHTML = rowCount+'/'+requiredPlayers;
+}
+
+/**
+ * <h3>Fügt der Liste an ausgewählten Spieler, basierend auf dem vom User eingegebenen Gastspielernamen, einen weiteren Eintrag hinzu.
+ **/
+function addGuestPlayer() {
+    var guestName = document.getElementById("tournament_guestName");
+    //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+    $(document).ready(function() {
+        //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+        var parsedJson = JSON.stringify({username: guestName.value+' (Gast)', firstName: "Gastspieler", lastName: "Gastspieler", password: "gast", guestUser: true});
+
+        //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+        var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/auth/register', parsedJson);
+
+        //Verhalten je nach rückgemeldetem statusCode des Backends
+        switch (statusCode) {
+            // 200 = OK
+            case 200:
+                //Gast User darf in Tabelle angelegt werden da Registrierung erfolgreich
+                addGuestPlayerTooTable();
+                break;
+            // 400 = Bad Request
+            case 400:
+                //Einblenden des entsprechenden Alerts
+                document.getElementById("create_tour_guest_alert").hidden=false;
+                //Leeren des Gastnamenfeldes
+                guestName.value="";
+                break;
+            // Andere Status Codes werden von der Funktion nicht erwartet
+            default:
+                alert("Unerwarteter Fehler");
+        }
+    });
+}
+
+function addGuestPlayerTooTable() {
+    $(document).ready(function() {
+        //Speichern des Textfeldes zur Eingabe eines Gastnamens in einer Variable
+        var guestName = document.getElementById("tournament_guestName");
+        $(function() {
+            //Für den eingegeben Gastnamen wird eine neue table-row angelegt
+            var $tr = $('<tr>').append(
+                //Die table-row besteht aus dem table-head - Username
+                $('<th>').text(guestName.value+' (Gast)'),
+                //Und den table-data-cells - Firstname & Lastname
+                $('<td>').text("Gastspieler"),
+                $('<td>').text("Gastspieler")
+                //Dies soll in der Tabelle mit der ID: selectedPlayerTable passieren
+            ).appendTo('#selectedPlayerTable');
+            //Leeren des Textfeldes zur Eingabe eines weiteren Gastnamens
+            guestName.value="";
+            //Aktualisierung der Anzahl an ausgewählten Spielern
+            countSelectedPlayers();
+        });
+    });
+}
+
+/**
+ * <h3> Überprüft ob, die ausgewählte Spieleranzahl mit der Anzahl benötigter Spieler mit der Anzahl benötigter Spieler der entsprechenden Turniergröße übereinstimmt
+ **/
+function confirmPlayers() {
+    var requiredPlayers = document.getElementById("create_tour_size").value * 2;
+    var rowCount = $('#tournament_selectedPlayers >tbody >tr').length;
+    var tooManyPlayersAlert = document.getElementById("create_tour_alert_tooManyPlayers");
+    var tooLessPlayersAlert = document.getElementById("create_tour_alert_tooLessPlayers");
+
+    tooManyPlayersAlert.hidden=true;
+    tooLessPlayersAlert.hidden=true;
+
+    if (requiredPlayers === rowCount) {
+        document.getElementById("tournament_player_div").hidden=true;
+        document.getElementById("tournament_team_div").hidden=false;
+        loadTeams();
+    } else if (requiredPlayers >= rowCount) {
+        tooLessPlayersAlert.hidden=false;
+    } else if (requiredPlayers <= rowCount) {
+        tooManyPlayersAlert.hidden=false;
+    }
+}
+
+function loadTeams() {
+    var tournamentSize = document.getElementById("create_tour_size").value;
+    var teams4 = document.getElementById("teams4");
+    var teams8 = document.getElementById("teams8");
+    var teams16 = document.getElementById("teams16");
+    var username = [];
+
+    if (tournamentSize === "4") {
+        teams4.hidden=false;
+
+        $('#selectedPlayerTable > tr  > th').each(function(index, th) {
+            username.push(th.innerHTML);
+            });
+
+        shuffle(username);
+
+        $('#teams4 > div > div > ul  > li').each(function(index, li) {
+            li.innerHTML=username[index];
+        });
+
+    }
+
+    if (tournamentSize === "8") {
+        teams4.hidden=false;
+        teams8.hidden=false;
+
+        $('#selectedPlayerTable > tr  > th').each(function(index, th) {
+            username.push(th.innerHTML);
+        });
+
+        shuffle(username);
+
+        $('#teams4 > div > div > ul  > li').each(function(index, li) {
+            li.innerHTML=username[index];
+        });
+
+        $('#teams8 > div > div > ul  > li').each(function(index, li) {
+            li.innerHTML=username[index+8];
+        });
+
+    }
+
+    if (tournamentSize === "16") {
+        teams4.hidden=false;
+        teams8.hidden=false;
+        teams16.hidden=false;
+
+        $('#selectedPlayerTable > tr  > th').each(function(index, th) {
+            username.push(th.innerHTML);
+        });
+
+        shuffle(username);
+
+        $('#teams4 > div > div > ul  > li').each(function(index, li) {
+            li.innerHTML=username[index];
+        });
+
+        $('#teams8 > div > div > ul  > li').each(function(index, li) {
+            li.innerHTML=username[index+8];
+        });
+
+        $('#teams16 > div > div > ul  > li').each(function(index, li) {
+            li.innerHTML=username[index+16];
+        });
+
+    }
+}
+
+function createTournament() {
+    var tournamentName = document.getElementById("create_tour_name").value;
+    var ruleSet = document.getElementById("create_tour_ruleset").value;
+    var tournamentSize = parseInt(document.getElementById("create_tour_size").value);
+    var dateReformat = document.getElementById("create_tour_date").value.split("-");
+    var startDate = dateReformat[2]+"."+dateReformat[1]+"."+dateReformat[0];
+    var startTime = document.getElementById("create_tour_time").value;
+    var tournamentOwner = sessionStorage.getItem("username");
+    var teamList = [];
+    var teamNames = ["Team ALPHA", "Team BRAVO", "Team CHARLIE", "Team DELTA", "Team ECHO", "Team FOXTROT", "Team GOLF", "Team HOTEL", "Team INDIA", "Team JULIETT", "Team KILO", "Team LIMA", "Team MIKE", "Team NOVEMBER", "Team OSCAR", "Team PAPA"];
+    var parsedJson;
+
+
+    if (tournamentSize === 4) {
+        $('#teams4 > div > div > ul  > li').each(function(index, li) {
+                teamList.push(li.innerHTML);
+        });
+
+        parsedJson = JSON.stringify({
+            tournamentName: tournamentName,
+            teamList: [
+                {
+                    teamName: teamNames[0],
+                    player1: teamList[0],
+                    player2: teamList[1],
+                },
+                {
+                    teamName: teamNames[1],
+                    player1: teamList[2],
+                    player2: teamList[3],
+                },
+                {
+                    teamName: teamNames[2],
+                    player1: teamList[4],
+                    player2: teamList[5],
+                },
+                {
+                    teamName: teamNames[3],
+                    player1: teamList[6],
+                    player2: teamList[7],
+                }
+            ],
+            ruleSet: ruleSet,
+            tournamentSize: tournamentSize,
+            randomMatchmaking: true,
+            startDate: startDate,
+            startTime: startTime,
+            tournamentOwner: {
+                username: tournamentOwner
+            }
+        });
+
+    }
+
+    if (tournamentSize === 8) {
+        $('#teams4 > div > div > ul  > li').each(function(index, li) {
+            teamList.push(li.innerHTML);
+        });
+        $('#teams8 > div > div > ul  > li').each(function(index, li) {
+            teamList.push(li.innerHTML);
+        });
+
+        parsedJson = JSON.stringify({
+            tournamentName: tournamentName,
+            teamList: [
+                {
+                    teamName: teamNames[0],
+                    player1: teamList[0],
+                    player2: teamList[1],
+                },
+                {
+                    teamName: teamNames[1],
+                    player1: teamList[2],
+                    player2: teamList[3],
+                },
+                {
+                    teamName: teamNames[2],
+                    player1: teamList[4],
+                    player2: teamList[5],
+                },
+                {
+                    teamName: teamNames[3],
+                    player1: teamList[6],
+                    player2: teamList[7],
+                },
+                {
+                    teamName: teamNames[4],
+                    player1: teamList[8],
+                    player2: teamList[9],
+                },
+                {
+                    teamName: teamNames[5],
+                    player1: teamList[10],
+                    player2: teamList[11],
+                },
+                {
+                    teamName: teamNames[6],
+                    player1: teamList[12],
+                    player2: teamList[13],
+                },
+                {
+                    teamName: teamNames[7],
+                    player1: teamList[14],
+                    player2: teamList[15],
+                }
+            ],
+            ruleSet: ruleSet,
+            tournamentSize: tournamentSize,
+            randomMatchmaking: true,
+            startDate: startDate,
+            startTime: startTime,
+            tournamentOwner: {
+                username: tournamentOwner
+            }
+        });
+
+    }
+
+    if (tournamentSize === 16) {
+        $('#teams4 > div > div > ul  > li').each(function(index, li) {
+            teamList.push(li.innerHTML);
+        });
+        $('#teams8 > div > div > ul  > li').each(function(index, li) {
+            teamList.push(li.innerHTML);
+        });
+        $('#teams16 > div > div > ul  > li').each(function(index, li) {
+            teamList.push(li.innerHTML);
+        });
+
+        parsedJson = JSON.stringify({
+            tournamentName: tournamentName,
+            teamList: [
+                {
+                    teamName: teamNames[0],
+                    player1: teamList[0],
+                    player2: teamList[1],
+                },
+                {
+                    teamName: teamNames[1],
+                    player1: teamList[2],
+                    player2: teamList[3],
+                },
+                {
+                    teamName: teamNames[2],
+                    player1: teamList[4],
+                    player2: teamList[5],
+                },
+                {
+                    teamName: teamNames[3],
+                    player1: teamList[6],
+                    player2: teamList[7],
+                },
+                {
+                    teamName: teamNames[4],
+                    player1: teamList[8],
+                    player2: teamList[9],
+                },
+                {
+                    teamName: teamNames[5],
+                    player1: teamList[10],
+                    player2: teamList[11],
+                },
+                {
+                    teamName: teamNames[6],
+                    player1: teamList[12],
+                    player2: teamList[13],
+                },
+                {
+                    teamName: teamNames[7],
+                    player1: teamList[14],
+                    player2: teamList[15],
+                },
+                {
+                    teamName: teamNames[8],
+                    player1: teamList[16],
+                    player2: teamList[17],
+                },
+                {
+                    teamName: teamNames[9],
+                    player1: teamList[18],
+                    player2: teamList[19],
+                },
+                {
+                    teamName: teamNames[10],
+                    player1: teamList[20],
+                    player2: teamList[21],
+                },
+                {
+                    teamName: teamNames[11],
+                    player1: teamList[22],
+                    player2: teamList[23],
+                },
+                {
+                    teamName: teamNames[12],
+                    player1: teamList[24],
+                    player2: teamList[25],
+                },
+                {
+                    teamName: teamNames[13],
+                    player1: teamList[26],
+                    player2: teamList[27],
+                },
+                {
+                    teamName: teamNames[14],
+                    player1: teamList[28],
+                    player2: teamList[29],
+                },
+                {
+                    teamName: teamNames[15],
+                    player1: teamList[30],
+                    player2: teamList[31],
+                }
+            ],
+            ruleSet: ruleSet,
+            tournamentSize: tournamentSize,
+            randomMatchmaking: true,
+            startDate: startDate,
+            startTime: startTime,
+            tournamentOwner: {
+                username: tournamentOwner
+            }
+        });
+
+    }
+
+    $(document).ready(function() {
+
+        //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+        var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament', parsedJson);
+
+        //Verhalten je nach rückgemeldetem statusCode des Backends
+        switch (statusCode) {
+            // 200 = OK
+            case 200:
+                //Turnieranlage war erfolgreich
+                alert("Turnier angelegt!")
+                //---> Turnierbaum
+                break;
+            // 400 = Bad Request
+            case 403:
+                //Authentifizierung fehlgeschlagen - vermutl. Token abgelaufen
+                alert("Authentifizierung fehlgeschlagen. Melden Sie sich neu an!")
+                break;
+            // Andere Status Codes werden von der Funktion nicht erwartet
+            default:
+                alert("Unerwarteter Fehler");
+        }
+    });
+
+
+
 }
 
 /**
@@ -526,6 +1042,8 @@ function validateTournament() {
  **/
 function show_tournaments() {
     document.getElementById("dashboard_div").hidden=true;
+    document.getElementById("tournament_player_div").hidden=true;
+    document.getElementById("tournament_team_div").hidden=true;
     document.getElementById("tournament_tree_div").style.display="block";
     document.getElementById("statistik_div").style.display="none";
     document.getElementById("btn_tournaments").classList.add("active", "bg-primary");
@@ -541,6 +1059,8 @@ function show_tournaments() {
  **/
 function show_dashboard() {
     document.getElementById("dashboard_div").hidden=false;
+    document.getElementById("tournament_player_div").hidden=true;
+    document.getElementById("tournament_team_div").hidden=true;
     document.getElementById("tournament_tree_div").style.display="none";
     document.getElementById("statistik_div").style.display="none";
     document.getElementById("btn_dashboard").classList.add("active", "bg-primary");
@@ -556,6 +1076,8 @@ function show_dashboard() {
  **/
 function show_statistik() {
     document.getElementById("dashboard_div").hidden=true;
+    document.getElementById("tournament_player_div").hidden=true;
+    document.getElementById("tournament_team_div").hidden=true;
     document.getElementById("tournament_tree_div").style.display="none";
     document.getElementById("statistik_div").style.display="block";
     document.getElementById("btn_statistik").classList.add("active", "bg-primary");
@@ -565,3 +1087,52 @@ function show_statistik() {
     document.getElementById("btn_dashboard").classList.remove("active", "bg-primary");
     document.getElementById("btn_dashboard").classList.add("nav-link", "text-white");
 }
+
+/**
+ * <h3>Drag & Drop
+ **/
+$(document).ready(function () {
+    var tableIDs = "#sortable1 li, #sortable2 li, #sortable3 li, #sortable4 li, #sortable5 li, #sortable6 li, #sortable7 li, #sortable8 li, #sortable9 li, #sortable10 li, #sortable11 li, #sortable12 li, #sortable13 li, #sortable14 li, #sortable15 li, #sortable16 li";
+    $(function() {
+        $(tableIDs).draggable({
+            zIndex: 2,
+            appendTo: "body",
+        });
+
+        initDroppable($(tableIDs));
+
+        initSwap();
+        function initSwap() {
+            initDroppable($(tableIDs));
+            initDraggable($(tableIDs));
+        }
+        function initDraggable($elements) {
+            $elements.draggable({
+                zIndex: 2,
+                appendTo: "body",
+                helper: "clone",
+                start: function(e, ui) {
+                    $(ui.helper).addClass("clone text-white display-4");
+                },
+                cursorAt: { left:25, top:0 }
+            });
+        }
+        function initDroppable($elements) {
+            $elements.droppable({
+                activeClass: "active-tile",
+                hoverClass: "hover-tile",
+                over: function(event, ui) {
+                    var $this = $(this);
+                },
+                drop: function(event, ui) {
+                    var $this = $(this);
+                    var linew1 = $(this).after(ui.draggable.clone());
+                    var linew2 = $(ui.draggable).after($(this).clone());
+                    $(ui.draggable).remove();
+                    $(this).remove();
+                    initSwap();
+                }
+            });
+        }
+    });
+});
