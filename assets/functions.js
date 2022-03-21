@@ -1,3 +1,8 @@
+
+$.ajaxSetup({
+    timeout: 0
+});
+
 /**
  * <h3>Speichert alle values eines json Dokuments in einem Array
  * @param {json} json Dokument dessen values in Array gespeichert werden sollen
@@ -578,7 +583,7 @@ function getAllUsers() {
             },
             //Ausgabe der unterschiedlichen Error Codes, welche vom Backend als Antwort auf die GET Request kommen
             error: function (xhr) {
-                alert(xhr.status);
+                alert(xhr.status+" - "+xhr.responseText);
             }
         });
     });
@@ -793,7 +798,7 @@ function createTournament() {
     var startTime = document.getElementById("create_tour_time").value;
     var tournamentOwner = sessionStorage.getItem("username");
     var teamList = [];
-    var teamNames = ["Team ALPHA", "Team BRAVO", "Team CHARLIE", "Team DELTA", "Team ECHO", "Team FOXTROT", "Team GOLF", "Team HOTEL", "Team INDIA", "Team JULIETT", "Team KILO", "Team LIMA", "Team MIKE", "Team NOVEMBER", "Team OSCAR", "Team PAPA"];
+    var teamNames = ["ALPHA", "BRAVO", "CHARLIE", "DELTA", "ECHO", "FOXTROT", "GOLF", "HOTEL", "INDIA", "JULIETT", "KILO", "LIMA", "MIKE", "NOVEMBER", "OSCAR", "PAPA"];
     var parsedJson;
 
 
@@ -831,9 +836,7 @@ function createTournament() {
             randomMatchmaking: true,
             startDate: startDate,
             startTime: startTime,
-            tournamentOwner: {
-                username: tournamentOwner
-            }
+            tournamentOwner: tournamentOwner
         });
 
     }
@@ -895,9 +898,7 @@ function createTournament() {
             randomMatchmaking: true,
             startDate: startDate,
             startTime: startTime,
-            tournamentOwner: {
-                username: tournamentOwner
-            }
+            tournamentOwner: tournamentOwner
         });
 
     }
@@ -1002,9 +1003,7 @@ function createTournament() {
             randomMatchmaking: true,
             startDate: startDate,
             startTime: startTime,
-            tournamentOwner: {
-                username: tournamentOwner
-            }
+            tournamentOwner: tournamentOwner
         });
 
     }
@@ -1019,8 +1018,7 @@ function createTournament() {
             // 200 = OK
             case 200:
                 //Turnieranlage war erfolgreich
-                alert("Turnier angelegt!")
-                //---> Turnierbaum
+                loadTournament(tournamentName);
                 break;
             // 400 = Bad Request
             case 403:
@@ -1037,14 +1035,876 @@ function createTournament() {
 
 }
 
+function loadTournament(tournamentName) {
+    //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+    $(document).ready(function() {
+
+        //Speichern des im sessionStorage gespeichertem Tokens und des Usernamens in Variablen
+        var token = sessionStorage.getItem("token");
+
+        //Abfragen der für den User gespeicherten Daten
+        $.ajax({
+            type: "GET",
+            url: 'http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/'+tournamentName,
+            dataType: 'json',
+            //Sendet im Request Head den jeweiligen Authentifizierungstoken des eingeloggten Benutzers
+            headers: {Authorization: 'Bearer '+token},
+            // statusCode: 200 - OK (Gesendeter Username und Passwort stimmen mit Datenbankeintrag überein)
+            success: function(response) {
+                $(function() {
+                    drawTournament(response["tournamentSize"]);
+                    console.log(JSON.stringify(response));
+
+                    //Turnier Informationen
+                    $("#tour_name").text(response["tournamentName"]);
+                    $("#tour_rule").text("Regelwerk: "+response["ruleSet"]);
+                    $("#tour_size").text("Teams: "+response["tournamentSize"]);
+                    $("#tour_date").text(response["startDate"]);
+                    $("#tour_time").text("Start: "+response["startTime"]+" Uhr");
+                    $("#tour_owner").text("Erstellt von: "+response["tournamentOwner"]);
+
+                    //Match1
+                    $("#m1_t1").text(response["tournamentMatches"][0]["opponents"][0]["teamName"]); //Teamname A
+                    $("#m1_t1_p1").text(response["tournamentMatches"][0]["opponents"][0]["player1"]); //Spielername 1
+                    $("#m1_t1_p2").text(response["tournamentMatches"][0]["opponents"][0]["player2"]); //Spielername 2
+
+                    $("#m1_t2").text(response["tournamentMatches"][0]["opponents"][1]["teamName"]); //Teamname B
+                    $("#m1_t2_p1").text(response["tournamentMatches"][0]["opponents"][1]["player1"]); //Spielername 1
+                    $("#m1_t2_p2").text(response["tournamentMatches"][0]["opponents"][1]["player2"]); //Spielername 2
+
+                    //Match2
+                    $("#m2_t1").text(response["tournamentMatches"][1]["opponents"][0]["teamName"]); //Teamname A
+                    $("#m2_t1_p1").text(response["tournamentMatches"][1]["opponents"][0]["player1"]); //Spielername 1
+                    $("#m2_t1_p2").text(response["tournamentMatches"][1]["opponents"][0]["player2"]); //Spielername 2
+
+                    $("#m2_t2").text(response["tournamentMatches"][1]["opponents"][1]["teamName"]); //Teamname B
+                    $("#m2_t2_p1").text(response["tournamentMatches"][1]["opponents"][1]["player1"]); //Spielername 1
+                    $("#m2_t2_p2").text(response["tournamentMatches"][1]["opponents"][1]["player2"]); //Spielername 2
+
+                    if (response["tournamentSize"] === 4) {
+
+                        //Falls Vorrunde abgeschlossen
+                        if($('#stage1_close > div').html() === "Abgeschlossen") {
+                            //Match9 (3)
+                            $("#m9_t1").text(response["tournamentMatches"][2]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m9_t1_p1").text(response["tournamentMatches"][2]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m9_t1_p2").text(response["tournamentMatches"][2]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m9_t2").text(response["tournamentMatches"][2]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m9_t2_p1").text(response["tournamentMatches"][2]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m9_t2_p2").text(response["tournamentMatches"][2]["opponents"][1]["player2"]); //Spielername 2
+                        }
+
+                        //Falls Finale abgeschlossen
+                        if($('#stage2_close > div').html() === "Abgeschlossen") {
+                            $('#tour_name').text("Abgeschlossen: "+response["tournamentName"]);
+                            document.getElementById("tour_winner_team").hidden=false;
+                            $('#tour_winner_team > span').text("Turniergewinner - "+response["winnerTeam"]["teamName"]+": "+response["winnerTeam"]["player1"]+" & "+response["winnerTeam"]["player2"]);
+                        }
+
+                        $("#stage2_name > div").text("Finale");
+                        $("#stage1_close").removeAttr('hidden');
+                        $("#stage2_close").removeAttr('hidden');
+                    }
+
+
+
+
+                    if(response["tournamentSize"] === 8) {
+
+                        //Falls Vorrunde abgeschlossen
+                        if($('#stage1_close > div').html() === "Abgeschlossen") {
+                            //Match9 (5)
+                            $("#m9_t1").text(response["tournamentMatches"][4]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m9_t1_p1").text(response["tournamentMatches"][4]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m9_t1_p2").text(response["tournamentMatches"][4]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m9_t2").text(response["tournamentMatches"][4]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m9_t2_p1").text(response["tournamentMatches"][4]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m9_t2_p2").text(response["tournamentMatches"][4]["opponents"][1]["player2"]); //Spielername 2
+
+                            //Match10 (6)
+                            $("#m10_t1").text(response["tournamentMatches"][5]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m10_t1_p1").text(response["tournamentMatches"][5]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m10_t1_p2").text(response["tournamentMatches"][5]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m10_t2").text(response["tournamentMatches"][5]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m10_t2_p1").text(response["tournamentMatches"][5]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m10_t2_p2").text(response["tournamentMatches"][5]["opponents"][1]["player2"]); //Spielername 2
+                        }
+
+                        //Falls Halbfinale abgeschlossen
+                        if($('#stage2_close > div').html() === "Abgeschlossen") {
+                            //Match9 (13)
+                            $("#m13_t1").text(response["tournamentMatches"][6]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m13_t1_p1").text(response["tournamentMatches"][6]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m13_t1_p2").text(response["tournamentMatches"][6]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m13_t2").text(response["tournamentMatches"][6]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m13_t2_p1").text(response["tournamentMatches"][6]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m13_t2_p2").text(response["tournamentMatches"][6]["opponents"][1]["player2"]); //Spielername 2
+                        }
+
+                        //Falls Finale abgeschlossen
+                        if($('#stage3_close > div').html() === "Abgeschlossen") {
+                            $('#tour_name').text("Abgeschlossen: "+response["tournamentName"]);
+                            document.getElementById("tour_winner_team").hidden=false;
+                            $('#tour_winner_team > span').text("Turniergewinner - "+response["winnerTeam"]["teamName"]+": "+response["winnerTeam"]["player1"]+" & "+response["winnerTeam"]["player2"]);
+                        }
+
+                        //Match3
+                        $("#m3_t1").text(response["tournamentMatches"][2]["opponents"][0]["teamName"]); //Teamname A
+                        $("#m3_t1_p1").text(response["tournamentMatches"][2]["opponents"][0]["player1"]); //Spielername 1
+                        $("#m3_t1_p2").text(response["tournamentMatches"][2]["opponents"][0]["player2"]); //Spielername 2
+
+                        $("#m3_t2").text(response["tournamentMatches"][2]["opponents"][1]["teamName"]); //Teamname B
+                        $("#m3_t2_p1").text(response["tournamentMatches"][2]["opponents"][1]["player1"]); //Spielername 1
+                        $("#m3_t2_p2").text(response["tournamentMatches"][2]["opponents"][1]["player2"]); //Spielername 2
+
+                        //Match4
+                        $("#m4_t1").text(response["tournamentMatches"][3]["opponents"][0]["teamName"]); //Teamname A
+                        $("#m4_t1_p1").text(response["tournamentMatches"][3]["opponents"][0]["player1"]); //Spielername 1
+                        $("#m4_t1_p2").text(response["tournamentMatches"][3]["opponents"][0]["player2"]); //Spielername 2
+
+                        $("#m4_t2").text(response["tournamentMatches"][3]["opponents"][1]["teamName"]); //Teamname B
+                        $("#m4_t2_p1").text(response["tournamentMatches"][3]["opponents"][1]["player1"]); //Spielername 1
+                        $("#m4_t2_p2").text(response["tournamentMatches"][3]["opponents"][1]["player2"]); //Spielername 2
+
+
+                        $("#stage2_name > div").text("Halbfinale");
+                        $("#tree_row2 .card-header").text("Match #5");
+                        $("#tree_row6 .card-header").text("Match #6");
+                        $("#stage3_name").removeAttr('hidden');
+                        $("#stage3_name > div").text("Finale");
+                        $("#stage1_close").removeAttr('hidden');
+                        $("#stage2_close").removeAttr('hidden');
+                        $("#stage3_close").removeAttr('hidden');
+
+                    }
+
+                    if(response["tournamentSize"] === 16) {
+
+                        $("#m13_t1").text("Sieger Viertelfinale");
+                        $("#m13_t2").text("Sieger Viertelfinale");
+
+                        //Falls Vorrunde abgeschlossen
+                        if($('#stage1_close > div').html() === "Abgeschlossen") {
+                            //Match9
+                            $("#m9_t1").text(response["tournamentMatches"][8]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m9_t1_p1").text(response["tournamentMatches"][8]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m9_t1_p2").text(response["tournamentMatches"][8]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m9_t2").text(response["tournamentMatches"][8]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m9_t2_p1").text(response["tournamentMatches"][8]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m9_t2_p2").text(response["tournamentMatches"][8]["opponents"][1]["player2"]); //Spielername 2
+
+                            //Match10
+                            $("#m10_t1").text(response["tournamentMatches"][9]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m10_t1_p1").text(response["tournamentMatches"][9]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m10_t1_p2").text(response["tournamentMatches"][9]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m10_t2").text(response["tournamentMatches"][9]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m10_t2_p1").text(response["tournamentMatches"][9]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m10_t2_p2").text(response["tournamentMatches"][9]["opponents"][1]["player2"]); //Spielername 2
+
+                            //Match11
+                            $("#m11_t1").text(response["tournamentMatches"][10]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m11_t1_p1").text(response["tournamentMatches"][10]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m11_t1_p2").text(response["tournamentMatches"][10]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m11_t2").text(response["tournamentMatches"][10]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m11_t2_p1").text(response["tournamentMatches"][10]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m11_t2_p2").text(response["tournamentMatches"][10]["opponents"][1]["player2"]); //Spielername 2
+
+                            //Match12
+                            $("#m12_t1").text(response["tournamentMatches"][11]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m12_t1_p1").text(response["tournamentMatches"][11]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m12_t1_p2").text(response["tournamentMatches"][11]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m12_t2").text(response["tournamentMatches"][11]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m12_t2_p1").text(response["tournamentMatches"][11]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m12_t2_p2").text(response["tournamentMatches"][11]["opponents"][1]["player2"]); //Spielername 2
+                        }
+
+                        //Falls Viertelfinale abgeschlossen
+                        if($('#stage2_close > div').html() === "Abgeschlossen") {
+                            //Match 13
+                            $("#m13_t1").text(response["tournamentMatches"][12]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m13_t1_p1").text(response["tournamentMatches"][12]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m13_t1_p2").text(response["tournamentMatches"][12]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m13_t2").text(response["tournamentMatches"][12]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m13_t2_p1").text(response["tournamentMatches"][12]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m13_t2_p2").text(response["tournamentMatches"][12]["opponents"][1]["player2"]); //Spielername 2
+
+                            //Match 14
+                            $("#m14_t1").text(response["tournamentMatches"][13]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m14_t1_p1").text(response["tournamentMatches"][13]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m14_t1_p2").text(response["tournamentMatches"][13]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m14_t2").text(response["tournamentMatches"][13]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m14_t2_p1").text(response["tournamentMatches"][13]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m14_t2_p2").text(response["tournamentMatches"][13]["opponents"][1]["player2"]); //Spielername 2
+                        }
+
+                        //Falls Halbfinale abgeschlossen
+                        if($('#stage3_close > div').html() === "Abgeschlossen") {
+                            //Match15
+                            $("#m15_t1").text(response["tournamentMatches"][14]["opponents"][0]["teamName"]); //Teamname A
+                            $("#m15_t1_p1").text(response["tournamentMatches"][14]["opponents"][0]["player1"]); //Spielername 1
+                            $("#m15_t1_p2").text(response["tournamentMatches"][14]["opponents"][0]["player2"]); //Spielername 2
+
+                            $("#m15_t2").text(response["tournamentMatches"][14]["opponents"][1]["teamName"]); //Teamname B
+                            $("#m15_t2_p1").text(response["tournamentMatches"][14]["opponents"][1]["player1"]); //Spielername 1
+                            $("#m15_t2_p2").text(response["tournamentMatches"][14]["opponents"][1]["player2"]); //Spielername 2
+                        }
+
+                        //Falls Finale abgeschlossen
+                        if($('#stage4_close > div').html() === "Abgeschlossen") {
+                            $('#tour_name').text("Abgeschlossen: "+response["tournamentName"]);
+                            document.getElementById("tour_winner_team").hidden=false;
+                            $('#tour_winner_team > span').text("Turniergewinner - "+response["winnerTeam"]["teamName"]+": "+response["winnerTeam"]["player1"]+" & "+response["winnerTeam"]["player2"]);
+                        }
+
+                        //Match3
+                        $("#m3_t1").text(response["tournamentMatches"][2]["opponents"][0]["teamName"]); //Teamname A
+                        $("#m3_t1_p1").text(response["tournamentMatches"][2]["opponents"][0]["player1"]); //Spielername 1
+                        $("#m3_t1_p2").text(response["tournamentMatches"][2]["opponents"][0]["player2"]); //Spielername 2
+
+                        $("#m3_t2").text(response["tournamentMatches"][2]["opponents"][1]["teamName"]); //Teamname B
+                        $("#m3_t2_p1").text(response["tournamentMatches"][2]["opponents"][1]["player1"]); //Spielername 1
+                        $("#m3_t2_p2").text(response["tournamentMatches"][2]["opponents"][1]["player2"]); //Spielername 2
+
+                        //Match4
+                        $("#m4_t1").text(response["tournamentMatches"][3]["opponents"][0]["teamName"]); //Teamname A
+                        $("#m4_t1_p1").text(response["tournamentMatches"][3]["opponents"][0]["player1"]); //Spielername 1
+                        $("#m4_t1_p2").text(response["tournamentMatches"][3]["opponents"][0]["player2"]); //Spielername 2
+
+                        $("#m4_t2").text(response["tournamentMatches"][3]["opponents"][1]["teamName"]); //Teamname B
+                        $("#m4_t2_p1").text(response["tournamentMatches"][3]["opponents"][1]["player1"]); //Spielername 1
+                        $("#m4_t2_p2").text(response["tournamentMatches"][3]["opponents"][1]["player2"]); //Spielername 2
+
+                        //Match5
+                        $("#m5_t1").text(response["tournamentMatches"][4]["opponents"][0]["teamName"]); //Teamname A
+                        $("#m5_t1_p1").text(response["tournamentMatches"][4]["opponents"][0]["player1"]); //Spielername 1
+                        $("#m5_t1_p2").text(response["tournamentMatches"][4]["opponents"][0]["player2"]); //Spielername 2
+
+                        $("#m5_t2").text(response["tournamentMatches"][4]["opponents"][1]["teamName"]); //Teamname B
+                        $("#m5_t2_p1").text(response["tournamentMatches"][4]["opponents"][1]["player1"]); //Spielername 1
+                        $("#m5_t2_p2").text(response["tournamentMatches"][4]["opponents"][1]["player2"]); //Spielername 2
+
+                        //Match6
+                        $("#m6_t1").text(response["tournamentMatches"][5]["opponents"][0]["teamName"]); //Teamname A
+                        $("#m6_t1_p1").text(response["tournamentMatches"][5]["opponents"][0]["player1"]); //Spielername 1
+                        $("#m6_t1_p2").text(response["tournamentMatches"][5]["opponents"][0]["player2"]); //Spielername 2
+
+                        $("#m6_t2").text(response["tournamentMatches"][5]["opponents"][1]["teamName"]); //Teamname B
+                        $("#m6_t2_p1").text(response["tournamentMatches"][5]["opponents"][1]["player1"]); //Spielername 1
+                        $("#m6_t2_p2").text(response["tournamentMatches"][5]["opponents"][1]["player2"]); //Spielername 2
+
+                        //Match7
+                        $("#m7_t1").text(response["tournamentMatches"][6]["opponents"][0]["teamName"]); //Teamname A
+                        $("#m7_t1_p1").text(response["tournamentMatches"][6]["opponents"][0]["player1"]); //Spielername 1
+                        $("#m7_t1_p2").text(response["tournamentMatches"][6]["opponents"][0]["player2"]); //Spielername 2
+
+                        $("#m7_t2").text(response["tournamentMatches"][6]["opponents"][1]["teamName"]); //Teamname B
+                        $("#m7_t2_p1").text(response["tournamentMatches"][6]["opponents"][1]["player1"]); //Spielername 1
+                        $("#m7_t2_p2").text(response["tournamentMatches"][6]["opponents"][1]["player2"]); //Spielername 2
+
+                        //Match8
+                        $("#m8_t1").text(response["tournamentMatches"][7]["opponents"][0]["teamName"]); //Teamname A
+                        $("#m8_t1_p1").text(response["tournamentMatches"][7]["opponents"][0]["player1"]); //Spielername 1
+                        $("#m8_t1_p2").text(response["tournamentMatches"][7]["opponents"][0]["player2"]); //Spielername 2
+
+                        $("#m8_t2").text(response["tournamentMatches"][7]["opponents"][1]["teamName"]); //Teamname B
+                        $("#m8_t2_p1").text(response["tournamentMatches"][7]["opponents"][1]["player1"]); //Spielername 1
+                        $("#m8_t2_p2").text(response["tournamentMatches"][7]["opponents"][1]["player2"]); //Spielername 2
+
+
+                        $("#stage2_name > div").text("Viertelfinale");
+                        $("#stage3_name > div").text("Halbfinale");
+                        $("#stage4_name > div").text("Finale");
+                        $("#tree_row2 .card-header").text("Match #9");
+                        $("#tree_row6 .card-header").text("Match #10");
+                        $("#tree_row10 .card-header").text("Match #11");
+                        $("#tree_row14 .card-header").text("Match #12");
+                        $("#tree_row4 .card-header").text("Match #13");
+                        $("#tree_row12 .card-header").text("Match #14");
+                        $("#tree_row8 .card-header").text("Match #15");
+                        $("#stage3_name").removeAttr('hidden');
+                        $("#stage4_name").removeAttr('hidden');
+                        $("#stage1_close").removeAttr('hidden');
+                        $("#stage2_close").removeAttr('hidden');
+                        $("#stage3_close").removeAttr('hidden');
+                        $("#stage4_close").removeAttr('hidden');
+                    }
+
+                });
+            },
+            //Ausgabe der unterschiedlichen Error Codes, welche vom Backend als Antwort auf die GET Request kommen
+            error: function (xhr) {
+                alert(xhr.status+" "+xhr.responseText);
+            }
+        });
+    });
+}
+
+function drawTournament(tournamentSize) {
+    document.getElementById("stage1_close_alert").hidden=true;
+    document.getElementById("stage2_close_alert").hidden=true;
+    document.getElementById("stage3_close_alert").hidden=true;
+    document.getElementById("stage4_close_alert").hidden=true;
+    document.getElementById("tournament_team_div").hidden=true;
+    document.getElementById("tournament_tree_div").hidden=false;
+    document.getElementById("tree_row4").hidden=true;
+    document.getElementById("tree_row5").hidden=true;
+    document.getElementById("tree_row6").hidden=true;
+    document.getElementById("tree_row7").hidden=true;
+    document.getElementById("tree_row8").hidden=true;
+    document.getElementById("tree_row9").hidden=true;
+    document.getElementById("tree_row10").hidden=true;
+    document.getElementById("tree_row11").hidden=true;
+    document.getElementById("tree_row12").hidden=true;
+    document.getElementById("tree_row13").hidden=true;
+    document.getElementById("tree_row14").hidden=true;
+    document.getElementById("tree_row15").hidden=true;
+
+
+    if(tournamentSize === 8) {
+        document.getElementById("tree_row4").hidden=false;
+        document.getElementById("tree_row5").hidden=false;
+        document.getElementById("tree_row6").hidden=false;
+        document.getElementById("tree_row7").hidden=false;
+    }
+
+    if(tournamentSize === 16) {
+        document.getElementById("tree_row4").hidden=false;
+        document.getElementById("tree_row5").hidden=false;
+        document.getElementById("tree_row6").hidden=false;
+        document.getElementById("tree_row7").hidden=false;
+        document.getElementById("tree_row8").hidden=false;
+        document.getElementById("tree_row9").hidden=false;
+        document.getElementById("tree_row10").hidden=false;
+        document.getElementById("tree_row11").hidden=false;
+        document.getElementById("tree_row12").hidden=false;
+        document.getElementById("tree_row13").hidden=false;
+        document.getElementById("tree_row14").hidden=false;
+        document.getElementById("tree_row15").hidden=false;
+    }
+
+}
+
+function closeTournamentStage1() {
+    var tournament_size = document.getElementById("tour_size").innerHTML;
+    var tournament_name = $('#tour_name').text();
+    var stage1_alert = document.getElementById("stage1_close_alert");
+    stage1_alert.hidden = true;
+
+    if (tournament_size === "Teams: 4") {
+        if (($('#win1_Match1_TeamA').is(':hidden') && $('#win1_Match1_TeamB').is(':hidden')) || ($('#win1_Match2_TeamA').is(':hidden') & $('#win1_Match2_TeamB').is(':hidden'))) {
+            stage1_alert.hidden = false;
+        } else {
+            stage1_alert.hidden = true;
+            $('#win0_Match1_TeamA, #win0_Match1_TeamB, #win0_Match2_TeamA, #win0_Match2_TeamB, #win1_Match1_TeamA, #win1_Match1_TeamB, #win1_Match2_TeamA, #win1_Match2_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match1_TeamA').is(':hidden')) {
+                matchWinners.push($("#m1_t2").text())
+            } else {
+                matchWinners.push($("#m1_t1").text())
+            }
+
+            if($('#win1_Match2_TeamA').is(':hidden')) {
+                matchWinners.push($("#m2_t2").text())
+            } else {
+                matchWinners.push($("#m2_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage1_close > div').html("Abgeschlossen")
+                        loadTournament(tournament_name);
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+            });
+
+        }
+    }
+
+    if (tournament_size === "Teams: 8") {
+        if (($('#win1_Match1_TeamA').is(':hidden') && $('#win1_Match1_TeamB').is(':hidden')) || ($('#win1_Match2_TeamA').is(':hidden') && $('#win1_Match2_TeamB').is(':hidden')) || ($('#win1_Match3_TeamA').is(':hidden') && $('#win1_Match3_TeamB').is(':hidden')) || ($('#win1_Match4_TeamA').is(':hidden') && $('#win1_Match4_TeamB').is(':hidden'))) {
+            stage1_alert.hidden = false;
+        } else {
+            stage1_alert.hidden = true;
+            $('#win0_Match1_TeamA, #win0_Match1_TeamB, #win0_Match2_TeamA, #win0_Match2_TeamB, #win1_Match1_TeamA, #win1_Match1_TeamB, #win1_Match2_TeamA, #win1_Match2_TeamB, #win0_Match3_TeamA, #win0_Match3_TeamB, #win0_Match4_TeamA, #win0_Match4_TeamB, #win1_Match3_TeamA, #win1_Match3_TeamB, #win1_Match4_TeamA, #win1_Match4_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match1_TeamA').is(':hidden')) {
+                matchWinners.push($("#m1_t2").text())
+            } else {
+                matchWinners.push($("#m1_t1").text())
+            }
+
+            if($('#win1_Match2_TeamA').is(':hidden')) {
+                matchWinners.push($("#m2_t2").text())
+            } else {
+                matchWinners.push($("#m2_t1").text())
+            }
+
+            if($('#win1_Match3_TeamA').is(':hidden')) {
+                matchWinners.push($("#m3_t2").text())
+            } else {
+                matchWinners.push($("#m3_t1").text())
+            }
+
+            if($('#win1_Match4_TeamA').is(':hidden')) {
+                matchWinners.push($("#m4_t2").text())
+            } else {
+                matchWinners.push($("#m4_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage1_close > div').html("Abgeschlossen")
+                        loadTournament(tournament_name);
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+            });
+
+        }
+    }
+
+    if (tournament_size === "Teams: 16") {
+        if (($('#win1_Match1_TeamA').is(':hidden') && $('#win1_Match1_TeamB').is(':hidden')) || ($('#win1_Match2_TeamA').is(':hidden') && $('#win1_Match2_TeamB').is(':hidden')) || ($('#win1_Match3_TeamA').is(':hidden') && $('#win1_Match3_TeamB').is(':hidden')) || ($('#win1_Match4_TeamA').is(':hidden') && $('#win1_Match4_TeamB').is(':hidden')) || ($('#win1_Match5_TeamA').is(':hidden') && $('#win1_Match5_TeamB').is(':hidden')) || ($('#win1_Match6_TeamA').is(':hidden') && $('#win1_Match6_TeamB').is(':hidden')) || ($('#win1_Match7_TeamA').is(':hidden') && $('#win1_Match7_TeamB').is(':hidden')) || ($('#win1_Match8_TeamA').is(':hidden') && $('#win1_Match8_TeamB').is(':hidden'))) {
+            stage1_alert.hidden = false;
+        } else {
+            stage1_alert.hidden = true;
+            $('#win0_Match1_TeamA, #win0_Match1_TeamB, #win0_Match2_TeamA, #win0_Match2_TeamB, #win1_Match1_TeamA, #win1_Match1_TeamB, #win1_Match2_TeamA, #win1_Match2_TeamB, #win0_Match3_TeamA, #win0_Match3_TeamB, #win0_Match4_TeamA, #win0_Match4_TeamB, #win1_Match3_TeamA, #win1_Match3_TeamB, #win1_Match4_TeamA, #win1_Match4_TeamB, #win0_Match5_TeamA, #win0_Match5_TeamB, #win0_Match6_TeamA, #win0_Match6_TeamB, #win1_Match5_TeamA, #win1_Match5_TeamB, #win1_Match6_TeamA, #win1_Match6_TeamB, #win0_Match7_TeamA, #win0_Match7_TeamB, #win0_Match8_TeamA, #win0_Match8_TeamB, #win1_Match7_TeamA, #win1_Match8_TeamB, #win1_Match8_TeamA, #win1_Match8_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match1_TeamA').is(':hidden')) {
+                matchWinners.push($("#m1_t2").text())
+            } else {
+                matchWinners.push($("#m1_t1").text())
+            }
+
+            if($('#win1_Match2_TeamA').is(':hidden')) {
+                matchWinners.push($("#m2_t2").text())
+            } else {
+                matchWinners.push($("#m2_t1").text())
+            }
+
+            if($('#win1_Match3_TeamA').is(':hidden')) {
+                matchWinners.push($("#m3_t2").text())
+            } else {
+                matchWinners.push($("#m3_t1").text())
+            }
+
+            if($('#win1_Match4_TeamA').is(':hidden')) {
+                matchWinners.push($("#m4_t2").text())
+            } else {
+                matchWinners.push($("#m4_t1").text())
+            }
+
+            if($('#win1_Match5_TeamA').is(':hidden')) {
+                matchWinners.push($("#m5_t2").text())
+            } else {
+                matchWinners.push($("#m5_t1").text())
+            }
+
+            if($('#win1_Match6_TeamA').is(':hidden')) {
+                matchWinners.push($("#m6_t2").text())
+            } else {
+                matchWinners.push($("#m6_t1").text())
+            }
+
+            if($('#win1_Match7_TeamA').is(':hidden')) {
+                matchWinners.push($("#m7_t2").text())
+            } else {
+                matchWinners.push($("#m7_t1").text())
+            }
+
+            if($('#win1_Match8_TeamA').is(':hidden')) {
+                matchWinners.push($("#m8_t2").text())
+            } else {
+                matchWinners.push($("#m8_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage1_close > div').html("Abgeschlossen")
+                        loadTournament(tournament_name);
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+            });
+
+        }
+    }
+
+}
+
+function closeTournamentStage2() {
+    var tournament_size = document.getElementById("tour_size").innerHTML;
+    var tournament_name = $('#tour_name').text();
+    var stage2_alert = document.getElementById("stage2_close_alert");
+    stage2_alert.hidden = true;
+
+    if (tournament_size === "Teams: 4") {
+        if ($('#win1_Match9_TeamA').is(':hidden') && $('#win1_Match9_TeamB').is(':hidden')) {
+            stage2_alert.hidden = false;
+        } else {
+            stage2_alert.hidden = true;
+            $('#win0_Match9_TeamA, #win0_Match9_TeamB, #win0_Match9_TeamA, #win0_Match9_TeamB, #win1_Match9_TeamA, #win1_Match9_TeamB, #win1_Match9_TeamA, #win1_Match9_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match9_TeamA').is(':hidden')) {
+                matchWinners.push($("#m9_t2").text())
+            } else {
+                matchWinners.push($("#m9_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage2_close > div').html("Abgeschlossen")
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+                loadTournament(tournament_name);
+            });
+
+        }
+    }
+
+    if (tournament_size === "Teams: 8") {
+        if (($('#win1_Match9_TeamA').is(':hidden') && $('#win1_Match9_TeamB').is(':hidden')) || ($('#win1_Match10_TeamA').is(':hidden') && $('#win1_Match10_TeamB').is(':hidden')) ) {
+            stage2_alert.hidden = false;
+        } else {
+            stage2_alert.hidden = true;
+            $('#win0_Match9_TeamA, #win0_Match9_TeamB, #win0_Match9_TeamA, #win0_Match9_TeamB, #win1_Match9_TeamA, #win1_Match9_TeamB, #win1_Match9_TeamA, #win1_Match9_TeamB, #win0_Match10_TeamA, #win0_Match10_TeamB, #win0_Match10_TeamA, #win0_Match10_TeamB, #win1_Match10_TeamA, #win1_Match10_TeamB, #win1_Match10_TeamA, #win1_Match10_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match9_TeamA').is(':hidden')) {
+                matchWinners.push($("#m9_t2").text())
+            } else {
+                matchWinners.push($("#m9_t1").text())
+            }
+
+            if($('#win1_Match10_TeamA').is(':hidden')) {
+                matchWinners.push($("#m10_t2").text())
+            } else {
+                matchWinners.push($("#m10_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage2_close > div').html("Abgeschlossen")
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+                loadTournament(tournament_name);
+            });
+
+        }
+    }
+
+    if (tournament_size === "Teams: 16") {
+        if (($('#win1_Match9_TeamA').is(':hidden') && $('#win1_Match9_TeamB').is(':hidden')) || ($('#win1_Match10_TeamA').is(':hidden') && $('#win1_Match10_TeamB').is(':hidden')) || ($('#win1_Match11_TeamA').is(':hidden') && $('#win1_Match11_TeamB').is(':hidden')) || ($('#win1_Match12_TeamA').is(':hidden') && $('#win1_Match12_TeamB').is(':hidden')) ) {
+            stage2_alert.hidden = false;
+        } else {
+            stage2_alert.hidden = true;
+            $('#win0_Match9_TeamA, #win0_Match9_TeamB, #win0_Match9_TeamA, #win0_Match9_TeamB, #win1_Match9_TeamA, #win1_Match9_TeamB, #win1_Match9_TeamA, #win1_Match9_TeamB, #win0_Match10_TeamA, #win0_Match10_TeamB, #win0_Match10_TeamA, #win0_Match10_TeamB, #win1_Match10_TeamA, #win1_Match10_TeamB, #win1_Match10_TeamA, #win1_Match10_TeamB, #win0_Match11_TeamA, #win0_Match11_TeamB, #win0_Match11_TeamA, #win0_Match11_TeamB, #win1_Match11_TeamA, #win1_Match11_TeamB, #win1_Match11_TeamA, #win1_Match11_TeamB, #win0_Match12_TeamA, #win0_Match12_TeamB, #win0_Match12_TeamA, #win0_Match12_TeamB, #win1_Match12_TeamA, #win1_Match12_TeamB, #win1_Match12_TeamA, #win1_Match12_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match9_TeamA').is(':hidden')) {
+                matchWinners.push($("#m9_t2").text())
+            } else {
+                matchWinners.push($("#m9_t1").text())
+            }
+
+            if($('#win1_Match10_TeamA').is(':hidden')) {
+                matchWinners.push($("#m10_t2").text())
+            } else {
+                matchWinners.push($("#m10_t1").text())
+            }
+
+            if($('#win1_Match11_TeamA').is(':hidden')) {
+                matchWinners.push($("#m11_t2").text())
+            } else {
+                matchWinners.push($("#m11_t1").text())
+            }
+
+            if($('#win1_Match12_TeamA').is(':hidden')) {
+                matchWinners.push($("#m12_t2").text())
+            } else {
+                matchWinners.push($("#m12_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage2_close > div').html("Abgeschlossen")
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+                loadTournament(tournament_name);
+            });
+
+        }
+    }
+
+}
+
+function closeTournamentStage3() {
+    var tournament_size = document.getElementById("tour_size").innerHTML;
+    var tournament_name = $('#tour_name').text();
+    var stage3_alert = document.getElementById("stage3_close_alert");
+    stage3_alert.hidden = true;
+
+    if (tournament_size === "Teams: 8") {
+        if ($('#win1_Match13_TeamA').is(':hidden') && $('#win1_Match13_TeamB').is(':hidden')) {
+            stage3_alert.hidden = false;
+        } else {
+            stage3_alert.hidden = true;
+            $('#win0_Match13_TeamA, #win0_Match13_TeamB, #win0_Match13_TeamA, #win0_Match13_TeamB, #win1_Match13_TeamA, #win1_Match13_TeamB, #win1_Match13_TeamA, #win1_Match13_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match13_TeamA').is(':hidden')) {
+                matchWinners.push($("#m13_t2").text())
+            } else {
+                matchWinners.push($("#m13_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage3_close > div').html("Abgeschlossen")
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+                loadTournament(tournament_name);
+            });
+
+        }
+    }
+
+    if (tournament_size === "Teams: 16") {
+        if (($('#win1_Match13_TeamA').is(':hidden') && $('#win1_Match13_TeamB').is(':hidden')) || ($('#win1_Match14_TeamA').is(':hidden') && $('#win1_Match14_TeamB').is(':hidden')) ) {
+            stage3_alert.hidden = false;
+        } else {
+            stage3_alert.hidden = true;
+            $('#win0_Match13_TeamA, #win0_Match13_TeamB, #win1_Match13_TeamA, #win1_Match13_TeamB, #win0_Match14_TeamA, #win0_Match14_TeamB, #win1_Match14_TeamA, #win1_Match14_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match13_TeamA').is(':hidden')) {
+                matchWinners.push($("#m13_t2").text())
+            } else {
+                matchWinners.push($("#m13_t1").text())
+            }
+
+            if($('#win1_Match14_TeamA').is(':hidden')) {
+                matchWinners.push($("#m14_t2").text())
+            } else {
+                matchWinners.push($("#m14_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage3_close > div').html("Abgeschlossen")
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+                loadTournament(tournament_name);
+            });
+
+        }
+    }
+
+}
+
+function closeTournamentStage4() {
+    var tournament_size = document.getElementById("tour_size").innerHTML;
+    var tournament_name = $('#tour_name').text();
+    var stage4_alert = document.getElementById("stage4_close_alert");
+    stage4_alert.hidden = true;
+
+    if (tournament_size === "Teams: 16") {
+        if ($('#win1_Match15_TeamA').is(':hidden') && $('#win1_Match15_TeamB').is(':hidden')) {
+            stage4_alert.hidden = false;
+        } else {
+            stage4_alert.hidden = true;
+            $('#win0_Match15_TeamA, #win0_Match15_TeamB, #win1_Match15_TeamA, #win1_Match15_TeamB').each(function (){
+                $(this).removeAttr('onclick');
+            });
+
+            var matchWinners = [];
+
+            if($('#win1_Match15_TeamA').is(':hidden')) {
+                matchWinners.push($("#m15_t2").text())
+            } else {
+                matchWinners.push($("#m15_t1").text())
+            }
+
+            $(document).ready(function() {
+                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                var parsedJson = JSON.stringify({matchWinners: matchWinners});
+                console.log(parsedJson);
+
+                //Aufruf der ajaxPost Funktion sowie speichern der Return Value
+                var statusCode = ajaxPost('http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/nextStage/'+tournament_name, parsedJson);
+
+                //Verhalten je nach rückgemeldetem statusCode des Backends
+                switch (statusCode) {
+                    // 200 = OK
+                    case 200:
+                        $('#stage4_close > div').html("Abgeschlossen")
+                        break;
+                    // Andere Status Codes werden von der Funktion nicht erwartet
+                    default:
+                        alert("Unerwarteter Fehler");
+                }
+                loadTournament(tournament_name);
+            });
+
+        }
+    }
+
+}
+
+
 /**
  * <h3>
  **/
 function show_tournaments() {
+    $("#stage1_close").attr('hidden');
+    $("#stage2_close").attr('hidden');
+    $("#stage3_close").attr('hidden');
+    $("#stage4_close").attr('hidden');
+    $("#stage5_close").attr('hidden');
     document.getElementById("dashboard_div").hidden=true;
     document.getElementById("tournament_player_div").hidden=true;
     document.getElementById("tournament_team_div").hidden=true;
-    document.getElementById("tournament_tree_div").style.display="block";
+    document.getElementById("tournament_tree_div").hidden=false;
     document.getElementById("statistik_div").style.display="none";
     document.getElementById("btn_tournaments").classList.add("active", "bg-primary");
     document.getElementById("btn_tournaments").classList.remove("text-white");
@@ -1058,10 +1918,15 @@ function show_tournaments() {
  * <h3>
  **/
 function show_dashboard() {
+    $("#stage1_close").attr('hidden');
+    $("#stage2_close").attr('hidden');
+    $("#stage3_close").attr('hidden');
+    $("#stage4_close").attr('hidden');
+    $("#stage5_close").attr('hidden');
     document.getElementById("dashboard_div").hidden=false;
     document.getElementById("tournament_player_div").hidden=true;
     document.getElementById("tournament_team_div").hidden=true;
-    document.getElementById("tournament_tree_div").style.display="none";
+    document.getElementById("tournament_tree_div").hidden=true;
     document.getElementById("statistik_div").style.display="none";
     document.getElementById("btn_dashboard").classList.add("active", "bg-primary");
     document.getElementById("btn_dashboard").classList.remove("text-white");
@@ -1075,10 +1940,15 @@ function show_dashboard() {
  * <h3>
  **/
 function show_statistik() {
+    $("#stage1_close").attr('hidden');
+    $("#stage2_close").attr('hidden');
+    $("#stage3_close").attr('hidden');
+    $("#stage4_close").attr('hidden');
+    $("#stage5_close").attr('hidden');
     document.getElementById("dashboard_div").hidden=true;
     document.getElementById("tournament_player_div").hidden=true;
     document.getElementById("tournament_team_div").hidden=true;
-    document.getElementById("tournament_tree_div").style.display="none";
+    document.getElementById("tournament_tree_div").hidden=true;
     document.getElementById("statistik_div").style.display="block";
     document.getElementById("btn_statistik").classList.add("active", "bg-primary");
     document.getElementById("btn_statistik").classList.remove("text-white");
@@ -1086,6 +1956,51 @@ function show_statistik() {
     document.getElementById("btn_tournaments").classList.add("nav-link", "text-white");
     document.getElementById("btn_dashboard").classList.remove("active", "bg-primary");
     document.getElementById("btn_dashboard").classList.add("nav-link", "text-white");
+    getUserStats();
+}
+
+/**
+ * <h3>Lädt die Daten des eingeloggten Users und fügt sie der Statistik Karte hinzu
+ **/
+function getUserStats() {
+    //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
+    $(document).ready(function() {
+
+        //Speichern des im sessionStorage gespeichertem Tokens und des Usernamens in Variablen
+        var token = sessionStorage.getItem("token");
+        var username = sessionStorage.getItem("username");
+        var reformatDate = [];
+        var reformatDate2 = [];
+
+        //Abfragen der für den User gespeicherten Daten
+        $.ajax({
+            type: "GET",
+            async: false,
+            url: 'http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/user/'+username,
+            dataType: 'json',
+            //Sendet im Request Head den jeweiligen Authentifizierungstoken des eingeloggten Benutzers
+            headers: {Authorization: 'Bearer '+token},
+            // statusCode: 200 - OK (Gesendeter Username und Passwort stimmen mit Datenbankeintrag überein)
+            success: function(response) {
+                $(function() {
+                    reformatDate = response.created.split("-");
+                    reformatDate2 = reformatDate[2].split("T");
+                    $("#stat_username").text(response.username);
+                    $("#stat_firstName").text(response.firstName);
+                    $("#stat_lastName").text(response.lastName);
+                    $("#stat_matchWins > span").text(response.matchWins);
+                    $("#stat_matchLooses > span").text(response.matchLooses);
+                    $("#stat_tournamentAttends > span").text(Object.keys(response["tournamentAttends"]).length);
+                    $("#stat_tournamentWins > span").text(response.tournamentWins);
+                    $("#stat_user_created > small").text("Nutzer wurde erstellt am: "+reformatDate2[0]+"."+reformatDate[1]+"."+reformatDate[0]);
+                });
+            },
+            //Ausgabe der unterschiedlichen Error Codes, welche vom Backend als Antwort auf die GET Request kommen
+            error: function (xhr) {
+                alert(xhr.status+" "+xhr.responseText);
+            }
+        });
+    });
 }
 
 /**

@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="Tweaking to login validation; +added detailed comments to functions.js">
-      <change beforePath="$PROJECT_DIR$/.idea/beerpongplaner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/beerpongplaner.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="turnieranlage finalized">
+      <change afterPath="$PROJECT_DIR$/assets/images/card_header_teams.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/card_header_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/card_header_beerpong.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/card_header_2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/card_header_throw.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/card_header_3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/card_header_dice.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/backend.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/backend.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/tournamentmode.html" beforeDir="false" afterPath="$PROJECT_DIR$/pages/tournamentmode.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +123,12 @@
       <workItem from="1647451771173" duration="176000" />
       <workItem from="1647521185266" duration="4334000" />
       <workItem from="1647525580778" duration="23366000" />
-      <workItem from="1647604131568" duration="18632000" />
+      <workItem from="1647604131568" duration="20909000" />
+      <workItem from="1647690742534" duration="11556000" />
+      <workItem from="1647787781908" duration="5484000" />
+      <workItem from="1647794244354" duration="399000" />
+      <workItem from="1647855838744" duration="7963000" />
+      <workItem from="1647867069999" duration="27204000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -303,7 +305,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647189618404</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="turnieranlage finalized">
+      <created>1647624901300</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1647624901301</updated>
+    </task>
+    <task id="LOCAL-00027" summary="turnieranlage finalized">
+      <created>1647624921012</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1647624921012</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,7 +360,8 @@
     <MESSAGE value="login partly solved" />
     <MESSAGE value="login completely" />
     <MESSAGE value="Tweaking to login validation; +added detailed comments to functions.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tweaking to login validation; +added detailed comments to functions.js" />
+    <MESSAGE value="turnieranlage finalized" />
+    <option name="LAST_COMMIT_MESSAGE" value="turnieranlage finalized" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
