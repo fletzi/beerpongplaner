@@ -2111,7 +2111,8 @@ function closeTournamentStage4() {
  * <h3>
  **/
 function show_tournaments() {
-    document.getElementById("stage1_close").hidden=true;
+    alert("Funkionalität noch nicht umgesetzt")
+    /*document.getElementById("stage1_close").hidden=true;
     document.getElementById("stage2_close").hidden=true;
     document.getElementById("stage3_close").hidden=true;
     document.getElementById("stage4_close").hidden=true;
@@ -2125,7 +2126,7 @@ function show_tournaments() {
     document.getElementById("btn_dashboard").classList.remove("active", "bg-primary");
     document.getElementById("btn_dashboard").classList.add("nav-link", "text-white");
     document.getElementById("btn_statistik").classList.remove("active", "bg-primary");
-    document.getElementById("btn_statistik").classList.add("nav-link", "text-white");
+    document.getElementById("btn_statistik").classList.add("nav-link", "text-white");*/
 }
 
 /**

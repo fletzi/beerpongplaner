@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="login scroll fixed; functions.js added all comments">
+    <list default="true" id="2fc57a15-2ec6-450a-98a3-bb3dfff95d31" name="Changes" comment="final adjustments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/functions.js" afterDir="false" />
     </list>
@@ -125,7 +125,7 @@
       <workItem from="1647794244354" duration="399000" />
       <workItem from="1647855838744" duration="7963000" />
       <workItem from="1647867069999" duration="28495000" />
-      <workItem from="1647937136039" duration="14928000" />
+      <workItem from="1647937136039" duration="24971000" />
     </task>
     <task id="LOCAL-00001" summary="create">
       <created>1645712530992</created>
@@ -337,7 +337,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647948890081</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="final adjustments">
+      <created>1647954167186</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1647954167186</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +364,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="create" />
     <MESSAGE value="add files" />
     <MESSAGE value="logo link updated / reg/login form ids updated" />
     <MESSAGE value="scroll to top fix | rules. shoppinglist. tournamentmode." />
@@ -382,7 +388,8 @@
     <MESSAGE value="turnierdarstellung finished, got rid of lorems" />
     <MESSAGE value="-lorem register.html &amp; login.html" />
     <MESSAGE value="login scroll fixed; functions.js added all comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="login scroll fixed; functions.js added all comments" />
+    <MESSAGE value="final adjustments" />
+    <option name="LAST_COMMIT_MESSAGE" value="final adjustments" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
