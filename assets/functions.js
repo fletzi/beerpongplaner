@@ -2111,11 +2111,10 @@ function closeTournamentStage4() {
  * <h3>
  **/
 function show_tournaments() {
-    $("#stage1_close").attr('hidden');
-    $("#stage2_close").attr('hidden');
-    $("#stage3_close").attr('hidden');
-    $("#stage4_close").attr('hidden');
-    $("#stage5_close").attr('hidden');
+    document.getElementById("stage1_close").hidden=true;
+    document.getElementById("stage2_close").hidden=true;
+    document.getElementById("stage3_close").hidden=true;
+    document.getElementById("stage4_close").hidden=true;
     document.getElementById("dashboard_div").hidden=true;
     document.getElementById("tournament_player_div").hidden=true;
     document.getElementById("tournament_team_div").hidden=true;
@@ -2133,11 +2132,10 @@ function show_tournaments() {
  * <h3> Blendet die Inhalte des Dashboard ein und blendet evtl. vorhandene andere Inhalte aus
  **/
 function show_dashboard() {
-    $("#stage1_close").attr('hidden');
-    $("#stage2_close").attr('hidden');
-    $("#stage3_close").attr('hidden');
-    $("#stage4_close").attr('hidden');
-    $("#stage5_close").attr('hidden');
+    document.getElementById("stage1_close").hidden=true;
+    document.getElementById("stage2_close").hidden=true;
+    document.getElementById("stage3_close").hidden=true;
+    document.getElementById("stage4_close").hidden=true;
     document.getElementById("dashboard_div").hidden=false;
     document.getElementById("tournament_player_div").hidden=true;
     document.getElementById("tournament_team_div").hidden=true;
@@ -2155,11 +2153,10 @@ function show_dashboard() {
  * <h3> Blendet die Inhalte der Statistik ein und blendet evtl. vorhandene andere Inhalte aus
  **/
 function show_statistik() {
-    $("#stage1_close").attr('hidden');
-    $("#stage2_close").attr('hidden');
-    $("#stage3_close").attr('hidden');
-    $("#stage4_close").attr('hidden');
-    $("#stage5_close").attr('hidden');
+    document.getElementById("stage1_close").hidden=true;
+    document.getElementById("stage2_close").hidden=true;
+    document.getElementById("stage3_close").hidden=true;
+    document.getElementById("stage4_close").hidden=true;
     document.getElementById("dashboard_div").hidden=true;
     document.getElementById("tournament_player_div").hidden=true;
     document.getElementById("tournament_team_div").hidden=true;
@@ -2175,6 +2172,7 @@ function show_statistik() {
     getUserStats();
 }
 
+//<-- Ende Sidenavigation (Ein- und Ausblenden von Inhalten)
 /**
  * <h3>Lädt die Daten des eingeloggten Users und fügt diese der Statistik Karte hinzu
  **/
@@ -2229,4 +2227,4 @@ function getUserStats() {
         });
     });
 }
-//<-- Ende Sidenavigation (Ein- und Ausblenden von Inhalten)
+
