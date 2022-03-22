@@ -1,20 +1,4 @@
-
-$.ajaxSetup({
-    timeout: 0
-});
-
-
-/**
- * <h3>Moderne Version des Fisher–Yates shuffle<p>Mischt das Array aus Spielernamen
- **/
-function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a; //Gibt das gemischte Array zurück
-}
-
+//<-- Start Login
 /**
  * <h3>Validiert die Nutzereingaben der Login-Maske > login.html
  **/
@@ -91,6 +75,16 @@ function validateLogin() {
 }
 
 /**
+ * <h3> Löscht die Feldinhalte des Logins
+ **/
+function clearFields_login() {
+    document.getElementById("login_userName").value="";
+    document.getElementById("login_password").value="";
+}
+
+//--> Ende Login
+
+/**
  * <h3>Überprüft bei Seitenaufruf/-wechsel ob sich ein User bereits eingeloggt hat
  **/
 function checkLoggedIn() {
@@ -108,7 +102,7 @@ function checkLoggedIn() {
         btnRegister.hidden=true;
         //Einblenden des Buttons für eingeloggte Nutzer
         btnUser.hidden=false;
-    //Falls die value des keys "login" nicht "login" ist
+    //Falls die value des keys "login" nicht "true" ist
     } else {
         //Einblenden des Login- & Registrierungs-Buttons
         btnLogin.hidden=false;
@@ -118,6 +112,7 @@ function checkLoggedIn() {
     }
 }
 
+//<-- Start Registrierung
 /**
  * <h3>Validiert die Nutzereingaben der Registrierungs-Maske > register.html
  **/
@@ -202,6 +197,53 @@ function validateRegister() {
 }
 
 /**
+ * <h3> Löscht die Feldinhalte der Registrierung
+ **/
+function clearFields_register() {
+    document.getElementById("reg_firstName").value="";
+    document.getElementById("reg_lastName").value="";
+    document.getElementById("reg_userName").value="";
+    document.getElementById("reg_password").value="";
+    document.getElementById("reg_password2").value="";
+}
+
+/**
+ * <h3> Stellt die eingegebenen Passwörter in der Registrierungsmaske in Klartext dar
+ **/
+function showPw() {
+    //Speichern der Buttons zum Ein- & Ausblenden der Passwörter als Klartext in Variablen
+    var btn_show = document.getElementById("button_sp")
+    var btn_hide = document.getElementById("button_sp_null")
+
+    //Ändern des Feldtyps der Felder "Passwort" und "Passwort Wiederholen" zum Typ text - Feldinhalt wird in Klartext dargestellt
+    document.getElementById("reg_password").type="text"
+    document.getElementById("reg_password2").type="text"
+    //Ausblenden des Buttons zum Einblenden der Passwörter
+    btn_show.hidden=true;
+    //Einblenden des Buttons zum Ausblenden der Passwörter
+    btn_hide.hidden=false;
+}
+
+/**
+ * <h3> Stellt die eingegebenen Passwörter in der Registrierungsmaske als Punkte dar
+ **/
+function hidePw() {
+    //Speichern der Buttons zum Ein- & Ausblenden der Passwörter als Klartext in Variablen
+    var btn_show = document.getElementById("button_sp")
+    var btn_hide = document.getElementById("button_sp_null")
+
+    //Ändern des Feldtyps der Felder "Passwort" und "Passwort Wiederholen" zum Typ password - Feldinhalt wird durch Punkte dargestellt
+    document.getElementById("reg_password").type="password"
+    document.getElementById("reg_password2").type="password"
+    //Einblenden des Buttons zum Einblenden der Passwörter
+    btn_show.hidden=false;
+    //Ausblenden des Buttons zum Ausblenden der Passwörter
+    btn_hide.hidden=true;
+}
+
+//--> Ende Registrierung
+
+/**
  * <h3> Sendet das übergebene json Dokument per "post-request" and die übergebene URL
  *
  * @param {url} url Endpunkt welcher von der jquery Funktion .ajax angesprochen werden soll
@@ -239,60 +281,7 @@ function ajaxPost(url, parsedJson) {
     return statusCode;
 }
 
-/**
- * <h3> Löscht die Feldinhalte der Registrierung
- **/
-function clearFields_register() {
-    document.getElementById("reg_firstName").value="";
-    document.getElementById("reg_lastName").value="";
-    document.getElementById("reg_userName").value="";
-    document.getElementById("reg_password").value="";
-    document.getElementById("reg_password2").value="";
-}
-
-/**
- * <h3> Löscht die Feldinhalte des Logins
- **/
-function clearFields_login() {
-    document.getElementById("login_userName").value="";
-    document.getElementById("login_password").value="";
-}
-
-/**
- * <h3> Stellt die eingegebenen Passwörter in der Registrierungsmaske in Klartext dar
- **/
-function showPw() {
-    //Speichern der Buttons zum Ein- & Ausblenden der Passwörter als Klartext in Variablen
-    var btn_show = document.getElementById("button_sp")
-    var btn_hide = document.getElementById("button_sp_null")
-
-    //Ändern des Feldtyps der Felder "Passwort" und "Passwort Wiederholen" zum Typ text - Feldinhalt wird in Klartext dargestellt
-    document.getElementById("reg_password").type="text"
-    document.getElementById("reg_password2").type="text"
-    //Ausblenden des Buttons zum Einblenden der Passwörter
-    btn_show.hidden=true;
-    //Einblenden des Buttons zum Ausblenden der Passwörter
-    btn_hide.hidden=false;
-}
-
-/**
- * <h3> Stellt die eingegebenen Passwörter in der Registrierungsmaske als Punkte dar
- **/
-function hidePw() {
-    //Speichern der Buttons zum Ein- & Ausblenden der Passwörter als Klartext in Variablen
-    var btn_show = document.getElementById("button_sp")
-    var btn_hide = document.getElementById("button_sp_null")
-
-    //Ändern des Feldtyps der Felder "Passwort" und "Passwort Wiederholen" zum Typ password - Feldinhalt wird durch Punkte dargestellt
-    document.getElementById("reg_password").type="password"
-    document.getElementById("reg_password2").type="password"
-    //Einblenden des Buttons zum Einblenden der Passwörter
-    btn_show.hidden=false;
-    //Ausblenden des Buttons zum Ausblenden der Passwörter
-    btn_hide.hidden=true;
-}
-
-
+//<-- Start Teamgenerator
 /**
  * <h3> Funktion des Teamgenerators:
  * <p> Befüllt eine Liste mit dem vom User eingegebenen Spielernamen
@@ -398,10 +387,12 @@ function hideGeneratorAlert() {
     //Ggf. vorhandene Fehlermeldung wir mit Klick in Feld für Spielername (im Moment der Fehlerkorrektur) ausgeblendet
     document.getElementById("generator_alert_fail").hidden=true;
 }
-//--> Ende Team Generator
+//--> Ende Teamgenerator
+
+
 //<-- Start Turnieranlage
 /**
- * <h3> Validiert die Eingaben der Turnieranlage im Dashboard
+ * <h3> Validiert die Eingaben bei der Turnieranlage im Dashboard
  **/
 function validateTournament() {
     //Speichern der Date Validation Flag mit dem Wert false - "Das eingegeben Datum ist noch nicht validiert"
@@ -504,20 +495,23 @@ function validateTournament() {
                     create_tour_alert_time.hidden = false;
                 //Ansonsten sind die eingegebenen Daten korrekt
                 } else {
+                    //Einblenden der Auswahl der Turnierteilnehmer
                     selectPlayerTournament();
                 }
             } else if (hh2 > hh) {
+                //Einblenden der Auswahl der Turnierteilnehmer
                 selectPlayerTournament();
             }
         //Uhrzeit kann nicht in der Vergangenheit liegen und ist nicht leer - die eingegebenen Daten sind korrekt
         } else {
+            //Einblenden der Auswahl der Turnierteilnehmer
             selectPlayerTournament();
         }
     }
 }
 
 /**
- * <h3>Blendet die Karten der Turnierteilnehmer auswahl ein und befüllt die Tabelle mit den verfügbaren Usern aus der Datenbank
+ * <h3>Blendet die Karten der Turnierteilnehmerauswahl ein und befüllt die Tabelle mit den verfügbaren (existierenden) Usern aus der Datenbank
  **/
 function selectPlayerTournament() {
     //Ausblenden der Dashboard Karten
@@ -531,7 +525,7 @@ function selectPlayerTournament() {
 }
 
 /**
- * <h3>Fügt alle User der Datenbank der Tabelle aller als Turnierteilnehmer zur wahlstehenden User hinzu
+ * <h3>Fügt alle User aus der Datenbank der Tabelle aller, als Turnierteilnehmer zur wahlstehenden, User hinzu
  **/
 function getAllUsers() {
     //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
@@ -579,7 +573,7 @@ function getAllUsers() {
 function searchPlayer() {
     //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
     $(document).ready(function(){
-        //Sobald der User eine Taste auf der Tastatur los lässt
+        //Sobald der User eine Taste auf der Tastatur loslässt
         $("#tournament_playerSearch").on("keyup", function() {
             //Speichern des Suchfeldinhaltes
             var value = $(this).val().toLowerCase();
@@ -593,47 +587,68 @@ function searchPlayer() {
 }
 
 /**
- * <h3> Wechselt angeklickte Tabellenzeilen zwischen der Tabelle aus verfügbaren Nutzern und der Tabelle aus bereits ausgewählten Nutzern
+ * <h3> Wechselt angeklickte Tabellenzeilen zwischen der "Tabelle aus verfügbaren Nutzern" und der "Tabelle aus bereits ausgewählten Nutzern"
  **/
 $(document).ready(function () {
+    //Bei einem Klick auf eine TableRow innerhalb eines TableBodys
     $('tbody').on('click','tr',function(){
+        //Setzen der myParent Variable auf die ID der nächstgelegenen Tabelle
         myParent=$(this).closest('table').attr('id');
+        //Wenn die myParent ID der ID der Tabelle aus auswählbaren Spielern entspricht -> Hinzufügen der TableRow zur Tabelle aus ausgewählten Spielern
         if(myParent === "tournament_selectablePlayers") $('#tournament_selectedPlayers tbody').append('<tr>'+$(this).html()+'</tr>');
+        //Wenn die myParent ID der ID der Tabelle an ausgewählten Spielern entspricht -> Hinzufügen der TableRow zur Tabelle aus auswählbaren Spielern
         else $('#tournament_selectablePlayers tbody').append('<tr>'+$(this).html()+'</tr>');
+        //Löschen der zur anderen Tabelle hinzugefügten TableRow aus ursprünglicher Tabelle
         $(this).remove();
-        countSelectedPlayers();
+        //Speichern der Alerts für zu wenige und zu viele Spieler
         var tooManyPlayersAlert = document.getElementById("create_tour_alert_tooManyPlayers");
         var tooLessPlayersAlert = document.getElementById("create_tour_alert_tooLessPlayers");
+        //Ausblenden der beiden Alerts (werden durch countSelectedPlayers ggf. wieder eingeblendet)
         tooManyPlayersAlert.hidden=true;
         tooLessPlayersAlert.hidden=true;
+        //Aktualisierung der Anzahl der ausgewählten Spielern
+        countSelectedPlayers();
     })
 });
 
-
+/**
+ * <h3> Zählt die Anzahl der ausgewählten User und stellt das Ergebnis dar
+ **/
 function countSelectedPlayers() {
+    //Speichern der für die Turniergröße benötigte Spieleranzahl ((Turniergröße * 2) - da jedes Team aus zwei Spielern bestehen muss)
     var requiredPlayers = document.getElementById("create_tour_size").value * 2;
+    //Speichern der Anzeige für die Spieleranzahl
     var playerCounter = document.getElementById("tournament_playerCounter");
+    //(Anzahl der ausgewählten Spieler) Speichern der Anzahl an Tabellenzeilen im TableBody der Tabelle an ausgewählten Turnierteilnehmern
     var rowCount = $('#tournament_selectedPlayers >tbody >tr').length;
 
+    //Wenn die Anzahl an ausgewählten Teilnehmern größer ist als die benötigte Spieleranzahl
     if (rowCount > requiredPlayers) {
+        //Farbe der Anzeige auf Rot setzen
         playerCounter.style.backgroundColor="#f73f52";
+    //Wenn die Anzahl an ausgewählten Teilnehmern der benötigten Spieleranzahl entspricht
     } else if (rowCount === requiredPlayers) {
+        //Farbe der Anzeige auf Grün setzen
         playerCounter.style.backgroundColor="#37c46b";
+    //Wenn die Anzahl an ausgewählten Teilnehmern kleiner ist als die benötigte Spieleranzahl
     } else if (rowCount < requiredPlayers) {
+        //Farbe der Anzeige auf Grau setzen
         playerCounter.style.backgroundColor="#545454";
     }
 
+    //Setzen des Textes der Anzeige (Anzahl der ausgewählten Spieler / benötigte Spielerzahl)
     playerCounter.innerHTML = rowCount+'/'+requiredPlayers;
 }
 
 /**
- * <h3>Fügt der Liste an ausgewählten Spieler, basierend auf dem vom User eingegebenen Gastspielernamen, einen weiteren Eintrag hinzu.
+ * <h3>Registriert einen Gastspieler, basierend auf dem vom User eingegebenen Gastspielernamen
  **/
 function addGuestPlayer() {
+    //Speichern des Textfeldes für Gastspieler in einer Variable
     var guestName = document.getElementById("tournament_guestName");
     //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
     $(document).ready(function() {
-        //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+        //Übertrag der vom User eingetragenen Feldinhalte in das json Format + Ergänzung des Spielernamens mit "(Gast)" + Ergänzung des guestUser Attributes
         var parsedJson = JSON.stringify({username: guestName.value+' (Gast)', firstName: "Gastspieler", lastName: "Gastspieler", password: "gast", guestUser: true});
 
         //Aufruf der ajaxPost Funktion sowie speichern der Return Value
@@ -643,7 +658,7 @@ function addGuestPlayer() {
         switch (statusCode) {
             // 200 = OK
             case 200:
-                //Gast User darf in Tabelle angelegt werden da Registrierung erfolgreich
+                //Gast User darf in Tabelle angelegt werden da dessen Registrierung erfolgreich
                 addGuestPlayerTooTable();
                 break;
             // 400 = Bad Request
@@ -660,7 +675,12 @@ function addGuestPlayer() {
     });
 }
 
+
+/**
+ * <h3>Fügt der Liste an ausgewählten Spielern den registrierten Gastuser hinzu.
+ **/
 function addGuestPlayerTooTable() {
+    //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
     $(document).ready(function() {
         //Speichern des Textfeldes zur Eingabe eines Gastnamens in einer Variable
         var guestName = document.getElementById("tournament_guestName");
@@ -686,41 +706,64 @@ function addGuestPlayerTooTable() {
  * <h3> Überprüft ob, die ausgewählte Spieleranzahl mit der Anzahl benötigter Spieler mit der Anzahl benötigter Spieler der entsprechenden Turniergröße übereinstimmt
  **/
 function confirmPlayers() {
+    //Speichern der für die Turniergröße benötigte Spieleranzahl ((Turniergröße * 2) - da jedes Team aus zwei Spielern bestehen muss)
     var requiredPlayers = document.getElementById("create_tour_size").value * 2;
+    //(Anzahl der ausgewählten Spieler) Speichern der Anzahl an Tabellenzeilen im TableBody der Tabelle an ausgewählten Turnierteilnehmern
     var rowCount = $('#tournament_selectedPlayers >tbody >tr').length;
+    //Speichern der jeweiligen Alerts in einer Variable
     var tooManyPlayersAlert = document.getElementById("create_tour_alert_tooManyPlayers");
     var tooLessPlayersAlert = document.getElementById("create_tour_alert_tooLessPlayers");
 
+    //Ausblenden der Alerts (falls von vorherigem Funktionsaufruf noch eingeblendet)
     tooManyPlayersAlert.hidden=true;
     tooLessPlayersAlert.hidden=true;
 
+    //Wenn die Anzahl benötigter Spieler mit der Anzahl ausgewählter Spieler übereinstimmt
     if (requiredPlayers === rowCount) {
+        //Ausblenden der Teilnehmerauswahl
         document.getElementById("tournament_player_div").hidden=true;
+        //Einblenden der Teamzusammentstellung
         document.getElementById("tournament_team_div").hidden=false;
+        //Generieren und darstellen der Teams aus den vom User ausgewählten Teilnehmern
         loadTeams();
-    } else if (requiredPlayers >= rowCount) {
+    //Wenn die Anzahl benötigter Spieler größer ist als die Anzahl ausgewählter Spieler
+    } else if (requiredPlayers > rowCount) {
+        //Einblenden des entsprechenden Alerts
         tooLessPlayersAlert.hidden=false;
-    } else if (requiredPlayers <= rowCount) {
+    //Wenn die Anzahl benötigter Spieler kleiner ist als die Anzahl ausgewählter Spieler
+    } else if (requiredPlayers < rowCount) {
+        //Einblenden des entsprechenden Alerts
         tooManyPlayersAlert.hidden=false;
     }
 }
 
+/**
+ * <h3> Generiert Teams aus den vom User ausgewählten Teilnehmern und stellt diese dar
+ **/
 function loadTeams() {
+    //Speichern der Turniergröße
     var tournamentSize = document.getElementById("create_tour_size").value;
+    //Speichern der Listen an Spielern entsprechend der Turniergröße
     var teams4 = document.getElementById("teams4");
     var teams8 = document.getElementById("teams8");
     var teams16 = document.getElementById("teams16");
+    //Initialisierung eines leeren Arrays für Nutzernamen
     var username = [];
 
+
     if (tournamentSize === "4") {
+        //Einblenden der Liste für Turniergröße
         teams4.hidden=false;
 
+        //Speichern der vom Spieler ausgewählten Teilnehmer in dem Array "username"
         $('#selectedPlayerTable > tr  > th').each(function(index, th) {
             username.push(th.innerHTML);
             });
 
+        //Mischen des Arrays an Usernamen
         shuffle(username);
 
+        //Laden des gemischten Arrays in die entsprechenden Tabellen
         $('#teams4 > div > div > ul  > li').each(function(index, li) {
             li.innerHTML=username[index];
         });
@@ -728,19 +771,24 @@ function loadTeams() {
     }
 
     if (tournamentSize === "8") {
+        //Einblenden der Liste für Turniergröße
         teams4.hidden=false;
         teams8.hidden=false;
 
+        //Speichern der vom Spieler ausgewählten Teilnehmer in dem Array "username"
         $('#selectedPlayerTable > tr  > th').each(function(index, th) {
             username.push(th.innerHTML);
         });
 
+        //Mischen des Arrays an Usernamen
         shuffle(username);
 
+        //Laden des gemischten Arrays in die entsprechenden Tabellen
         $('#teams4 > div > div > ul  > li').each(function(index, li) {
             li.innerHTML=username[index];
         });
 
+        //Laden des gemischten Arrays in die entsprechenden Tabellen
         $('#teams8 > div > div > ul  > li').each(function(index, li) {
             li.innerHTML=username[index+8];
         });
@@ -748,24 +796,30 @@ function loadTeams() {
     }
 
     if (tournamentSize === "16") {
+        //Einblenden der Liste für Turniergröße
         teams4.hidden=false;
         teams8.hidden=false;
         teams16.hidden=false;
 
+        //Speichern der vom Spieler ausgewählten Teilnehmer in dem Array "username"
         $('#selectedPlayerTable > tr  > th').each(function(index, th) {
             username.push(th.innerHTML);
         });
 
+        //Mischen des Arrays an Usernamen
         shuffle(username);
 
+        //Laden des gemischten Arrays in die entsprechenden Tabellen
         $('#teams4 > div > div > ul  > li').each(function(index, li) {
             li.innerHTML=username[index];
         });
 
+        //Laden des gemischten Arrays in die entsprechenden Tabellen
         $('#teams8 > div > div > ul  > li').each(function(index, li) {
             li.innerHTML=username[index+8];
         });
 
+        //Laden des gemischten Arrays in die entsprechenden Tabellen
         $('#teams16 > div > div > ul  > li').each(function(index, li) {
             li.innerHTML=username[index+16];
         });
@@ -773,24 +827,51 @@ function loadTeams() {
     }
 }
 
+/**
+ * <h3>Moderne Version des Fisher–Yates shuffle<p>Mischt das Array aus Spielernamen
+ **/
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a; //Gibt das gemischte Array zurück
+}
+
+/**
+ * <h3>Legt ein Turnier in der Datenbank an, basierend auf den Nutzereingaben
+ **/
 function createTournament() {
+    //Speichern des eingegeben Turniernamens
     var tournamentName = document.getElementById("create_tour_name").value;
+    //Speichern des ausgewählten Regelwerkes
     var ruleSet = document.getElementById("create_tour_ruleset").value;
+    //Speichern des ausgewählten Turniergröße
     var tournamentSize = parseInt(document.getElementById("create_tour_size").value);
+    //Speichern des Startdatums in einem Array ([0]JJJJ,[1]MM,[2]TT)
     var dateReformat = document.getElementById("create_tour_date").value.split("-");
+    //Speichern des Startdatums im Format: TT.MM.JJJJ
     var startDate = dateReformat[2]+"."+dateReformat[1]+"."+dateReformat[0];
+    //Speichern der Startuhrzeit
     var startTime = document.getElementById("create_tour_time").value;
+    //Speichern des Turniererstellers (angemeldeter User)
     var tournamentOwner = sessionStorage.getItem("username");
+    //Initialisierung eines leeren Arrays für Spieler
     var teamList = [];
+    //Speichern von vordefinierten Teamnamen (Nato Alphabet)
     var teamNames = ["ALPHA", "BRAVO", "CHARLIE", "DELTA", "ECHO", "FOXTROT", "GOLF", "HOTEL", "INDIA", "JULIETT", "KILO", "LIMA", "MIKE", "NOVEMBER", "OSCAR", "PAPA"];
+    //Initialisierung einer Variable für das zu übergebende JSON Dokument des Turniers
     var parsedJson;
 
 
     if (tournamentSize === 4) {
+        //Für jedes Element (Username) der Liste für Turniergröße
         $('#teams4 > div > div > ul  > li').each(function(index, li) {
-                teamList.push(li.innerHTML);
+            //Speichern des Usernamens im Array "teamList"
+            teamList.push(li.innerHTML);
         });
 
+        //Eintragen der User Eingaben in JSON Dokument, entsprechend dem vom Backend erwartetem Format
         parsedJson = JSON.stringify({
             tournamentName: tournamentName,
             teamList: [
@@ -826,13 +907,18 @@ function createTournament() {
     }
 
     if (tournamentSize === 8) {
+        //Für jedes Element (Username) der Liste für Turniergröße
         $('#teams4 > div > div > ul  > li').each(function(index, li) {
+            //Speichern des Usernamens im Array "teamList"
             teamList.push(li.innerHTML);
         });
+        //Für jedes Element (Username) der Liste für Turniergröße
         $('#teams8 > div > div > ul  > li').each(function(index, li) {
+            //Speichern des Usernamens im Array "teamList"
             teamList.push(li.innerHTML);
         });
 
+        //Eintragen der User Eingaben in JSON Dokument, entsprechend dem vom Backend erwartetem Format
         parsedJson = JSON.stringify({
             tournamentName: tournamentName,
             teamList: [
@@ -888,16 +974,23 @@ function createTournament() {
     }
 
     if (tournamentSize === 16) {
+        //Für jedes Element (Username) der Liste für Turniergröße
         $('#teams4 > div > div > ul  > li').each(function(index, li) {
+            //Speichern des Usernamens im Array "teamList"
             teamList.push(li.innerHTML);
         });
+        //Für jedes Element (Username) der Liste für Turniergröße
         $('#teams8 > div > div > ul  > li').each(function(index, li) {
+            //Speichern des Usernamens im Array "teamList"
             teamList.push(li.innerHTML);
         });
+        //Für jedes Element (Username) der Liste für Turniergröße
         $('#teams16 > div > div > ul  > li').each(function(index, li) {
+            //Speichern des Usernamens im Array "teamList"
             teamList.push(li.innerHTML);
         });
 
+        //Eintragen der User Eingaben in JSON Dokument, entsprechend dem vom Backend erwartetem Format
         parsedJson = JSON.stringify({
             tournamentName: tournamentName,
             teamList: [
@@ -992,6 +1085,7 @@ function createTournament() {
 
     }
 
+    //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
     $(document).ready(function() {
 
         //Aufruf der ajaxPost Funktion sowie speichern der Return Value
@@ -1002,6 +1096,7 @@ function createTournament() {
             // 200 = OK
             case 200:
                 //Turnieranlage war erfolgreich
+                //Laden des Turniers anhand des vom User festgelegten Turniernamens
                 loadTournament(tournamentName);
                 break;
             // 400 = Bad Request
@@ -1014,40 +1109,94 @@ function createTournament() {
                 alert("Unerwarteter Fehler");
         }
     });
-
-
-
 }
 
+/**
+ * <h3>Ermöglicht die Drag & Drop Funktion der Teamzusammenstellung
+ *     Basiert auf dem jQuery Sortable Widget -> https://api.jqueryui.com/sortable/
+ **/
+$(document).ready(function () {
+    //Speichern aller Listen, welche die Drag & Drop Funktion nutzen sollen
+    var tableIDs = "#sortable1 li, #sortable2 li, #sortable3 li, #sortable4 li, #sortable5 li, #sortable6 li, #sortable7 li, #sortable8 li, #sortable9 li, #sortable10 li, #sortable11 li, #sortable12 li, #sortable13 li, #sortable14 li, #sortable15 li, #sortable16 li";
+    $(function() {
+        $(tableIDs).draggable({
+            zIndex: 2,
+            appendTo: "body",
+        });
+
+        initDroppable($(tableIDs));
+
+        initSwap();
+        function initSwap() {
+            initDroppable($(tableIDs));
+            initDraggable($(tableIDs));
+        }
+        function initDraggable($elements) {
+            $elements.draggable({
+                zIndex: 2,
+                appendTo: "body",
+                helper: "clone",
+                start: function(e, ui) {
+                    $(ui.helper).addClass("clone text-white display-4");
+                },
+                cursorAt: { left:25, top:0 }
+            });
+        }
+        function initDroppable($elements) {
+            $elements.droppable({
+                activeClass: "active-tile",
+                hoverClass: "hover-tile",
+                over: function(event, ui) {
+                    var $this = $(this);
+                },
+                drop: function(event, ui) {
+                    var $this = $(this);
+                    var linew1 = $(this).after(ui.draggable.clone());
+                    var linew2 = $(ui.draggable).after($(this).clone());
+                    $(ui.draggable).remove();
+                    $(this).remove();
+                    initSwap();
+                }
+            });
+        }
+    });
+});
+
+//--> Ende Turnieranlage
+
+//<-- Start Turnierdarstellung
+/**
+ * <h3>Lädt ein Turnier aus der Datenbank anhand des Turniernamens
+ **/
 function loadTournament(tournamentName) {
     //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
     $(document).ready(function() {
 
-        //Speichern des im sessionStorage gespeichertem Tokens und des Usernamens in Variablen
+        //Speichern des im sessionStorage gespeichertem Tokens in Variable
         var token = sessionStorage.getItem("token");
 
-        //Abfragen der für den User gespeicherten Daten
+        //Abfragen der für das Turnier gespeicherten Daten
         $.ajax({
             type: "GET",
             url: 'http://5a3151e9-34c0-4909-b32a-c693469214dd.ma.bw-cloud-instance.org/api/tournament/'+tournamentName,
             dataType: 'json',
             //Sendet im Request Head den jeweiligen Authentifizierungstoken des eingeloggten Benutzers
             headers: {Authorization: 'Bearer '+token},
-            // statusCode: 200 - OK (Gesendeter Username und Passwort stimmen mit Datenbankeintrag überein)
+            // statusCode: 200 - OK
             success: function(response) {
                 $(function() {
+                    //Darstellung des geladenen Turniers anhand der übermittelten Turniergröße
                     drawTournament(response["tournamentSize"]);
-                    console.log(JSON.stringify(response));
 
-                    //Turnier Informationen
-                    $("#tour_name").text(response["tournamentName"]);
-                    $("#tour_rule").text("Regelwerk: "+response["ruleSet"]);
-                    $("#tour_size").text("Teams: "+response["tournamentSize"]);
-                    $("#tour_date").text(response["startDate"]);
-                    $("#tour_time").text("Start: "+response["startTime"]+" Uhr");
-                    $("#tour_owner").text("Erstellt von: "+response["tournamentOwner"]);
+                    //Darstellung der allgemeinen Turnier Informationen anhand der übermittelten Daten
+                    $("#tour_name").text(response["tournamentName"]); //Turniername
+                    $("#tour_rule").text("Regelwerk: "+response["ruleSet"]); //Regelwerk
+                    $("#tour_size").text("Teams: "+response["tournamentSize"]); //Turniergröße
+                    $("#tour_date").text(response["startDate"]); //Startdatum
+                    $("#tour_time").text("Start: "+response["startTime"]+" Uhr"); //Startzeit
+                    $("#tour_owner").text("Erstellt von: "+response["tournamentOwner"]); //Turnierersteller
 
-                    //Match1
+                    //Darstellung des 1.Spiels (unabhängig von Turniergröße immer vorhanden)
                     $("#m1_t1").text(response["tournamentMatches"][0]["opponents"][0]["teamName"]); //Teamname A
                     $("#m1_t1_p1").text(response["tournamentMatches"][0]["opponents"][0]["player1"]); //Spielername 1
                     $("#m1_t1_p2").text(response["tournamentMatches"][0]["opponents"][0]["player2"]); //Spielername 2
@@ -1056,7 +1205,7 @@ function loadTournament(tournamentName) {
                     $("#m1_t2_p1").text(response["tournamentMatches"][0]["opponents"][1]["player1"]); //Spielername 1
                     $("#m1_t2_p2").text(response["tournamentMatches"][0]["opponents"][1]["player2"]); //Spielername 2
 
-                    //Match2
+                    //Darstellung des 2.Spiels (unabhängig von Turniergröße immer vorhanden)
                     $("#m2_t1").text(response["tournamentMatches"][1]["opponents"][0]["teamName"]); //Teamname A
                     $("#m2_t1_p1").text(response["tournamentMatches"][1]["opponents"][0]["player1"]); //Spielername 1
                     $("#m2_t1_p2").text(response["tournamentMatches"][1]["opponents"][0]["player2"]); //Spielername 2
@@ -1069,7 +1218,7 @@ function loadTournament(tournamentName) {
 
                         //Falls Vorrunde abgeschlossen
                         if($('#stage1_close > div').html() === "Abgeschlossen") {
-                            //Match9 (3)
+                            //Darstellung des 3.Spiels
                             $("#m9_t1").text(response["tournamentMatches"][2]["opponents"][0]["teamName"]); //Teamname A
                             $("#m9_t1_p1").text(response["tournamentMatches"][2]["opponents"][0]["player1"]); //Spielername 1
                             $("#m9_t1_p2").text(response["tournamentMatches"][2]["opponents"][0]["player2"]); //Spielername 2
@@ -1081,12 +1230,16 @@ function loadTournament(tournamentName) {
 
                         //Falls Finale abgeschlossen
                         if($('#stage2_close > div').html() === "Abgeschlossen") {
+                            //Ergänzen des Turniernamens durch "Abgeschlossen: "
                             $('#tour_name').text("Abgeschlossen: "+response["tournamentName"]);
+                            //Einblenden des Gewinnerteams
                             document.getElementById("tour_winner_team").hidden=false;
+                            //Setzen des Gewinnerteams
                             $('#tour_winner_team > span').text("Turniergewinner - "+response["winnerTeam"]["teamName"]+": "+response["winnerTeam"]["player1"]+" & "+response["winnerTeam"]["player2"]);
                         }
-
+                        //Ändern der Bezeichnung der zweiten Runden auf "Finale"
                         $("#stage2_name > div").text("Finale");
+                        //Einblenden des Buttons für den Rundenabschluss für Runde 1 und 2
                         $("#stage1_close").removeAttr('hidden');
                         $("#stage2_close").removeAttr('hidden');
                     }
@@ -1098,7 +1251,7 @@ function loadTournament(tournamentName) {
 
                         //Falls Vorrunde abgeschlossen
                         if($('#stage1_close > div').html() === "Abgeschlossen") {
-                            //Match9 (5)
+                            //Darstellung des 5.Spiels
                             $("#m9_t1").text(response["tournamentMatches"][4]["opponents"][0]["teamName"]); //Teamname A
                             $("#m9_t1_p1").text(response["tournamentMatches"][4]["opponents"][0]["player1"]); //Spielername 1
                             $("#m9_t1_p2").text(response["tournamentMatches"][4]["opponents"][0]["player2"]); //Spielername 2
@@ -1107,7 +1260,7 @@ function loadTournament(tournamentName) {
                             $("#m9_t2_p1").text(response["tournamentMatches"][4]["opponents"][1]["player1"]); //Spielername 1
                             $("#m9_t2_p2").text(response["tournamentMatches"][4]["opponents"][1]["player2"]); //Spielername 2
 
-                            //Match10 (6)
+                            //Darstellung des 6.Spiels
                             $("#m10_t1").text(response["tournamentMatches"][5]["opponents"][0]["teamName"]); //Teamname A
                             $("#m10_t1_p1").text(response["tournamentMatches"][5]["opponents"][0]["player1"]); //Spielername 1
                             $("#m10_t1_p2").text(response["tournamentMatches"][5]["opponents"][0]["player2"]); //Spielername 2
@@ -1119,7 +1272,7 @@ function loadTournament(tournamentName) {
 
                         //Falls Halbfinale abgeschlossen
                         if($('#stage2_close > div').html() === "Abgeschlossen") {
-                            //Match9 (13)
+                            //Darstellung des 7.Spiels
                             $("#m13_t1").text(response["tournamentMatches"][6]["opponents"][0]["teamName"]); //Teamname A
                             $("#m13_t1_p1").text(response["tournamentMatches"][6]["opponents"][0]["player1"]); //Spielername 1
                             $("#m13_t1_p2").text(response["tournamentMatches"][6]["opponents"][0]["player2"]); //Spielername 2
@@ -1131,12 +1284,15 @@ function loadTournament(tournamentName) {
 
                         //Falls Finale abgeschlossen
                         if($('#stage3_close > div').html() === "Abgeschlossen") {
+                            //Ergänzen des Turniernamens durch "Abgeschlossen: "
                             $('#tour_name').text("Abgeschlossen: "+response["tournamentName"]);
+                            //Einblenden des Gewinnerteams
                             document.getElementById("tour_winner_team").hidden=false;
+                            //Setzen des Gewinnerteams
                             $('#tour_winner_team > span').text("Turniergewinner - "+response["winnerTeam"]["teamName"]+": "+response["winnerTeam"]["player1"]+" & "+response["winnerTeam"]["player2"]);
                         }
 
-                        //Match3
+                        //Darstellung des 3.Spiels
                         $("#m3_t1").text(response["tournamentMatches"][2]["opponents"][0]["teamName"]); //Teamname A
                         $("#m3_t1_p1").text(response["tournamentMatches"][2]["opponents"][0]["player1"]); //Spielername 1
                         $("#m3_t1_p2").text(response["tournamentMatches"][2]["opponents"][0]["player2"]); //Spielername 2
@@ -1145,7 +1301,7 @@ function loadTournament(tournamentName) {
                         $("#m3_t2_p1").text(response["tournamentMatches"][2]["opponents"][1]["player1"]); //Spielername 1
                         $("#m3_t2_p2").text(response["tournamentMatches"][2]["opponents"][1]["player2"]); //Spielername 2
 
-                        //Match4
+                        //Darstellung des 4.Spiels
                         $("#m4_t1").text(response["tournamentMatches"][3]["opponents"][0]["teamName"]); //Teamname A
                         $("#m4_t1_p1").text(response["tournamentMatches"][3]["opponents"][0]["player1"]); //Spielername 1
                         $("#m4_t1_p2").text(response["tournamentMatches"][3]["opponents"][0]["player2"]); //Spielername 2
@@ -1154,12 +1310,15 @@ function loadTournament(tournamentName) {
                         $("#m4_t2_p1").text(response["tournamentMatches"][3]["opponents"][1]["player1"]); //Spielername 1
                         $("#m4_t2_p2").text(response["tournamentMatches"][3]["opponents"][1]["player2"]); //Spielername 2
 
-
+                        //Ändern der Bezeichnung der zweiten Runden auf "Halbfinale"
                         $("#stage2_name > div").text("Halbfinale");
+                        //Ändern der Bezeichnung des 9. und 10. Spiels (Nummerierung geht von Turniergröße 16 aus)
                         $("#tree_row2 .card-header").text("Match #5");
                         $("#tree_row6 .card-header").text("Match #6");
                         $("#stage3_name").removeAttr('hidden');
+                        //Ändern der Bezeichnung der dritten Runden auf "Finale"
                         $("#stage3_name > div").text("Finale");
+                        //Einblenden des Buttons für den Rundenabschluss für Runde 1, 2 und 3
                         $("#stage1_close").removeAttr('hidden');
                         $("#stage2_close").removeAttr('hidden');
                         $("#stage3_close").removeAttr('hidden');
@@ -1168,12 +1327,13 @@ function loadTournament(tournamentName) {
 
                     if(response["tournamentSize"] === 16) {
 
+                        //Ändern der Bezeichnung der Teams des 13. Spiels
                         $("#m13_t1").text("Sieger Viertelfinale");
                         $("#m13_t2").text("Sieger Viertelfinale");
 
                         //Falls Vorrunde abgeschlossen
                         if($('#stage1_close > div').html() === "Abgeschlossen") {
-                            //Match9
+                            //Darstellung des 9.Spiels
                             $("#m9_t1").text(response["tournamentMatches"][8]["opponents"][0]["teamName"]); //Teamname A
                             $("#m9_t1_p1").text(response["tournamentMatches"][8]["opponents"][0]["player1"]); //Spielername 1
                             $("#m9_t1_p2").text(response["tournamentMatches"][8]["opponents"][0]["player2"]); //Spielername 2
@@ -1182,7 +1342,7 @@ function loadTournament(tournamentName) {
                             $("#m9_t2_p1").text(response["tournamentMatches"][8]["opponents"][1]["player1"]); //Spielername 1
                             $("#m9_t2_p2").text(response["tournamentMatches"][8]["opponents"][1]["player2"]); //Spielername 2
 
-                            //Match10
+                            //Darstellung des 10.Spiels
                             $("#m10_t1").text(response["tournamentMatches"][9]["opponents"][0]["teamName"]); //Teamname A
                             $("#m10_t1_p1").text(response["tournamentMatches"][9]["opponents"][0]["player1"]); //Spielername 1
                             $("#m10_t1_p2").text(response["tournamentMatches"][9]["opponents"][0]["player2"]); //Spielername 2
@@ -1191,7 +1351,7 @@ function loadTournament(tournamentName) {
                             $("#m10_t2_p1").text(response["tournamentMatches"][9]["opponents"][1]["player1"]); //Spielername 1
                             $("#m10_t2_p2").text(response["tournamentMatches"][9]["opponents"][1]["player2"]); //Spielername 2
 
-                            //Match11
+                            //Darstellung des 11.Spiels
                             $("#m11_t1").text(response["tournamentMatches"][10]["opponents"][0]["teamName"]); //Teamname A
                             $("#m11_t1_p1").text(response["tournamentMatches"][10]["opponents"][0]["player1"]); //Spielername 1
                             $("#m11_t1_p2").text(response["tournamentMatches"][10]["opponents"][0]["player2"]); //Spielername 2
@@ -1200,7 +1360,7 @@ function loadTournament(tournamentName) {
                             $("#m11_t2_p1").text(response["tournamentMatches"][10]["opponents"][1]["player1"]); //Spielername 1
                             $("#m11_t2_p2").text(response["tournamentMatches"][10]["opponents"][1]["player2"]); //Spielername 2
 
-                            //Match12
+                            //Darstellung des 12.Spiels
                             $("#m12_t1").text(response["tournamentMatches"][11]["opponents"][0]["teamName"]); //Teamname A
                             $("#m12_t1_p1").text(response["tournamentMatches"][11]["opponents"][0]["player1"]); //Spielername 1
                             $("#m12_t1_p2").text(response["tournamentMatches"][11]["opponents"][0]["player2"]); //Spielername 2
@@ -1212,7 +1372,7 @@ function loadTournament(tournamentName) {
 
                         //Falls Viertelfinale abgeschlossen
                         if($('#stage2_close > div').html() === "Abgeschlossen") {
-                            //Match 13
+                            //Darstellung des 13.Spiels
                             $("#m13_t1").text(response["tournamentMatches"][12]["opponents"][0]["teamName"]); //Teamname A
                             $("#m13_t1_p1").text(response["tournamentMatches"][12]["opponents"][0]["player1"]); //Spielername 1
                             $("#m13_t1_p2").text(response["tournamentMatches"][12]["opponents"][0]["player2"]); //Spielername 2
@@ -1221,7 +1381,7 @@ function loadTournament(tournamentName) {
                             $("#m13_t2_p1").text(response["tournamentMatches"][12]["opponents"][1]["player1"]); //Spielername 1
                             $("#m13_t2_p2").text(response["tournamentMatches"][12]["opponents"][1]["player2"]); //Spielername 2
 
-                            //Match 14
+                            //Darstellung des 14.Spiels
                             $("#m14_t1").text(response["tournamentMatches"][13]["opponents"][0]["teamName"]); //Teamname A
                             $("#m14_t1_p1").text(response["tournamentMatches"][13]["opponents"][0]["player1"]); //Spielername 1
                             $("#m14_t1_p2").text(response["tournamentMatches"][13]["opponents"][0]["player2"]); //Spielername 2
@@ -1233,7 +1393,7 @@ function loadTournament(tournamentName) {
 
                         //Falls Halbfinale abgeschlossen
                         if($('#stage3_close > div').html() === "Abgeschlossen") {
-                            //Match15
+                            //Darstellung des 15.Spiels
                             $("#m15_t1").text(response["tournamentMatches"][14]["opponents"][0]["teamName"]); //Teamname A
                             $("#m15_t1_p1").text(response["tournamentMatches"][14]["opponents"][0]["player1"]); //Spielername 1
                             $("#m15_t1_p2").text(response["tournamentMatches"][14]["opponents"][0]["player2"]); //Spielername 2
@@ -1245,12 +1405,15 @@ function loadTournament(tournamentName) {
 
                         //Falls Finale abgeschlossen
                         if($('#stage4_close > div').html() === "Abgeschlossen") {
+                            //Ergänzen des Turniernamens durch "Abgeschlossen: "
                             $('#tour_name').text("Abgeschlossen: "+response["tournamentName"]);
+                            //Einblenden des Gewinnerteams
                             document.getElementById("tour_winner_team").hidden=false;
+                            //Setzen des Gewinnerteams
                             $('#tour_winner_team > span').text("Turniergewinner - "+response["winnerTeam"]["teamName"]+": "+response["winnerTeam"]["player1"]+" & "+response["winnerTeam"]["player2"]);
                         }
 
-                        //Match3
+                        //Darstellung des 3.Spiels
                         $("#m3_t1").text(response["tournamentMatches"][2]["opponents"][0]["teamName"]); //Teamname A
                         $("#m3_t1_p1").text(response["tournamentMatches"][2]["opponents"][0]["player1"]); //Spielername 1
                         $("#m3_t1_p2").text(response["tournamentMatches"][2]["opponents"][0]["player2"]); //Spielername 2
@@ -1259,7 +1422,7 @@ function loadTournament(tournamentName) {
                         $("#m3_t2_p1").text(response["tournamentMatches"][2]["opponents"][1]["player1"]); //Spielername 1
                         $("#m3_t2_p2").text(response["tournamentMatches"][2]["opponents"][1]["player2"]); //Spielername 2
 
-                        //Match4
+                        //Darstellung des 4.Spiels
                         $("#m4_t1").text(response["tournamentMatches"][3]["opponents"][0]["teamName"]); //Teamname A
                         $("#m4_t1_p1").text(response["tournamentMatches"][3]["opponents"][0]["player1"]); //Spielername 1
                         $("#m4_t1_p2").text(response["tournamentMatches"][3]["opponents"][0]["player2"]); //Spielername 2
@@ -1268,7 +1431,7 @@ function loadTournament(tournamentName) {
                         $("#m4_t2_p1").text(response["tournamentMatches"][3]["opponents"][1]["player1"]); //Spielername 1
                         $("#m4_t2_p2").text(response["tournamentMatches"][3]["opponents"][1]["player2"]); //Spielername 2
 
-                        //Match5
+                        //Darstellung des 5.Spiels
                         $("#m5_t1").text(response["tournamentMatches"][4]["opponents"][0]["teamName"]); //Teamname A
                         $("#m5_t1_p1").text(response["tournamentMatches"][4]["opponents"][0]["player1"]); //Spielername 1
                         $("#m5_t1_p2").text(response["tournamentMatches"][4]["opponents"][0]["player2"]); //Spielername 2
@@ -1277,7 +1440,7 @@ function loadTournament(tournamentName) {
                         $("#m5_t2_p1").text(response["tournamentMatches"][4]["opponents"][1]["player1"]); //Spielername 1
                         $("#m5_t2_p2").text(response["tournamentMatches"][4]["opponents"][1]["player2"]); //Spielername 2
 
-                        //Match6
+                        //Darstellung des 6.Spiels
                         $("#m6_t1").text(response["tournamentMatches"][5]["opponents"][0]["teamName"]); //Teamname A
                         $("#m6_t1_p1").text(response["tournamentMatches"][5]["opponents"][0]["player1"]); //Spielername 1
                         $("#m6_t1_p2").text(response["tournamentMatches"][5]["opponents"][0]["player2"]); //Spielername 2
@@ -1286,7 +1449,7 @@ function loadTournament(tournamentName) {
                         $("#m6_t2_p1").text(response["tournamentMatches"][5]["opponents"][1]["player1"]); //Spielername 1
                         $("#m6_t2_p2").text(response["tournamentMatches"][5]["opponents"][1]["player2"]); //Spielername 2
 
-                        //Match7
+                        //Darstellung des 7.Spiels
                         $("#m7_t1").text(response["tournamentMatches"][6]["opponents"][0]["teamName"]); //Teamname A
                         $("#m7_t1_p1").text(response["tournamentMatches"][6]["opponents"][0]["player1"]); //Spielername 1
                         $("#m7_t1_p2").text(response["tournamentMatches"][6]["opponents"][0]["player2"]); //Spielername 2
@@ -1295,7 +1458,7 @@ function loadTournament(tournamentName) {
                         $("#m7_t2_p1").text(response["tournamentMatches"][6]["opponents"][1]["player1"]); //Spielername 1
                         $("#m7_t2_p2").text(response["tournamentMatches"][6]["opponents"][1]["player2"]); //Spielername 2
 
-                        //Match8
+                        //Darstellung des 8.Spiels
                         $("#m8_t1").text(response["tournamentMatches"][7]["opponents"][0]["teamName"]); //Teamname A
                         $("#m8_t1_p1").text(response["tournamentMatches"][7]["opponents"][0]["player1"]); //Spielername 1
                         $("#m8_t1_p2").text(response["tournamentMatches"][7]["opponents"][0]["player2"]); //Spielername 2
@@ -1304,10 +1467,13 @@ function loadTournament(tournamentName) {
                         $("#m8_t2_p1").text(response["tournamentMatches"][7]["opponents"][1]["player1"]); //Spielername 1
                         $("#m8_t2_p2").text(response["tournamentMatches"][7]["opponents"][1]["player2"]); //Spielername 2
 
-
+                        //Ändern der Bezeichnung der zweiten Runden auf "Viertelfinale"
                         $("#stage2_name > div").text("Viertelfinale");
+                        //Ändern der Bezeichnung der dritten Runden auf "Halbfinale"
                         $("#stage3_name > div").text("Halbfinale");
+                        //Ändern der Bezeichnung der vierten Runden auf "Finale"
                         $("#stage4_name > div").text("Finale");
+                        //Ändern der Bezeichnung des 9/10/11/12/13/14/15.Spiels
                         $("#tree_row2 .card-header").text("Match #9");
                         $("#tree_row6 .card-header").text("Match #10");
                         $("#tree_row10 .card-header").text("Match #11");
@@ -1315,8 +1481,10 @@ function loadTournament(tournamentName) {
                         $("#tree_row4 .card-header").text("Match #13");
                         $("#tree_row12 .card-header").text("Match #14");
                         $("#tree_row8 .card-header").text("Match #15");
+                        //Einblenden der Rundentitel für Runde 3 & 4
                         $("#stage3_name").removeAttr('hidden');
                         $("#stage4_name").removeAttr('hidden');
+                        //Einblenden des Buttons für den Rundenabschluss für Runde 1, 2, 3 & 4
                         $("#stage1_close").removeAttr('hidden');
                         $("#stage2_close").removeAttr('hidden');
                         $("#stage3_close").removeAttr('hidden');
@@ -1325,7 +1493,7 @@ function loadTournament(tournamentName) {
 
                 });
             },
-            //Ausgabe der unterschiedlichen Error Codes, welche vom Backend als Antwort auf die GET Request kommen
+            //Ausgabe der unterschiedlichen Error Codes, welche vom Backend als Antwort auf die GET Request kommen könnten
             error: function (xhr) {
                 alert(xhr.status+" "+xhr.responseText);
             }
@@ -1333,13 +1501,20 @@ function loadTournament(tournamentName) {
     });
 }
 
+/**
+ * <h3>Blendet die Zeilen des Turnierbaums entsprechend der Turniergröße ein.
+ **/
 function drawTournament(tournamentSize) {
+    //Ausblenden von Alerts aus vorherigen Funktionsaufrufen (der closeTournamentStage(N) Funktionen)
     document.getElementById("stage1_close_alert").hidden=true;
     document.getElementById("stage2_close_alert").hidden=true;
     document.getElementById("stage3_close_alert").hidden=true;
     document.getElementById("stage4_close_alert").hidden=true;
+    //Ausblenden der Teamzusammenstellung
     document.getElementById("tournament_team_div").hidden=true;
+    //Einblenden des Turnierbaums
     document.getElementById("tournament_tree_div").hidden=false;
+    //Ausblenden von Zeilen des Turnierbaums aus vorherigen Funktionsaufrufen
     document.getElementById("tree_row4").hidden=true;
     document.getElementById("tree_row5").hidden=true;
     document.getElementById("tree_row6").hidden=true;
@@ -1355,6 +1530,7 @@ function drawTournament(tournamentSize) {
 
 
     if(tournamentSize === 8) {
+        //Einblenden der entsprechenden Turnierbaum Zeilen
         document.getElementById("tree_row4").hidden=false;
         document.getElementById("tree_row5").hidden=false;
         document.getElementById("tree_row6").hidden=false;
@@ -1362,6 +1538,7 @@ function drawTournament(tournamentSize) {
     }
 
     if(tournamentSize === 16) {
+        //Einblenden der entsprechenden Turnierbaum Zeilen
         document.getElementById("tree_row4").hidden=false;
         document.getElementById("tree_row5").hidden=false;
         document.getElementById("tree_row6").hidden=false;
@@ -1378,37 +1555,61 @@ function drawTournament(tournamentSize) {
 
 }
 
+//<-- Ende Turnierdarstellung
+
+//--> Start Turnierrundenverwaltung
+/**
+ * <h3>Schließt die erste Runde des Turniers ab und übermittelt die Gewinnerteams an das Backend
+ **/
 function closeTournamentStage1() {
+    //Speichern der Turniergröße
     var tournament_size = document.getElementById("tour_size").innerHTML;
+    //Speichern des Turniernamens
     var tournament_name = $('#tour_name').text();
+    //Speichern des entsprechenden Alerts
     var stage1_alert = document.getElementById("stage1_close_alert");
+    //Ausblenden des Alerts, falls von vorherigen Funktionsaufruf vorhanden
     stage1_alert.hidden = true;
 
     if (tournament_size === "Teams: 4") {
+        //Überprüft ob für ein Spiel kein Gewinner festgelegt wurde
         if (($('#win1_Match1_TeamA').is(':hidden') && $('#win1_Match1_TeamB').is(':hidden')) || ($('#win1_Match2_TeamA').is(':hidden') & $('#win1_Match2_TeamB').is(':hidden'))) {
+            //Wenn ja: einblenden des entsprechenden Alerts
             stage1_alert.hidden = false;
         } else {
+            //Wenn nein: ausblenden des entsprechenden Alerts
             stage1_alert.hidden = true;
             $('#win0_Match1_TeamA, #win0_Match1_TeamB, #win0_Match2_TeamA, #win0_Match2_TeamB, #win1_Match1_TeamA, #win1_Match1_TeamB, #win1_Match2_TeamA, #win1_Match2_TeamB').each(function (){
+                //Entfernen der onclick Funktion der Pokale (Gewinnersetzen ist dann nicht mehr möglich)
                 $(this).removeAttr('onclick');
             });
 
+            //Initialisierung eines leeren Arrays für die Gewinner der Spiele
             var matchWinners = [];
 
+            //Falls Spiel 1 von Team B gewonnen wurde
             if($('#win1_Match1_TeamA').is(':hidden')) {
+                //Hinzufügen des Teams B zum Array "matchWinners"
                 matchWinners.push($("#m1_t2").text())
+            //Falls Spiel 1 von Team A gewonnen wurde
             } else {
+                //Hinzufügen des Teams A zum Array "matchWinners"
                 matchWinners.push($("#m1_t1").text())
             }
 
+            //Falls Spiel 2 von Team B gewonnen wurde
             if($('#win1_Match2_TeamA').is(':hidden')) {
+                //Hinzufügen des Teams B zum Array "matchWinners"
                 matchWinners.push($("#m2_t2").text())
+            //Falls Spiel 1 von Team A gewonnen wurde
             } else {
+                //Hinzufügen des Teams A zum Array "matchWinners"
                 matchWinners.push($("#m2_t1").text())
             }
 
+            //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1419,7 +1620,9 @@ function closeTournamentStage1() {
                 switch (statusCode) {
                     // 200 = OK
                     case 200:
+                        //Ersetzen des Abschließen Buttons von Runde 1 durch den Text "Abgeschlossen"
                         $('#stage1_close > div').html("Abgeschlossen")
+                        //Erneutes laden des Turniers (Darstellung des Turniers inkl. der nächsten Runde)
                         loadTournament(tournament_name);
                         break;
                     // Andere Status Codes werden von der Funktion nicht erwartet
@@ -1430,6 +1633,11 @@ function closeTournamentStage1() {
 
         }
     }
+
+    /*
+    Nachfolgender Code (abhängig von Turniergröße) und der Code der Funktionen closeTournamentStage2/3/4
+    funktioniert Analog zum Code der Funktion closeTournamentStage1, daher wird auf eine Kommentierung dessen verzichtet
+    */
 
     if (tournament_size === "Teams: 8") {
         if (($('#win1_Match1_TeamA').is(':hidden') && $('#win1_Match1_TeamB').is(':hidden')) || ($('#win1_Match2_TeamA').is(':hidden') && $('#win1_Match2_TeamB').is(':hidden')) || ($('#win1_Match3_TeamA').is(':hidden') && $('#win1_Match3_TeamB').is(':hidden')) || ($('#win1_Match4_TeamA').is(':hidden') && $('#win1_Match4_TeamB').is(':hidden'))) {
@@ -1467,7 +1675,7 @@ function closeTournamentStage1() {
             }
 
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1550,7 +1758,7 @@ function closeTournamentStage1() {
             }
 
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1575,10 +1783,17 @@ function closeTournamentStage1() {
 
 }
 
+/**
+ * <h3>Schließt die zweite Runde des Turniers ab und übermittelt die Gewinnerteams an das Backend
+ **/
 function closeTournamentStage2() {
+    //Speichern der Turniergröße
     var tournament_size = document.getElementById("tour_size").innerHTML;
+    //Speichern des Turniernamens
     var tournament_name = $('#tour_name').text();
+    //Speichern des entsprechenden Alerts
     var stage2_alert = document.getElementById("stage2_close_alert");
+    //Ausblenden des Alerts, falls von vorherigen Funktionsaufruf vorhanden
     stage2_alert.hidden = true;
 
     if (tournament_size === "Teams: 4") {
@@ -1599,7 +1814,7 @@ function closeTournamentStage2() {
             }
 
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1646,7 +1861,7 @@ function closeTournamentStage2() {
             }
 
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1705,7 +1920,7 @@ function closeTournamentStage2() {
             }
 
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1730,10 +1945,17 @@ function closeTournamentStage2() {
 
 }
 
+/**
+ * <h3>Schließt die dritte Runde des Turniers ab und übermittelt die Gewinnerteams an das Backend
+ **/
 function closeTournamentStage3() {
+    //Speichern der Turniergröße
     var tournament_size = document.getElementById("tour_size").innerHTML;
+    //Speichern des Turniernamens
     var tournament_name = $('#tour_name').text();
+    //Speichern des entsprechenden Alerts
     var stage3_alert = document.getElementById("stage3_close_alert");
+    //Ausblenden des Alerts, falls von vorherigen Funktionsaufruf vorhanden
     stage3_alert.hidden = true;
 
     if (tournament_size === "Teams: 8") {
@@ -1754,7 +1976,7 @@ function closeTournamentStage3() {
             }
 
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1801,7 +2023,7 @@ function closeTournamentStage3() {
             }
 
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1826,10 +2048,17 @@ function closeTournamentStage3() {
 
 }
 
+/**
+ * <h3>Schließt die vierte Runde des Turniers ab und übermittelt die Gewinnerteams an das Backend
+ **/
 function closeTournamentStage4() {
+    //Speichern der Turniergröße
     var tournament_size = document.getElementById("tour_size").innerHTML;
+    //Speichern des Turniernamens
     var tournament_name = $('#tour_name').text();
+    //Speichern des entsprechenden Alerts
     var stage4_alert = document.getElementById("stage4_close_alert");
+    //Ausblenden des Alerts, falls von vorherigen Funktionsaufruf vorhanden
     stage4_alert.hidden = true;
 
     if (tournament_size === "Teams: 16") {
@@ -1850,7 +2079,7 @@ function closeTournamentStage4() {
             }
 
             $(document).ready(function() {
-                //Übertrag der vom User eingetragenen Feldinhalte in das json Format
+                //Übertrag der "matchWinners" in das json Format
                 var parsedJson = JSON.stringify({matchWinners: matchWinners});
                 console.log(parsedJson);
 
@@ -1875,7 +2104,9 @@ function closeTournamentStage4() {
 
 }
 
+//<-- Ende Turnierrundenverwaltung
 
+//--> Start Sidenavigation (Ein- und Ausblenden von Inhalten)
 /**
  * <h3>
  **/
@@ -1899,7 +2130,7 @@ function show_tournaments() {
 }
 
 /**
- * <h3>
+ * <h3> Blendet die Inhalte des Dashboard ein und blendet evtl. vorhandene andere Inhalte aus
  **/
 function show_dashboard() {
     $("#stage1_close").attr('hidden');
@@ -1921,7 +2152,7 @@ function show_dashboard() {
 }
 
 /**
- * <h3>
+ * <h3> Blendet die Inhalte der Statistik ein und blendet evtl. vorhandene andere Inhalte aus
  **/
 function show_statistik() {
     $("#stage1_close").attr('hidden');
@@ -1940,11 +2171,12 @@ function show_statistik() {
     document.getElementById("btn_tournaments").classList.add("nav-link", "text-white");
     document.getElementById("btn_dashboard").classList.remove("active", "bg-primary");
     document.getElementById("btn_dashboard").classList.add("nav-link", "text-white");
+    //Laden der Nutzerstatistik
     getUserStats();
 }
 
 /**
- * <h3>Lädt die Daten des eingeloggten Users und fügt sie der Statistik Karte hinzu
+ * <h3>Lädt die Daten des eingeloggten Users und fügt diese der Statistik Karte hinzu
  **/
 function getUserStats() {
     //Der Code innerhalb der document.ready Funktion wird erst ausgeführt sobald Das Document Object Model bereit ist JavaScript Code auszuführen
@@ -1953,6 +2185,7 @@ function getUserStats() {
         //Speichern des im sessionStorage gespeichertem Tokens und des Usernamens in Variablen
         var token = sessionStorage.getItem("token");
         var username = sessionStorage.getItem("username");
+        //Initalisierung von 2 leeren Arrays um übermitteltes Datum in das Format TT.MM.JJJJ umzuwandeln
         var reformatDate = [];
         var reformatDate2 = [];
 
@@ -1967,15 +2200,25 @@ function getUserStats() {
             // statusCode: 200 - OK (Gesendeter Username und Passwort stimmen mit Datenbankeintrag überein)
             success: function(response) {
                 $(function() {
+                    //Aufteilen des übermittelten Formats in Array1
                     reformatDate = response.created.split("-");
+                    //Aufteilen des übermittelten Formats in Array2
                     reformatDate2 = reformatDate[2].split("T");
+                    //Anzeigen des übermittelten Nutzernamens
                     $("#stat_username").text(response.username);
+                    //Anzeigen des übermittelten Vornamens
                     $("#stat_firstName").text(response.firstName);
+                    //Anzeigen des übermittelten Nachnamens
                     $("#stat_lastName").text(response.lastName);
+                    //Anzeigen des übermittelten Siege
                     $("#stat_matchWins > span").text(response.matchWins);
+                    //Anzeigen des übermittelten Niederlagen
                     $("#stat_matchLooses > span").text(response.matchLooses);
+                    //Anzeigen des übermittelten Turnierteilnahmen
                     $("#stat_tournamentAttends > span").text(Object.keys(response["tournamentAttends"]).length);
+                    //Anzeigen des übermittelten Turniersiege
                     $("#stat_tournamentWins > span").text(response.tournamentWins);
+                    //Anzeigen des übermittelten Startdatums
                     $("#stat_user_created > small").text("Nutzer wurde erstellt am: "+reformatDate2[0]+"."+reformatDate[1]+"."+reformatDate[0]);
                 });
             },
@@ -1986,52 +2229,4 @@ function getUserStats() {
         });
     });
 }
-
-/**
- * <h3>Drag & Drop
- **/
-$(document).ready(function () {
-    var tableIDs = "#sortable1 li, #sortable2 li, #sortable3 li, #sortable4 li, #sortable5 li, #sortable6 li, #sortable7 li, #sortable8 li, #sortable9 li, #sortable10 li, #sortable11 li, #sortable12 li, #sortable13 li, #sortable14 li, #sortable15 li, #sortable16 li";
-    $(function() {
-        $(tableIDs).draggable({
-            zIndex: 2,
-            appendTo: "body",
-        });
-
-        initDroppable($(tableIDs));
-
-        initSwap();
-        function initSwap() {
-            initDroppable($(tableIDs));
-            initDraggable($(tableIDs));
-        }
-        function initDraggable($elements) {
-            $elements.draggable({
-                zIndex: 2,
-                appendTo: "body",
-                helper: "clone",
-                start: function(e, ui) {
-                    $(ui.helper).addClass("clone text-white display-4");
-                },
-                cursorAt: { left:25, top:0 }
-            });
-        }
-        function initDroppable($elements) {
-            $elements.droppable({
-                activeClass: "active-tile",
-                hoverClass: "hover-tile",
-                over: function(event, ui) {
-                    var $this = $(this);
-                },
-                drop: function(event, ui) {
-                    var $this = $(this);
-                    var linew1 = $(this).after(ui.draggable.clone());
-                    var linew2 = $(ui.draggable).after($(this).clone());
-                    $(ui.draggable).remove();
-                    $(this).remove();
-                    initSwap();
-                }
-            });
-        }
-    });
-});
+//<-- Ende Sidenavigation (Ein- und Ausblenden von Inhalten)
