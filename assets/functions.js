@@ -3,26 +3,10 @@ $.ajaxSetup({
     timeout: 0
 });
 
-/**
- * <h3>Speichert alle values eines json Dokuments in einem Array
- * @param {json} json Dokument dessen values in Array gespeichert werden sollen
- **/
-function json2array(json){
-    //Erzeugen eines leeren Arrays
-    var result = [];
-    //Speichern einer Liste der Objektnamen aus dem übergebenen json Dokument
-    var keys = Object.keys(json);
-    //Für jeden Objektnamen der Liste keys
-    keys.forEach(function(key){
-        //Wird die entsprechende value des jeweiligen keys dem Array result angefügt
-        result.push(json[key]);
-    });
-    //Zurückgeben des mit values gefüllten Arrays
-    return result;
-}
 
-//Moderne Version des Fisher–Yates shuffle
-//Mischt das Array aus Spielernamen
+/**
+ * <h3>Moderne Version des Fisher–Yates shuffle<p>Mischt das Array aus Spielernamen
+ **/
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
